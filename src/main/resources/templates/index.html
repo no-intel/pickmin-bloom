@@ -25,5 +25,15 @@
 
 <script src="/lib/openlayers/dist/ol.js"></script>
 <script src="/js/openlayers.js"></script>
+<script src="/js/marker.js"></script>
+<script>
+    window.onload = async () => {
+        console.log("모든 리소스가 로드되었습니다.");
+        let map;
+        map = await initMap();
+        console.log(map.getView().getCenter());
+        showNearMarker(map);
+    };
+</script>
 </body>
 </html>

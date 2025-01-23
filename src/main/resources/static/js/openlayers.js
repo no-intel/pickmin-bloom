@@ -23,7 +23,7 @@ const initMap = async () => {
         zoom: 16,
     });
 
-    return new ol.Map({
+    const map = new ol.Map({
         target: 'map',
         layers: [
             new ol.layer.Tile({
@@ -32,5 +32,6 @@ const initMap = async () => {
         ],
         view: view,
     });
+    console.log(map.getView().getCenter());
+    return map;
 };
-initMap();
