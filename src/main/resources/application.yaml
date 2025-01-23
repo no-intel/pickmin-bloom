@@ -1,0 +1,17 @@
+spring:
+  application:
+    name: pickmin-bloom
+  datasource:
+    url: jdbc:mysql://127.0.0.1:3306/pickmin-bloom?useSSL=false&characterEncoding=UTF-8&serverTimezone=UTC
+    username: admin
+    password: admin
+    driver-class-name: com.mysql.cj.jdbc.Driver
+  jpa:
+    hibernate:
+      ddl-auto: update
+    properties:
+      hibernate:
+        # show_sql: true
+        #        format_sql: true
+        #        use_sql_comments: true
+        dialect: org.hibernate.dialect.MySQLDialect
