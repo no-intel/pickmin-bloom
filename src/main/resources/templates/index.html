@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="/lib/openlayers/ol.css">
+    <style>
+        html,
+        body {
+            margin: 0;
+            height: 100%;
+        }
+
+        #map {
+            position: absolute;
+            top: 0;
+            bottom: 0;
+            width: 100%;
+        }
+    </style>
+    <title>Quick Start</title>
+</head>
+<body>
+<div id="map"></div>
+<script src="/lib/openlayers/dist/ol.js"></script>
+<script>
+    const map = new Map({
+        target: 'map', // HTML 요소 ID
+        layers: [
+            new ol.layer.Tile({
+                source: new ol.source.OSM(), // OSM 소스 추가
+            }),
+        ],
+        view: new ol.View({
+            center: ol.proj.fromLonLat([0, 0]), // 중심 좌표 (경도, 위도)
+            zoom: 2, // 줌 레벨
+        }),
+    });
+</script>
+</body>
+</html>
