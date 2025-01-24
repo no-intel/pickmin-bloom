@@ -6,14 +6,13 @@ spring:
 #    username: admin
 #    password: admin
 #    driver-class-name: com.mysql.cj.jdbc.Driver
-datasource:
-  url: jdbc:h2:mem:testdb;DB_CLOSE_DELAY=-1;DB_CLOSE_ON_EXIT=FALSE
-  username: sa
-  password:
-  driver-class-name: org.h2.Driver
-  platform: h2
+  datasource:
+    url: jdbc:h2:mem:testdb;DB_CLOSE_DELAY=-1;DB_CLOSE_ON_EXIT=FALSE
+    username: sa
+    password:
+    driver-class-name: org.h2.Driver
 
-#  jpa:
+  #  jpa:
 #    hibernate:
 #      ddl-auto: update
 #    properties:
@@ -22,12 +21,15 @@ datasource:
 #        #        format_sql: true
 #        #        use_sql_comments: true
 #        dialect: org.hibernate.dialect.MySQLDialect
-jpa:
-  hibernate:
-    ddl-auto: update
-  properties:
+  jpa:
     hibernate:
-      dialect: org.hibernate.dialect.H2Dialect
-      show_sql: true
-      format_sql: true
-      use_sql_comments: true
+      ddl-auto: update
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.H2Dialect
+        show_sql: true
+        format_sql: true
+        use_sql_comments: true
+  sql:
+    init:
+      platform: h2
