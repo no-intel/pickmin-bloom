@@ -18,7 +18,7 @@
             width: 100%;
         }
     </style>
-    <title>Quick Start</title>
+    <title>픽 블 엽</title>
 </head>
 <body>
 <div id="map"></div>
@@ -31,9 +31,9 @@
         console.log("모든 리소스가 로드되었습니다.");
         let map;
         map = await initMap();
-        console.log(map.getView().getCenter());
-        showNearMarker(map);
+        renderMarker(map);
     };
+
 </script>
 </body>
 </html>

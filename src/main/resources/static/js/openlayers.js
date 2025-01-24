@@ -15,12 +15,14 @@ const getCurrentLocation = async () => {
 };
 
 const initMap = async () => {
+    console.log("initMap");
     const { latitude, longitude } = await getCurrentLocation();
     console.log(latitude, longitude);
 
     const view = new ol.View({
         center: ol.proj.fromLonLat([longitude, latitude]),
-        zoom: 16,
+        zoom: 20,
+        maxZoom: 20,
     });
 
     const map = new ol.Map({
@@ -32,6 +34,16 @@ const initMap = async () => {
         ],
         view: view,
     });
-    console.log(map.getView().getCenter());
+
+    map.on('moveend', () => {
+        console.log("moveend");
+        const zoom = view.getZoom();
+        const center = ol.proj.toLonLat(view.getCenter());
+        console.log(`Triggered after delay. Center: ${center}, Zoom: ${zoom}`);
+        console.log(`Triggered after delay. Center: ${ol.proj.toLonLat(map.getView().getCenter())}, Zoom: ${ map.getView().getZoom()}`);
+        renderMarker(map);
+    });
+
     return map;
 };
+

@@ -1,7 +1,15 @@
-// 마커 추가를 위한 Feature 생성
-const showNearMarker = (map) => {
+let markerLayer = null;
+
+const renderMarker = (map) => {
+    console.log('renderMarker');
+    if (markerLayer) {
+        map.removeLayer(markerLayer);
+    }
+
+    const view = map.getView();
+
     const markerFeature = new ol.Feature({
-        geometry: new ol.geom.Point(ol.proj.fromLonLat([127.136779, 37.449225])) // 핀 좌표
+        geometry: new ol.geom.Point(view.getCenter()) // 핀 좌표
     });
 
     // 마커 스타일 설정
@@ -20,13 +28,12 @@ const showNearMarker = (map) => {
         features: [markerFeature]
     });
 
-    const markerLayer = new ol.layer.Vector({
+    markerLayer = new ol.layer.Vector({
         source: vectorSource
     });
 
     // 지도의 레이어에 마커 레이어 추가
     map.addLayer(markerLayer);
-
-    console.log(map.getView().getCenter());
 }
+
 
