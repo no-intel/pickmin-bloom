@@ -5,6 +5,9 @@ import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
+import org.hibernate.annotations.JdbcTypeCode;
+import org.hibernate.type.SqlTypes;
+import org.locationtech.jts.geom.Point;
 
 import java.time.LocalDateTime;
 
@@ -19,11 +22,9 @@ public class Post {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(nullable = false)
-    private String latitude;
-
-    @Column(nullable = false)
-    private String longitude;
+    @Column(nullable = false, name = "coordinates", columnDefinition = "POINT")
+    @JdbcTypeCode(SqlTypes.GEOMETRY)
+    private Point coordinates;
 
     @Column(nullable = false)
     private String type;
@@ -37,10 +38,11 @@ public class Post {
     @Column(name = "deleted_at")
     private LocalDateTime deletedAt;
 
-    public Post(String latitude, String longitude, String type, LocalDateTime createdAt) {
-        this.latitude = latitude;
-        this.longitude = longitude;
+    public Post(Point coordinates, String type, LocalDateTime createdAt, LocalDateTime updatedAt, LocalDateTime deletedAt) {
+        this.coordinates = coordinates;
         this.type = type;
         this.createdAt = createdAt;
+        this.updatedAt = updatedAt;
+        this.deletedAt = deletedAt;
     }
 }
