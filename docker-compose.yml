@@ -1,0 +1,25 @@
+version: '3.8'
+
+services:
+  mysql:
+    image: mysql:8.0
+    container_name: my-mysql
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: root  # root 계정 비밀번호
+      MYSQL_DATABASE: pickmin_bloom        # 기본적으로 생성할 데이터베이스
+      MYSQL_USER: root                 # 사용자 계정
+      MYSQL_PASSWORD: root        # 사용자 계정 비밀번호
+    ports:
+      - "3306:3306"  # 호스트와 컨테이너 포트 매핑
+    volumes:
+      - mysql_data:/var/lib/mysql
+    networks:
+      - my_network  # 네트워크 설정 추가
+
+volumes:
+  mysql_data:
+
+networks:
+  my_network:   # 공용 네트워크 생성
+    driver: bridge
