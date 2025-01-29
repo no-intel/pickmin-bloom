@@ -36,8 +36,9 @@ public class GetPostCoordinatesService {
             case 5 -> 500_000;
             case 6, 7, 8, 9, 10 -> 2_000;
             case 11, 12 -> 5_000;
-            case 13, 14, 15 -> 1_000;
-            default -> 40;
+            case 13, 14, 15 -> 1_600;
+            case 16, 17, 18 -> 800;
+            default -> 400;
         };
     }
 }

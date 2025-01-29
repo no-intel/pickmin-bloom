@@ -21,7 +21,7 @@ const initMap = async () => {
 
     const view = new ol.View({
         center: ol.proj.fromLonLat([longitude, latitude]),
-        zoom: 20,
+        zoom: 15,
         maxZoom: 20,
     });
 

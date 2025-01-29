@@ -29,22 +29,7 @@
 <script>
     window.onload = async () => {
         console.log("모든 리소스가 로드되었습니다.");
-        let map;
-        let posts;
-
-        map = await initMap();
-        //
-        // const center = ol.proj.toLonLat(map.getView().getCenter()); // 중앙 좌표 가져오기
-        // const zoom = map.getView().getZoom(); // 줌 레벨 가져오기
-        //
-        // console.log(center);
-        // console.log(zoom);
-        //
-        // posts = await findPosts(center[1], center[0], zoom);
-        // console.log('post');
-        // console.log(posts);
-        //
-        // renderMarker(map, posts);
+        await initMap();
     };
 </script>
 
