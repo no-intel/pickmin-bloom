@@ -35,15 +35,36 @@ const initMap = async () => {
         view: view,
     });
 
-    map.on('moveend', () => {
+    map.on('moveend', async () => {
         console.log("moveend");
         const zoom = view.getZoom();
         const center = ol.proj.toLonLat(view.getCenter());
         console.log(`Triggered after delay. Center: ${center}, Zoom: ${zoom}`);
         console.log(`Triggered after delay. Center: ${ol.proj.toLonLat(map.getView().getCenter())}, Zoom: ${ map.getView().getZoom()}`);
-        renderMarker(map);
+        let posts = await findPosts(center[1], center[0], zoom);
+        renderMarker(map, posts);
     });
 
     return map;
 };
 
+const findPosts = async (latitude, longitude, zoomLevel) => {
+    console.log('findPosts')
+    console.log(latitude)
+    console.log(longitude)
+    console.log(zoomLevel)
+    try {
+        const response = await fetch(`/posts?latitude=${latitude}&longitude=${longitude}&zoomLevel=${Math.floor(zoomLevel)}`);
+
+        if (!response.ok) {
+            throw new Error('Network response was not ok');
+        }
+
+        const data = await response.json();
+        console.log('Success:', data);
+        return data;
+
+    } catch (error) {
+        console.error('Error:', error);
+    }
+};

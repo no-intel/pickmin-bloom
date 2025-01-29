@@ -1,0 +1,2 @@
+### GET /posts?latitude=37.4543&longitude=127.1313&zoomLevel=10
+GET http://localhost:8080/posts?latitude=37.4543&longitude=127.1313&zoomLevel=15
