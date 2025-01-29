@@ -2,7 +2,7 @@ spring:
   application:
     name: pickmin-bloom
   datasource:
-    url: jdbc:mysql://127.0.0.1:3306/pickmin-bloom?useSSL=false&characterEncoding=UTF-8&serverTimezone=UTC
+    url: jdbc:mysql://127.0.0.1:3306/pickmin_bloom?useSSL=false&characterEncoding=UTF-8&serverTimezone=UTC
     username: admin
     password: admin
     driver-class-name: com.mysql.cj.jdbc.Driver
@@ -11,25 +11,16 @@ spring:
       ddl-auto: update
     properties:
       hibernate:
-        dialect: org.hibernate.spatial.dialect.mysql.MySQLSpatialDialect
-        show_sql:
-          format_sql: true
-          use_sql_comments: true
-#  datasource:
-#    url: jdbc:h2:mem:testdb;DB_CLOSE_DELAY=-1;DB_CLOSE_ON_EXIT=FALSE
-#    username: sa
-#    password:
-#    driver-class-name: org.h2.Driver
-
-#  jpa:
-#    hibernate:
-#      ddl-auto: update
-#    properties:
-#      hibernate:
-#        dialect: org.hibernate.dialect.H2Dialect
-#        show_sql: true
-#        format_sql: true
-#        use_sql_comments: true
-#  sql:
-#    init:
-#      platform: h2
+        dialect: org.hibernate.dialect.MySQL8Dialect
+        show_sql: true
+        format_sql: true
+        highlight_sql: true
+logging:
+  level:
+    org:
+      hibernate:
+        SQL: DEBUG
+        orm:
+          jdbc:
+            bind: TRACE
+            extract: TRACE

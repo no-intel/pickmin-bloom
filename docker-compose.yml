@@ -8,8 +8,8 @@ services:
     environment:
       MYSQL_ROOT_PASSWORD: root  # root 계정 비밀번호
       MYSQL_DATABASE: pickmin_bloom        # 기본적으로 생성할 데이터베이스
-      MYSQL_USER: root                 # 사용자 계정
-      MYSQL_PASSWORD: root        # 사용자 계정 비밀번호
+      MYSQL_USER: admin                 # 사용자 계정
+      MYSQL_PASSWORD: admin        # 사용자 계정 비밀번호
     ports:
       - "3306:3306"  # 호스트와 컨테이너 포트 매핑
     volumes:
