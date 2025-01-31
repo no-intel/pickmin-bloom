@@ -10,12 +10,14 @@ import org.noint.pickminbloom.post.entity.Post;
 import org.noint.pickminbloom.post.repository.PostQuerydslRepository;
 import org.noint.pickminbloom.post.response.GetPostCoordinatesResponse;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
 @Slf4j
 @Service
 @RequiredArgsConstructor
+@Transactional(readOnly = true)
 public class GetPostCoordinatesService {
     private final PostQuerydslRepository postQuerydslRepository;
     private final GeometryFactory geometryFactory;

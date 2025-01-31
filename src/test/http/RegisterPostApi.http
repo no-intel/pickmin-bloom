@@ -1,0 +1,12 @@
+POST http://localhost:8080/posts
+Content-Type: application/json
+
+{
+  "coordinates": "20.830025195282698, -156.9227092326623",
+  "name": "Lanai Purple Church cross",
+  "location": "해외",
+  "type": "F"
+}
+
+### 국내
+### 해외
