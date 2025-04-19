@@ -20,7 +20,7 @@ public class Post {
     private Long id;
 
     @Setter
-    @Column(nullable = false, name = "geohash", length = 6)
+    @Column(nullable = false, name = "geohash", length = 12)
     private String geohash;
 
     @Column(name = "name")
