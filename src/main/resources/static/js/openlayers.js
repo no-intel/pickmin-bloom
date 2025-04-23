@@ -14,7 +14,7 @@ const getCurrentLocation = async () => {
     });
 };
 
-const initMap = async () => {
+const rendMakers = async () => {
     console.log("initMap");
     const { latitude, longitude } = await getCurrentLocation();
     console.log(latitude, longitude);
@@ -42,7 +42,7 @@ const initMap = async () => {
         console.log(`Triggered after delay. Center: ${center}, Zoom: ${zoom}`);
         console.log(`Triggered after delay. Center: ${ol.proj.toLonLat(map.getView().getCenter())}, Zoom: ${ map.getView().getZoom()}`);
         let posts = await findPosts(center[1], center[0], zoom);
-        renderMarker(map, posts);
+        markers(map, posts, center[1], center[0]);
     });
 
     return map;
