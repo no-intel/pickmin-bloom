@@ -35,24 +35,21 @@ const rendMakers = async () => {
         view: view,
     });
 
-    map.on('moveend', async () => {
-        console.log("moveend");
+    map.on('click', async (e) => {
+        const view = map.getView();
         const zoom = view.getZoom();
-        const center = ol.proj.toLonLat(view.getCenter());
-        console.log(`Triggered after delay. Center: ${center}, Zoom: ${zoom}`);
-        console.log(`Triggered after delay. Center: ${ol.proj.toLonLat(map.getView().getCenter())}, Zoom: ${ map.getView().getZoom()}`);
-        let posts = await findPosts(center[1], center[0], zoom);
-        markers(map, posts, center[1], center[0]);
+        const coordinate = e.coordinate; // EPSG:3857 기준 x,y 좌료
+        const lonLat = ol.proj.toLonLat(coordinate); // 경도 위도
+
+        let posts = await findPosts(lonLat[1], lonLat[0], zoom);
+        markers(map, posts, coordinate[0], coordinate[1]);
+        view.setCenter(coordinate);
     });
 
     return map;
 };
 
 const findPosts = async (latitude, longitude, zoomLevel) => {
-    console.log('findPosts')
-    console.log(latitude)
-    console.log(longitude)
-    console.log(zoomLevel)
     try {
         const response = await fetch(`/posts?latitude=${latitude}&longitude=${longitude}&zoomLevel=${Math.floor(zoomLevel)}`);
 

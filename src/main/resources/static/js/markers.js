@@ -2,8 +2,10 @@ let markerLayer = null;
 let standardLayer = null;
 
 const createMarkerFeature = (post) => {
+    const lonLat = ol.proj.fromLonLat([post.longitude, post.latitude]);
+
     return new ol.Feature({
-        geometry: new ol.geom.Point(ol.proj.fromLonLat([post.longitude, post.latitude])),
+        geometry: new ol.geom.Point(lonLat),
     });
 };
 
@@ -61,9 +63,9 @@ const setMarkerLayer = (features) => {
     });
 };
 
-const setStandardLayer = (lon, lat) => {
+const setStandardLayer = (x, y) => {
     let features = new ol.Feature({
-        geometry: new ol.geom.Point(ol.proj.fromLonLat([lat, lon])),
+        geometry: new ol.geom.Point([x, y]),
     });
 
     const layer = new ol.layer.Vector({
@@ -82,11 +84,11 @@ const setStandardLayer = (lon, lat) => {
     return layer;
 };
 
-const markers = (map, posts, lon, lat) => {
+const markers = (map, posts, x, y) => {
     if (standardLayer) {
         map.removeLayer(standardLayer)
     }
-    standardLayer = setStandardLayer(lon, lat)
+    standardLayer = setStandardLayer(x, y)
     map.addLayer(standardLayer);
 
     // 기존 마커 레이어가 있으면 제거
