@@ -39,9 +39,13 @@ const rendMakers = async () => {
         const view = map.getView();
         const zoom = view.getZoom();
         const coordinate = e.coordinate; // EPSG:3857 기준 x,y 좌료
-        const lonLat = ol.proj.toLonLat(coordinate); // 경도 위도
+        // const lonLat = ol.proj.toLonLat(coordinate); // 경도 위도
+        // let posts = await findPostsWithinDistance(lonLat[1], lonLat[0], zoom);
 
-        let posts = await findPosts(lonLat[1], lonLat[0], zoom);
+        const extent = map.getView().calculateExtent(map.getSize());
+        const [minX, minY, maxX, maxY] = ol.proj.transformExtent(extent, 'EPSG:3857', 'EPSG:4326');
+
+        const posts = await findPosts(minX, minY, maxX, maxY);
         markers(map, posts, coordinate[0], coordinate[1]);
         view.setCenter(coordinate);
     });
@@ -49,9 +53,26 @@ const rendMakers = async () => {
     return map;
 };
 
-const findPosts = async (latitude, longitude, zoomLevel) => {
+// const findPostsWithinDistance = async (latitude, longitude, zoomLevel) => {
+//     try {
+//         const response = await fetch(`/posts?latitude=${latitude}&longitude=${longitude}&zoomLevel=${Math.floor(zoomLevel)}`);
+//
+//         if (!response.ok) {
+//             throw new Error('Network response was not ok');
+//         }
+//
+//         const data = await response.json();
+//         console.log('Success:', data);
+//         return data;
+//
+//     } catch (error) {
+//         console.error('Error:', error);
+//     }
+// };
+
+const findPosts = async (minX, minY, maxX, maxY) => {
     try {
-        const response = await fetch(`/posts?latitude=${latitude}&longitude=${longitude}&zoomLevel=${Math.floor(zoomLevel)}`);
+        const response = await fetch(`/posts?minX=${minX}&minY=${minY}&maxX=${maxX}&maxY=${maxY}`);
 
         if (!response.ok) {
             throw new Error('Network response was not ok');

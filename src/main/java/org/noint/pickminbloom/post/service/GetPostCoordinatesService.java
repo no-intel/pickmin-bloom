@@ -5,9 +5,11 @@ import lombok.extern.slf4j.Slf4j;
 import org.locationtech.jts.geom.Coordinate;
 import org.locationtech.jts.geom.GeometryFactory;
 import org.locationtech.jts.geom.Point;
+import org.noint.pickminbloom.post.dto.GetPostCoordinatesByViewDto;
 import org.noint.pickminbloom.post.dto.GetPostCoordinatesDto;
 import org.noint.pickminbloom.post.entity.Post;
 import org.noint.pickminbloom.post.repository.PostQuerydslRepository;
+import org.noint.pickminbloom.post.request.GetPostCoordinatesByViewRequest;
 import org.noint.pickminbloom.post.response.GetPostCoordinatesResponse;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -42,5 +44,11 @@ public class GetPostCoordinatesService {
             case 16, 17, 18 -> 800;
             default -> 400;
         };
+    }
+
+    public List<GetPostCoordinatesResponse> getPostCoordinates(GetPostCoordinatesByViewRequest request) {
+        GetPostCoordinatesByViewDto dto = new GetPostCoordinatesByViewDto(request);
+        List<Post> posts = postQuerydslRepository.findPostsByView(dto);
+        return GetPostCoordinatesResponse.create(posts);
     }
 }
