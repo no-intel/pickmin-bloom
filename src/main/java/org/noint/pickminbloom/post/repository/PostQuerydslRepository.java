@@ -4,7 +4,6 @@ import com.querydsl.core.types.dsl.Expressions;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import lombok.RequiredArgsConstructor;
 import org.locationtech.jts.geom.Point;
-import org.noint.pickminbloom.post.dto.GetPostCoordinatesByViewDto;
 import org.noint.pickminbloom.post.entity.Post;
 import org.springframework.stereotype.Repository;
 
