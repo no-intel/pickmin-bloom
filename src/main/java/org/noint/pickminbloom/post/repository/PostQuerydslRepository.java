@@ -4,6 +4,7 @@ import com.querydsl.core.types.dsl.Expressions;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import lombok.RequiredArgsConstructor;
 import org.locationtech.jts.geom.Point;
+import org.noint.pickminbloom.post.dto.GetPostCoordinatesByViewDto;
 import org.noint.pickminbloom.post.entity.Post;
 import org.springframework.stereotype.Repository;
 
@@ -33,6 +34,19 @@ public class PostQuerydslRepository {
                         post.coordinates,
                         referencePoint
                 ).asc())
+                .fetch();
+    }
+
+    public List<Post> findPostsByView(GetPostCoordinatesByViewDto dto) {
+        // XY를 거꾸로해야 적용됨.
+        return queryFactory
+                .selectFrom(post)
+                .where(
+                        Expressions.numberTemplate(Double.class, "ST_Y({0})", post.coordinates)
+                                .between(dto.getMinX(), dto.getMaxX()),
+                        Expressions.numberTemplate(Double.class, "ST_X({0})", post.coordinates)
+                                .between(dto.getMinY(), dto.getMaxY())
+                )
                 .fetch();
     }
 
