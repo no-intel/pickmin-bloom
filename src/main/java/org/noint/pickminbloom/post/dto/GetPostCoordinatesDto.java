@@ -4,7 +4,6 @@ import lombok.Getter;
 import lombok.Setter;
 
 @Getter
-@Setter
 public class GetPostCoordinatesDto {
     private Double latitude; // 위도
     private Double longitude; // 경도

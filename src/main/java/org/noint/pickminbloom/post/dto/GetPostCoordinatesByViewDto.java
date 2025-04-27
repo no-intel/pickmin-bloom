@@ -5,7 +5,6 @@ import lombok.Setter;
 import org.noint.pickminbloom.post.request.GetPostCoordinatesByViewRequest;
 
 @Getter
-@Setter
 public class GetPostCoordinatesByViewDto {
     private Double minX;
     private Double minY;
