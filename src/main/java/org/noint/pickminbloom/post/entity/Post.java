@@ -52,11 +52,14 @@ public class Post {
                 String type) {
         this.geohash = geohash;
         this.name = name;
-        this.coordinates = coordinates;
+        initializeCoordinates(coordinates);
         this.location = location;
         this.type = type;
         this.createdAt = LocalDateTime.now();
+    };
+
+    private void initializeCoordinates(Point coordinates) {
+        this.coordinates = coordinates;
+        coordinates.setSRID(4326);
     }
-
-
 }

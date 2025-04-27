@@ -43,9 +43,9 @@ public class PostQuerydslRepository {
                 .selectFrom(post)
                 .where(
                         Expressions.numberTemplate(Double.class, "ST_Y({0})", post.coordinates)
-                                .between(dto.getMinX(), dto.getMaxX()),
+                                .between(dto.minX(), dto.maxX()),
                         Expressions.numberTemplate(Double.class, "ST_X({0})", post.coordinates)
-                                .between(dto.getMinY(), dto.getMaxY())
+                                .between(dto.minY(), dto.minY())
                 )
                 .fetch();
     }
