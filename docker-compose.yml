@@ -31,6 +31,20 @@ services:
     networks:
       - pickmin-bloom  # 네트워크 설정 추가
 
+  localstack:
+    image: localstack/localstack:latest
+    container_name: localstack
+    ports:
+      - "4566:4566"        # 모든 서비스는 4566 포트 사용
+    environment:
+      - SERVICES=s3        # 필요한 서비스만 (s3만 쓸 거면 이렇게) SERVICES=s3,dynamodb,sqs,lambda (여러개 사용 예시)
+      - DEFAULT_REGION=ap-northeast-2
+      - AWS_ACCESS_KEY_ID=test
+      - AWS_SECRET_ACCESS_KEY=test
+    volumes:
+      - ./localstack:/var/lib/localstack   # 로컬에도 데이터 저장
+      - /var/run/docker.sock:/var/run/docker.sock
+
 volumes:
   mysql_data:
 
