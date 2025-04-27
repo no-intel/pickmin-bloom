@@ -25,8 +25,8 @@ public class GetPostCoordinatesService {
     private final GeometryFactory geometryFactory;
 
     public List<GetPostCoordinatesResponse> getPostCoordinates(GetPostCoordinatesDto dto) {
-        Point referencePoint = geometryFactory.createPoint(new Coordinate(dto.getLongitude(), dto.getLatitude()));
-        int distance = getDistance(dto.getZoomLevel());
+        Point referencePoint = geometryFactory.createPoint(new Coordinate(dto.longitude(), dto.latitude()));
+        int distance = getDistance(dto.zoomLevel());
         List<Post> postsWithinDistance = postQuerydslRepository.findPostsWithinDistance(referencePoint, distance);
         return GetPostCoordinatesResponse.create(postsWithinDistance);
     }
