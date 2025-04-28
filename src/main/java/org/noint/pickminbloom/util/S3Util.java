@@ -3,6 +3,7 @@ package org.noint.pickminbloom.util;
 import jakarta.annotation.PostConstruct;
 import jakarta.transaction.Transactional;
 import lombok.extern.slf4j.Slf4j;
+import org.noint.pickminbloom.exception.post.S3UploadException;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 import org.springframework.web.multipart.MultipartFile;
@@ -27,13 +28,13 @@ public class S3Util {
     private S3Presigner s3Presigner;
 
     @Value("${aws.s3.bucket.post}")
-    private String bucketName;
+    String bucketName;
 
     @Value("${aws.s3.endpoint}")
-    private String endpoint;
+    String endpoint;
 
     @Value("${aws.s3.region}")
-    private String region;
+    String region;
 
     @Value("${aws.s3.credentials.access-key}")
     String accessKey;
@@ -86,7 +87,8 @@ public class S3Util {
                     RequestBody.fromBytes(file.getBytes())
             );
         } catch (IOException e) {
-            throw new RuntimeException(e);
+            log.error("S3 upload error: {}", e.getMessage());
+            throw new S3UploadException();
         }
     }
 }

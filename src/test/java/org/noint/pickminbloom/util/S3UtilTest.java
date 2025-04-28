@@ -2,7 +2,7 @@ package org.noint.pickminbloom.util;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.noint.pickminbloom.exception.S3UploadException;
+import org.noint.pickminbloom.exception.post.S3UploadException;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.mock.web.MockMultipartFile;
