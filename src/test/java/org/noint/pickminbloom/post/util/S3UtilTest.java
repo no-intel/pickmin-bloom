@@ -13,14 +13,22 @@ import software.amazon.awssdk.auth.credentials.StaticCredentialsProvider;
 import software.amazon.awssdk.core.sync.RequestBody;
 import software.amazon.awssdk.regions.Region;
 import software.amazon.awssdk.services.s3.S3Client;
+import software.amazon.awssdk.services.s3.S3Configuration;
+import software.amazon.awssdk.services.s3.model.GetObjectRequest;
 import software.amazon.awssdk.services.s3.model.ListObjectsRequest;
 import software.amazon.awssdk.services.s3.model.PutObjectRequest;
+import software.amazon.awssdk.services.s3.presigner.S3Presigner;
+import software.amazon.awssdk.services.s3.presigner.model.GetObjectPresignRequest;
 
 import java.io.IOException;
 import java.net.URI;
+import java.time.Duration;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
+import java.util.stream.Collectors;
 
-import static org.junit.jupiter.api.Assertions.assertThrows;
-import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.*;
 
 @SpringBootTest
 @ActiveProfiles("test")
@@ -35,6 +43,9 @@ class S3UtilTest {
     @Value("${aws.s3.bucket.post}")
     private String bucketName;
 
+    @Value("${aws.s3.presigned.duration}")
+    String presignedDuration;
+
     @Value("${aws.s3.credentials.access-key}")
     private String accessKey;
 
@@ -42,6 +53,8 @@ class S3UtilTest {
     private String secretKey;
 
     private S3Client s3Client;
+
+    private S3Presigner s3Presigner;
 
     @BeforeEach
     void setUp() {
@@ -52,6 +65,19 @@ class S3UtilTest {
                         AwsBasicCredentials.create(accessKey, secretKey)
                 ))
                 .forcePathStyle(true)
+                .build();
+
+        this.s3Presigner = S3Presigner.builder()
+                .endpointOverride(URI.create(endpoint))
+                .region(Region.of(region))
+                .credentialsProvider(StaticCredentialsProvider.create(
+                        AwsBasicCredentials.create(accessKey, secretKey)
+                ))
+                .serviceConfiguration(
+                        S3Configuration.builder()
+                                .pathStyleAccessEnabled(true)
+                                .build()
+                )
                 .build();
     }
 
@@ -96,6 +122,20 @@ class S3UtilTest {
         assertThrows(RuntimeException.class, () -> uploadFile(geohash, imageFile));
     }
 
+    @Test
+    void 이미지_다운로드_PresignedUrl() {
+        //given
+        List<String> geohashes = new ArrayList<>(){{
+            add("geohashesTest1");
+            add("geohashesTest2");
+        }};
+
+        //when
+        Map<String, String> presignedUrls = createdPresignedUrlsForDownload(geohashes);
+
+        //then
+        assertEquals(presignedUrls.size(), geohashes.size());
+    }
 
     private void uploadFile(String geohash, MultipartFile file){
         try {
@@ -110,5 +150,25 @@ class S3UtilTest {
         } catch (IOException e) {
             throw new S3UploadException();
         }
+    }
+
+    private Map<String, String> createdPresignedUrlsForDownload(List<String> geohashes) {
+        return geohashes.stream()
+                .collect(Collectors.toMap(
+                        geohash -> geohash,
+                        geohash -> {
+                            GetObjectRequest getObjectRequest = GetObjectRequest.builder()
+                                    .bucket(bucketName)
+                                    .key(geohash)
+                                    .build();
+
+                            GetObjectPresignRequest presignRequest = GetObjectPresignRequest.builder()
+                                    .signatureDuration(Duration.ofMinutes(Long.parseLong(presignedDuration)))
+                                    .getObjectRequest(getObjectRequest)
+                                    .build();
+
+                            return s3Presigner.presignGetObject(presignRequest).url().toString();
+                        }
+                ));
     }
 }

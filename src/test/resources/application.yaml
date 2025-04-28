@@ -32,6 +32,8 @@ aws:
     region: us-east-1
     bucket:
       post: pickmin-bloom-post-test
+    presigned:
+      duration: 30
 
     credentials:
       access-key: test
