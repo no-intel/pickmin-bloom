@@ -32,5 +32,6 @@ public class RegisterPostService {
                 dto.type()
         );
         postRepository.save(post);
+        s3Util.uploadFile(geohash, dto.image());
     }
 }

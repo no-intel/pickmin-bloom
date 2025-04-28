@@ -29,7 +29,7 @@ logging:
 aws:
   s3:
     endpoint: http://localhost:4566
-    region: ap-northeast-2
+    region: us-east-1
     bucket:
       post: pickmin-bloom-post
 
