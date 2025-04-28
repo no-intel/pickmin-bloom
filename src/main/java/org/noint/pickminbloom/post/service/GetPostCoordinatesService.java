@@ -46,8 +46,7 @@ public class GetPostCoordinatesService {
         };
     }
 
-    public List<GetPostCoordinatesResponse> getPostCoordinates(GetPostCoordinatesByViewRequest request) {
-        GetPostCoordinatesByViewDto dto = new GetPostCoordinatesByViewDto(request);
+    public List<GetPostCoordinatesResponse> getPostCoordinates(GetPostCoordinatesByViewDto dto) {
         List<Post> posts = postQuerydslRepository.findPostsByView(dto);
         return GetPostCoordinatesResponse.create(posts);
     }

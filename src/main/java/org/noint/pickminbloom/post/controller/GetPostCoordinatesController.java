@@ -26,7 +26,8 @@ public class GetPostCoordinatesController {
 
     @GetMapping
     public ResponseEntity<List<GetPostCoordinatesResponse>> getPostCoordinates(@ModelAttribute GetPostCoordinatesByViewRequest request) {
-        List<GetPostCoordinatesResponse> postCoordinates = getPostCoordinatesService.getPostCoordinates(request);
+        GetPostCoordinatesByViewDto dto = new GetPostCoordinatesByViewDto(request);
+        List<GetPostCoordinatesResponse> postCoordinates = getPostCoordinatesService.getPostCoordinates(dto);
         return new ResponseEntity<>(postCoordinates, HttpStatus.OK);
     }
 }

@@ -18,13 +18,10 @@ import org.springframework.stereotype.Service;
 public class RegisterPostService {
 
     private final PostRepository postRepository;
-    private final GeoHashUtil geoHashUtil;
     private final GeometryFactory geometryFactory;
     private final S3Util s3Util;
 
-    public void registerPost(RegisterPostRequest request) {
-        String geohash = geoHashUtil.encode(request.latitude(), request.longitude());
-        RegisterPostDto dto = new RegisterPostDto(geohash, request);
+    public void registerPost(RegisterPostDto dto) {
         Post post = new Post(dto.geohash(),
                 dto.name(),
                 geometryFactory.createPoint(new Coordinate(dto.longitude(), dto.latitude())),
@@ -32,6 +29,6 @@ public class RegisterPostService {
                 dto.type()
         );
         postRepository.save(post);
-        s3Util.uploadFile(geohash, dto.image());
+        s3Util.uploadFile(dto.geohash(), dto.image());
     }
 }
