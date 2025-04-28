@@ -38,7 +38,7 @@ services:
       - "4566:4566"        # 모든 서비스는 4566 포트 사용
     environment:
       - SERVICES=s3        # 필요한 서비스만 (s3만 쓸 거면 이렇게) SERVICES=s3,dynamodb,sqs,lambda (여러개 사용 예시)
-      - DEFAULT_REGION=ap-northeast-2
+      - DEFAULT_REGION=us-east-1
       - AWS_ACCESS_KEY_ID=test
       - AWS_SECRET_ACCESS_KEY=test
     volumes:
