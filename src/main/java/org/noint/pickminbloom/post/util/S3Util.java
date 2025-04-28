@@ -1,4 +1,4 @@
-package org.noint.pickminbloom.util;
+package org.noint.pickminbloom.post.util;
 
 import jakarta.annotation.PostConstruct;
 import jakarta.transaction.Transactional;
@@ -12,13 +12,20 @@ import software.amazon.awssdk.auth.credentials.StaticCredentialsProvider;
 import software.amazon.awssdk.core.sync.RequestBody;
 import software.amazon.awssdk.regions.Region;
 import software.amazon.awssdk.services.s3.S3Client;
+import software.amazon.awssdk.services.s3.S3Configuration;
 import software.amazon.awssdk.services.s3.model.CreateBucketRequest;
 import software.amazon.awssdk.services.s3.model.CreateBucketResponse;
+import software.amazon.awssdk.services.s3.model.GetObjectRequest;
 import software.amazon.awssdk.services.s3.model.PutObjectRequest;
 import software.amazon.awssdk.services.s3.presigner.S3Presigner;
+import software.amazon.awssdk.services.s3.presigner.model.GetObjectPresignRequest;
 
 import java.io.IOException;
 import java.net.URI;
+import java.time.Duration;
+import java.util.List;
+import java.util.Map;
+import java.util.stream.Collectors;
 
 @Slf4j
 @Component
@@ -35,6 +42,9 @@ public class S3Util {
 
     @Value("${aws.s3.region}")
     String region;
+
+    @Value("${aws.s3.presigned.duration}")
+    String presignedDuration;
 
     @Value("${aws.s3.credentials.access-key}")
     String accessKey;
@@ -59,6 +69,11 @@ public class S3Util {
                 .credentialsProvider(StaticCredentialsProvider.create(
                         AwsBasicCredentials.create(accessKey, secretKey)
                 ))
+                .serviceConfiguration(
+                        S3Configuration.builder()
+                                .pathStyleAccessEnabled(true)
+                                .build()
+                )
                 .build();
 
         createBucketIfNotExists();
@@ -90,5 +105,25 @@ public class S3Util {
             log.error("S3 upload error: {}", e.getMessage());
             throw new S3UploadException();
         }
+    }
+
+    public Map<String, String> createdPresignedUrlsForDownload(List<String> geohashes) {
+        return geohashes.stream()
+                .collect(Collectors.toMap(
+                        geohash -> geohash,
+                        geohash -> {
+                            GetObjectRequest getObjectRequest = GetObjectRequest.builder()
+                                    .bucket(bucketName)
+                                    .key(geohash)
+                                    .build();
+
+                            GetObjectPresignRequest presignRequest = GetObjectPresignRequest.builder()
+                                    .signatureDuration(Duration.ofMinutes(Long.parseLong(presignedDuration)))
+                                    .getObjectRequest(getObjectRequest)
+                                    .build();
+
+                            return s3Presigner.presignGetObject(presignRequest).url().toString();
+                        }
+                ));
     }
 }

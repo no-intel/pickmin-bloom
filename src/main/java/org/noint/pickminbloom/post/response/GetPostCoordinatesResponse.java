@@ -1,22 +1,30 @@
 package org.noint.pickminbloom.post.response;
 
-import lombok.Getter;
-import lombok.RequiredArgsConstructor;
 import org.noint.pickminbloom.post.entity.Post;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
-@Getter
-@RequiredArgsConstructor
-public class GetPostCoordinatesResponse {
-    private final double latitude;
-    private final double longitude;
-
-    public static List<GetPostCoordinatesResponse> create(List<Post> posts) {
+public record GetPostCoordinatesResponse(double latitude,
+                                         double longitude,
+                                         String name,
+                                         String geohash,
+                                         String type,
+                                         String location,
+                                         String presignedUrl) {
+    public static List<GetPostCoordinatesResponse> create(List<Post> posts, Map<String, String> presignedUrls) {
         List<GetPostCoordinatesResponse> responses = new ArrayList<>();
         posts.forEach(post -> {
-            responses.add(new GetPostCoordinatesResponse(post.getCoordinates().getY(), post.getCoordinates().getX()));
+            responses.add(new GetPostCoordinatesResponse(
+                    post.getCoordinates().getY(),
+                    post.getCoordinates().getX(),
+                    post.getName(),
+                    post.getGeohash(),
+                    post.getType(),
+                    post.getLocation(),
+                    presignedUrls.get(post.getGeohash())
+            ));
         });
 
         return responses;

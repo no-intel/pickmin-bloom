@@ -4,7 +4,7 @@ import lombok.RequiredArgsConstructor;
 import org.noint.pickminbloom.post.dto.RegisterPostDto;
 import org.noint.pickminbloom.post.request.RegisterPostRequest;
 import org.noint.pickminbloom.post.service.RegisterPostService;
-import org.noint.pickminbloom.util.GeoHashUtil;
+import org.noint.pickminbloom.post.util.GeoHashUtil;
 import org.springframework.web.bind.annotation.*;
 
 @RestController

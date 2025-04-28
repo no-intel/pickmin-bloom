@@ -7,9 +7,7 @@ import org.locationtech.jts.geom.GeometryFactory;
 import org.noint.pickminbloom.post.dto.RegisterPostDto;
 import org.noint.pickminbloom.post.entity.Post;
 import org.noint.pickminbloom.post.repository.PostRepository;
-import org.noint.pickminbloom.post.request.RegisterPostRequest;
-import org.noint.pickminbloom.util.GeoHashUtil;
-import org.noint.pickminbloom.util.S3Util;
+import org.noint.pickminbloom.post.util.S3Util;
 import org.springframework.stereotype.Service;
 
 @Service
