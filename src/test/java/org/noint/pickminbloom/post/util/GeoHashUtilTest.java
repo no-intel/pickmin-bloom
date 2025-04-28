@@ -1,6 +1,7 @@
-package org.noint.pickminbloom.util;
+package org.noint.pickminbloom.post.util;
 
 import org.junit.jupiter.api.Test;
+import org.noint.pickminbloom.post.util.GeoHashUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 

@@ -1,4 +1,4 @@
-package org.noint.pickminbloom.util;
+package org.noint.pickminbloom.post.util;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;

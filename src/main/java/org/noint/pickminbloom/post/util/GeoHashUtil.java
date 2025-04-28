@@ -1,4 +1,4 @@
-package org.noint.pickminbloom.util;
+package org.noint.pickminbloom.post.util;
 
 import ch.hsr.geohash.GeoHash;
 import org.springframework.stereotype.Component;
