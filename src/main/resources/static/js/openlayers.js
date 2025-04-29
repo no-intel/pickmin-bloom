@@ -15,9 +15,7 @@ const getCurrentLocation = async () => {
 };
 
 const rendMakers = async () => {
-    console.log("initMap");
     const { latitude, longitude } = await getCurrentLocation();
-    console.log(latitude, longitude);
 
     const view = new ol.View({
         center: ol.proj.fromLonLat([longitude, latitude]),
