@@ -37,15 +37,15 @@ const rendMakers = async () => {
         const view = map.getView();
         const zoom = view.getZoom();
         const coordinate = e.coordinate; // EPSG:3857 기준 x,y 좌료
+        view.setCenter(coordinate);
         // const lonLat = ol.proj.toLonLat(coordinate); // 경도 위도
         // let posts = await findPostsWithinDistance(lonLat[1], lonLat[0], zoom);
 
-        const extent = map.getView().calculateExtent(map.getSize());
+        const extent = view.calculateExtent(map.getSize());
         const [minX, minY, maxX, maxY] = ol.proj.transformExtent(extent, 'EPSG:3857', 'EPSG:4326');
 
         const posts = await findPosts(minX, minY, maxX, maxY);
         markers(map, posts, coordinate[0], coordinate[1]);
-        view.setCenter(coordinate);
     });
 
     return map;
