@@ -10420,7 +10420,8 @@ a:focus {
 
 .sidebar #sidebarToggle::after {
   font-weight: 900;
-  content: '\f104';
+  /*content: '\f104';*/
+  content: '\f105';
   font-family: 'Font Awesome 5 Free';
   margin-right: 0.1rem;
 }
@@ -10439,7 +10440,8 @@ a:focus {
 }
 
 .sidebar.toggled #sidebarToggle::after {
-  content: '\f105';
+  /*content: '\f105';*/
+  content: '\f104';
   font-family: 'Font Awesome 5 Free';
   margin-left: 0.25rem;
 }
