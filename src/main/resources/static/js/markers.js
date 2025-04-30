@@ -3,9 +3,11 @@ let standardLayer = null;
 
 const createMarkerFeature = (post) => {
     const lonLat = ol.proj.fromLonLat([post.longitude, post.latitude]);
+    const icon = post.type === "빅플" ? "img/flower.png" : (post.type === "버섯" ? "img/mushroom.png" : "img/explorer.png" );
 
     return new ol.Feature({
         geometry: new ol.geom.Point(lonLat),
+        iconUrl: icon,
     });
 };
 
@@ -23,14 +25,15 @@ const setMarkerLayer = (features) => {
     return new ol.layer.Vector({
         source: clusterSource,
         style: function (feature) {
-            const size = feature.get('features').length;
+            const features = feature.get('features');
+            const size = features.length;
 
             if (size === 1) {
                 return new ol.style.Style({
                     image: new ol.style.Icon({
                         anchor: [0.5, 1], // 아이콘 기준점을 하단 중앙으로 설정
-                        src: 'https://cdn-icons-png.flaticon.com/512/1483/1483336.png', // 마커 이미지
-                        scale: 0.05 // 아이콘 크기 조정
+                        src: features[0].get('iconUrl'), // 마커 이미지
+                        scale: 0.8 // 아이콘 크기 조정
                     })
                 });  // 개별 마커의 스타일 사용
             }
