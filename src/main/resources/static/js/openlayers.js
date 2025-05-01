@@ -40,11 +40,11 @@ const rendMakers = async () => {
         view.setCenter(coordinate);
 
         const extent = view.calculateExtent(map.getSize());
-        const [minX, minY, maxX, maxY] = ol.proj.transformExtent(extent, 'EPSG:3857', 'EPSG:4326');
+        const [minLongitude, minLatitude, maxLongitude, maxLatitude] = ol.proj.transformExtent(extent, 'EPSG:3857', 'EPSG:4326');
+        const [longitude, latitude] = new ol.proj.transform(coordinate, 'EPSG:3857', 'EPSG:4326');
 
-        const posts = await findPosts(minX, minY, maxX, maxY);
+        const posts = await findPosts(minLongitude, minLatitude, maxLongitude, maxLatitude, longitude, latitude);
         markers(map, posts, coordinate[0], coordinate[1]);
-        // TODO : 사이드랜더링 후 포스트 가져올때 좌표기준으로 가까운'순으로 그럼 정렬도 가까운 순으로 될 듯.
         rendPostsImgCard(posts)
     });
 
@@ -52,17 +52,16 @@ const rendMakers = async () => {
 };
 
 
-const findPosts = async (minX, minY, maxX, maxY) => {
+const findPosts = async (minLongitude, minLatitude, maxLongitude, maxLatitude, longitude, latitude) => {
     try {
-        const response = await fetch(`/posts?minX=${minX}&minY=${minY}&maxX=${maxX}&maxY=${maxY}`);
+        const params = new URLSearchParams({minLongitude, minLatitude, maxLongitude, maxLatitude, longitude, latitude});
+        const response = await fetch(`/posts?${params.toString()}`);
 
         if (!response.ok) {
             throw new Error('Network response was not ok');
         }
 
-        const data = await response.json();
-        console.log('Success:', data);
-        return data;
+        return await response.json();
 
     } catch (error) {
         console.error('Error:', error);

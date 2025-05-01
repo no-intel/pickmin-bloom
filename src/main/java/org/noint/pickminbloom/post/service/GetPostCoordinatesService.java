@@ -3,6 +3,7 @@ package org.noint.pickminbloom.post.service;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.noint.pickminbloom.post.dto.GetPostCoordinatesByViewDto;
+import org.noint.pickminbloom.post.dto.GetPostResponseDto;
 import org.noint.pickminbloom.post.entity.Post;
 import org.noint.pickminbloom.post.repository.PostQuerydslRepository;
 import org.noint.pickminbloom.post.response.GetPostCoordinatesResponse;
@@ -22,9 +23,9 @@ public class GetPostCoordinatesService {
     private final S3Util s3Util;
 
     public List<GetPostCoordinatesResponse> getPostCoordinates(GetPostCoordinatesByViewDto dto) {
-        List<Post> posts = postQuerydslRepository.findPostsByView(dto);
+        List<GetPostResponseDto> posts = postQuerydslRepository.findPostsByView(dto);
         List<String> geohashes = posts.stream()
-                .map(Post::getGeohash)
+                .map(GetPostResponseDto::geohash)
                 .toList();
         Map<String, String> presignedUrls = s3Util.createdPresignedUrlsForDownload(geohashes);
         return GetPostCoordinatesResponse.create(posts, presignedUrls);

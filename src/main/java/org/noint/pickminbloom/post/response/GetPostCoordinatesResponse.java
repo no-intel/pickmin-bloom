@@ -1,5 +1,6 @@
 package org.noint.pickminbloom.post.response;
 
+import org.noint.pickminbloom.post.dto.GetPostResponseDto;
 import org.noint.pickminbloom.post.entity.Post;
 
 import java.util.ArrayList;
@@ -12,18 +13,21 @@ public record GetPostCoordinatesResponse(double latitude,
                                          String geohash,
                                          String type,
                                          String location,
+                                         double distance,
                                          String presignedUrl) {
-    public static List<GetPostCoordinatesResponse> create(List<Post> posts, Map<String, String> presignedUrls) {
+
+    public static List<GetPostCoordinatesResponse> create(List<GetPostResponseDto> posts, Map<String, String> presignedUrls) {
         List<GetPostCoordinatesResponse> responses = new ArrayList<>();
         posts.forEach(post -> {
             responses.add(new GetPostCoordinatesResponse(
-                    post.getCoordinates().getY(),
-                    post.getCoordinates().getX(),
-                    post.getName(),
-                    post.getGeohash(),
-                    post.getType(),
-                    post.getLocation(),
-                    presignedUrls.get(post.getGeohash())
+                    post.coordinates().getY(),
+                    post.coordinates().getX(),
+                    post.name(),
+                    post.geohash(),
+                    post.type(),
+                    post.location(),
+                    Math.round(post.distance() * 100.0) / 100.0, // 소수점 2번째 자리까지 반올림
+                    presignedUrls.get(post.geohash())
             ));
         });
 

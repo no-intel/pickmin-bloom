@@ -3,12 +3,22 @@ package org.noint.pickminbloom.post.dto;
 import org.noint.pickminbloom.post.request.GetPostCoordinatesByViewRequest;
 
 public record GetPostCoordinatesByViewDto(
-        Double minX,
-        Double minY,
-        Double maxX,
-        Double maxY) {
+        Double minLongitude,
+        Double minLatitude,
+        Double maxLongitude,
+        Double maxLatitude,
+        Double longitude,
+        Double latitude
+) {
 
     public GetPostCoordinatesByViewDto(GetPostCoordinatesByViewRequest request) {
-        this(request.minX(), request.minY(), request.maxX(), request.maxY());
+        this(
+                request.minLongitude(),
+                request.minLatitude(),
+                request.maxLongitude(),
+                request.maxLatitude(),
+                request.longitude(),
+                request.latitude()
+        );
     }
 }
