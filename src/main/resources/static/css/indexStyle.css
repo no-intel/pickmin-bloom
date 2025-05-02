@@ -31,4 +31,13 @@
     display: none; /* 기본적으로 숨김 */
     position: relative;
     z-index: 10000;
+    color: black;
+}
+
+#map-popup img {
+    max-width: 100%;
+    height: auto;
+    display: block;
+    margin: 4px 0;
+    border-radius: 4px;
 }

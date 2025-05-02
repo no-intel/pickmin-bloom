@@ -9,6 +9,7 @@ const createMarkerFeature = (post) => {
         geometry: new ol.geom.Point(lonLat),
         iconUrl: icon,
         eventAble: false,
+        geohash: post.geohash,
     });
 };
 

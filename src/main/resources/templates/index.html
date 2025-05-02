@@ -460,24 +460,30 @@
     <script src="/js/postRender.js"></script>
     <script src="/js/simpleScrollbar.js"></script>
     <script>
+        let posts = null;
         window.onload = async () => {
             console.log("모든 리소스가 로드되었습니다.");
             const map = await rendMap();
+            const popup = document.getElementById('map-popup');
 
             clickSelect.on('select', function (e) {
                 const selectedFeatures = clickSelect.getFeatures();
                 selectedFeatures.clear();
 
                 const feature = e.selected[0];
-
                 if (feature) {
                     const coord = feature.getGeometry().getCoordinates();
+                    const geohash = feature.get('features')[0].get('geohash');
+                    const post = posts.find(post => post.geohash === geohash);
 
                     popup.innerHTML = `
-            <strong>${feature.get('name') || '이름 없음'}</strong><br>
-            위치: ${feature.get('location') || '-' }<br>
-            타입: ${feature.get('type') || '-'}
-        `;
+                        <strong>${post.name}</strong><br>
+                        <img src="${post.presignedUrl}" onerror="this.onerror=null; this.src='/img/no-img.png';" style="max-width: 100%; height: auto;"><br>
+                        위치복사: <button class="btn btn-sm btn-light" onclick="copyToClipboard('${post.latitude}, ${post.longitude}')" title="위치 복사">
+                                <i class="fas fa-copy"></i>
+                            </button><br>
+                        엽서구분 : ${post.type}<br>
+                    `;
                     popup.style.display = 'block';
                     overlay.setPosition(coord);
                 } else {
@@ -500,12 +506,18 @@
                     const [minLongitude, minLatitude, maxLongitude, maxLatitude] = ol.proj.transformExtent(extent, 'EPSG:3857', 'EPSG:4326');
                     const [longitude, latitude] = new ol.proj.transform(coordinate, 'EPSG:3857', 'EPSG:4326');
 
-                    const posts = await findPosts(minLongitude, minLatitude, maxLongitude, maxLatitude, longitude, latitude);
+                    posts = await findPosts(minLongitude, minLatitude, maxLongitude, maxLatitude, longitude, latitude);
                     markers(map, posts, coordinate[0], coordinate[1]);
                     rendPostsImgCard(posts)
                 }
             });
         };
+
+        function copyToClipboard(text) {
+            navigator.clipboard.writeText(text)
+                .then(() => alert("위치가 복사되었습니다."))
+                .catch(err => alert("복사에 실패했습니다."));
+        }
     </script>
 </body>
 

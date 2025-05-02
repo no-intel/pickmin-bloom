@@ -58,12 +58,10 @@ const clickSelect = new ol.interaction.Select({
     }
 })
 
-const popup = document.getElementById('map-popup');
-
 const overlay = new ol.Overlay({
-    element: popup,
+    element: document.getElementById('map-popup'),
     positioning: 'bottom-center',
-    stopEvent: false,
+    stopEvent: true,
     offset: [0, -12] // 마커 위 약간 띄우기
 });
 
