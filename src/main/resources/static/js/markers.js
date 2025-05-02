@@ -8,6 +8,7 @@ const createMarkerFeature = (post) => {
     return new ol.Feature({
         geometry: new ol.geom.Point(lonLat),
         iconUrl: icon,
+        eventAble: false,
     });
 };
 
@@ -69,6 +70,7 @@ const setMarkerLayer = (features) => {
 const setStandardLayer = (x, y) => {
     let features = new ol.Feature({
         geometry: new ol.geom.Point([x, y]),
+        eventAble: false,
     });
 
     const layer = new ol.layer.Vector({
@@ -78,8 +80,8 @@ const setStandardLayer = (x, y) => {
         style: new ol.style.Style({
             image: new ol.style.Icon({
                 anchor: [0.5, 1], // 아이콘 기준점을 하단 중앙으로 설정
-                src: 'https://cdn-icons-png.flaticon.com/512/1483/1483285.png', // 마커 이미지
-                scale: 0.05 // 아이콘 크기 조정
+                src: 'img/pin.png', // 마커 이미지
+                scale: 0.8 // 아이콘 크기 조정
             })
         })
     });

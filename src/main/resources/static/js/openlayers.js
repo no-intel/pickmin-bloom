@@ -14,6 +14,59 @@ const getCurrentLocation = async () => {
     });
 };
 
+const hoverSelect = new ol.interaction.Select({
+    condition: ol.events.condition.pointerMove,
+    filter: function(feature) {
+        // features라는 속성이 있는 경우는 클러스터이므로 제외
+        const clustered = feature.get('features');
+        if (feature.get('eventAble') === false) return false;
+        return !clustered || clustered.length === 1;
+    },
+    style: (feature) => {
+        const clustered = feature.get('features');
+        const single = clustered[0];
+        return new ol.style.Style({
+            image: new ol.style.Icon({
+                anchor: [0.5, 1],
+                src: single.get('iconUrl'),
+                scale: 1.2
+            }),
+            zIndex: 10
+        });
+    }
+})
+
+const clickSelect = new ol.interaction.Select({
+    condition: ol.events.condition.click,
+    filter: function(feature) {
+        // features라는 속성이 있는 경우는 클러스터이므로 제외
+        const clustered = feature.get('features');
+        if (feature.get('eventAble') === false) return false;
+        return !clustered || clustered.length === 1;
+    },
+    style: (feature) => {
+        const clustered = feature.get('features');
+        const single = clustered[0];
+        return new ol.style.Style({
+            image: new ol.style.Icon({
+                anchor: [0.5, 1],
+                src: single.get('iconUrl'),
+                scale: 1.2
+            }),
+            zIndex: 10
+        });
+    }
+})
+
+const popup = document.getElementById('map-popup');
+
+const overlay = new ol.Overlay({
+    element: popup,
+    positioning: 'bottom-center',
+    stopEvent: false,
+    offset: [0, -12] // 마커 위 약간 띄우기
+});
+
 const rendMap = async () => {
     const { latitude, longitude } = await getCurrentLocation();
 
@@ -33,20 +86,9 @@ const rendMap = async () => {
         view: view,
     });
 
-    map.on('click', async (e) => {
-        const view = map.getView();
-        const zoom = view.getZoom();
-        const coordinate = e.coordinate; // EPSG:3857 기준 x,y 좌료
-        view.setCenter(coordinate);
-
-        const extent = view.calculateExtent(map.getSize());
-        const [minLongitude, minLatitude, maxLongitude, maxLatitude] = ol.proj.transformExtent(extent, 'EPSG:3857', 'EPSG:4326');
-        const [longitude, latitude] = new ol.proj.transform(coordinate, 'EPSG:3857', 'EPSG:4326');
-
-        const posts = await findPosts(minLongitude, minLatitude, maxLongitude, maxLatitude, longitude, latitude);
-        markers(map, posts, coordinate[0], coordinate[1]);
-        rendPostsImgCard(posts)
-    });
+    map.addInteraction(hoverSelect);
+    map.addInteraction(clickSelect);
+    map.addOverlay(overlay);
 
     return map;
 };
