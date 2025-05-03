@@ -90,3 +90,32 @@ const rendMap = async () => {
 
     return map;
 };
+
+function handleFeatureSelection(feature) {
+    const popup = document.getElementById('map-popup');
+    if (!feature) {
+        popup.style.display = 'none';
+        overlay.setPosition(undefined);
+        return;
+    }
+
+    // ✅ 클러스터 feature인지 확인
+    const isCluster = Array.isArray(feature.get('features'));
+    const targetFeature = isCluster ? feature.get('features')[0] : feature;
+    const coord = feature.getGeometry().getCoordinates();
+    const geohash = targetFeature.get('geohash');
+    const post = posts.find(post => post.geohash === geohash);
+
+    popup.innerHTML = `
+        <strong>${post.name}</strong><br>
+        <img src="${post.presignedUrl}" onerror="this.onerror=null; this.src='/img/no-img.png';" style="max-width: 100%; height: auto;"><br>
+        위치복사: <button class="btn btn-sm btn-light" onclick="copyToClipboard('${post.latitude}, ${post.longitude}')" title="위치 복사">
+                <i class="fas fa-copy"></i>
+            </button><br>
+        엽서구분 : ${post.type}<br>
+    `;
+    popup.style.display = 'block';
+    overlay.setPosition(coord);
+    isOnlyViewMoving = true;
+    map.getView().setCenter(coord);
+}

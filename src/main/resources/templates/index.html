@@ -461,38 +461,28 @@
     <script src="/js/simpleScrollbar.js"></script>
     <script>
         let posts = null;
+        let map = null;
+        let isOnlyViewMoving = false;
         window.onload = async () => {
-            console.log("모든 리소스가 로드되었습니다.");
-            const map = await rendMap();
+            map = await rendMap();
             const popup = document.getElementById('map-popup');
-
             clickSelect.on('select', function (e) {
                 const selectedFeatures = clickSelect.getFeatures();
                 selectedFeatures.clear();
 
                 const feature = e.selected[0];
                 if (feature) {
-                    const coord = feature.getGeometry().getCoordinates();
-                    const geohash = feature.get('features')[0].get('geohash');
-                    const post = posts.find(post => post.geohash === geohash);
-
-                    popup.innerHTML = `
-                        <strong>${post.name}</strong><br>
-                        <img src="${post.presignedUrl}" onerror="this.onerror=null; this.src='/img/no-img.png';" style="max-width: 100%; height: auto;"><br>
-                        위치복사: <button class="btn btn-sm btn-light" onclick="copyToClipboard('${post.latitude}, ${post.longitude}')" title="위치 복사">
-                                <i class="fas fa-copy"></i>
-                            </button><br>
-                        엽서구분 : ${post.type}<br>
-                    `;
-                    popup.style.display = 'block';
-                    overlay.setPosition(coord);
-                } else {
-                    popup.style.display = 'none';
-                    overlay.setPosition(undefined);
+                    selectedFeatures.push(feature);   // 선택 표시 유지
                 }
+
+                handleFeatureSelection(feature);
             });
 
             map.on('singleclick', async (e) => {
+                if(isOnlyViewMoving){
+                    isOnlyViewMoving = false;
+                    return;
+                }
                 if(!map.hasFeatureAtPixel(e.pixel)){
                     popup.style.display = 'none';
                     overlay.setPosition(undefined);

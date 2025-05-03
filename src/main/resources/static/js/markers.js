@@ -16,16 +16,17 @@ const createMarkerFeature = (post) => {
 // 마커 레이어 생성
 const setMarkerLayer = (features) => {
     const vectorSource = new ol.source.Vector({
-        features: features
+        features: features,
     });
 
     const clusterSource = new ol.source.Cluster({
         distance: 40,
-        source: vectorSource
+        source: vectorSource,
     })
 
     return new ol.layer.Vector({
         source: clusterSource,
+        name: 'postVector',
         style: function (feature) {
             const features = feature.get('features');
             const size = features.length;
