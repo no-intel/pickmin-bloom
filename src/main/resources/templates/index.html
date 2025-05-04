@@ -1,6 +1,5 @@
 <!DOCTYPE html>
-<html lang="ko">
-
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible">
@@ -226,86 +225,14 @@
         <!-- End of Page Wrapper -->
 
         <!-- 로그인 모달 -->
-        <div class="modal fade" id="loginModal" tabindex="-1" aria-labelledby="loginModalLabel" aria-hidden="true">
-            <div class="modal-dialog">
-                <div class="modal-content">
-
-                    <!-- 모달 헤더 -->
-                    <div class="modal-header">
-                        <h5 class="modal-title" id="loginModalLabel">로그인/회원가입</h5>
-                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">x</button>
-                    </div>
-
-                    <!-- ✅ 추가: 안내 문구 -->
-                    <div>
-                        <img alt="login-log" src="/img/login-log.png" style="max-width: 100%; height: auto;">
-                    </div>
-
-                    <!-- 모달 바디 -->
-                    <div class="modal-body">
-                        <div class="d-flex justify-content-center gap-3 mb-3">.
-                            <button class="btn p-0 border-0">
-                                <img alt="light themed pill shaped Sign in with Google button" src="/img/web_light_rd_SI.svg">
-                            </button>
-                        </div>
-                        <hr>
-                        <div class="d-flex justify-content-center gap-3">
-                            <button class="btn p-0 border-0">
-                                <img alt="light themed pill shaped Sign in with Google button" src="/img/web_light_rd_SI.svg">
-                            </button>
-                        </div>
-                    </div>
-
-                    <!-- 모달 푸터 -->
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                    </div>
-                </div>
-            </div>
-        </div>
-
+        <div th:replace="modal/loginModal.html"></div>
         <!-- Logout Modal-->
-        <div class="modal fade" id="logoutModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
-             aria-hidden="true">
-            <div class="modal-dialog" role="document">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h5 class="modal-title" id="exampleModalLabel">Ready to Leave?</h5>
-                        <button class="close" type="button" data-dismiss="modal" aria-label="Close">
-                            <span aria-hidden="true">×</span>
-                        </button>
-                    </div>
-                    <div class="modal-body">Select "Logout" below if you are ready to end your current session.</div>
-                    <div class="modal-footer">
-                        <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
-                        <a class="btn btn-primary" href="login.html">Logout</a>
-                    </div>
-                </div>
-            </div>
-        </div>
+        <div th:replace="modal/logoutModal.html"></div>
+
     </div>
 
-    <!-- Bootstrap core JavaScript-->
-    <script src="/lib/vendor/jquery/jquery.min.js"></script>
-    <script src="/lib/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+    <div th:include="script.html"></div>
 
-    <!-- Core plugin JavaScript-->
-    <script src="/lib/vendor/jquery-easing/jquery.easing.min.js"></script>
-
-    <!-- Custom scripts for all pages-->
-    <script src="/lib/vendor/js/sb-admin-2.js"></script>
-
-    <!-- Page level plugins -->
-    <script src="/lib/vendor/chart.js/Chart.min.js"></script>
-    <!-- 스크롤 라이브러리 -->
-    <script src="https://cdn.jsdelivr.net/npm/simplebar@latest/dist/simplebar.min.js"></script>
-
-    <!-- Custom -->
-    <script src="/lib/openlayers/dist/ol.js"></script>
-    <script src="/js/openlayers.js"></script>
-    <script src="/js/markers.js"></script>
-    <script src="/js/postRender.js"></script>
-    <script src="/js/simpleScrollbar.js"></script>
     <script>
         let posts = null;
         let map = null;

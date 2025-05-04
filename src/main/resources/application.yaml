@@ -17,6 +17,15 @@ spring:
         show_sql: true
         format_sql: true
         highlight_sql: true
+
+  thymeleaf:
+    prefix: classpath:/templates/         # Thymeleaf 템플릿 폴더 위치
+    suffix: .html                         # Thymeleaf 템플릿 파일 확장자
+    mode: HTML5                           # Thymeleaf 처리 모드
+    encoding: UTF-8                       # 파일 인코딩 설정
+    cache: false                          # 캐싱 비활성화 (개발 시 편리)
+    enabled: true                         # Thymeleaf 사용 여부             # 템플릿 캐싱 비활성화 (개발 중 편리)
+
 logging:
   level:
     org:
