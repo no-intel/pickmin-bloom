@@ -60,9 +60,9 @@ const clickSelect = new ol.interaction.Select({
 
 const overlay = new ol.Overlay({
     element: document.getElementById('map-popup'),
-    positioning: 'bottom-center',
+    positioning: 'center-left',
     stopEvent: true,
-    offset: [0, -12] // 마커 위 약간 띄우기
+    offset: [10, 0] // 마커 위 약간 띄우기
 });
 
 const rendMap = async () => {
@@ -107,7 +107,10 @@ function handleFeatureSelection(feature) {
     const post = posts.find(post => post.geohash === geohash);
 
     popup.innerHTML = `
-        <strong>${post.name}</strong><br>
+        <div style="display: flex; justify-content: space-between; align-items: center;">
+            <strong>${post.name}</strong>
+            <button class="popup-close-btn" onclick="closePopup()" title="닫기">×</button>
+        </div>
         <img src="${post.presignedUrl}" onerror="this.onerror=null; this.src='/img/no-img.png';" style="max-width: 100%; height: auto;"><br>
         위치복사: <button class="btn btn-sm btn-light" onclick="copyToClipboard('${post.latitude}, ${post.longitude}')" title="위치 복사">
                 <i class="fas fa-copy"></i>
@@ -118,4 +121,18 @@ function handleFeatureSelection(feature) {
     overlay.setPosition(coord);
     isOnlyViewMoving = true;
     map.getView().setCenter(coord);
+}
+
+function closePopup() {
+    const popup = document.getElementById('map-popup');
+    popup.innerHTML = '';
+    popup.style.display = 'none';
+
+    if (typeof overlay !== 'undefined') {
+        overlay.setPosition(undefined);  // 팝업 좌표 제거
+    }
+
+    if (typeof clickSelect !== 'undefined') {
+        clickSelect.getFeatures().clear();
+    }
 }
