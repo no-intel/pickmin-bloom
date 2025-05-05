@@ -4,7 +4,6 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.noint.pickminbloom.post.dto.GetPostCoordinatesByViewDto;
 import org.noint.pickminbloom.post.dto.GetPostResponseDto;
-import org.noint.pickminbloom.post.entity.Post;
 import org.noint.pickminbloom.post.repository.PostQuerydslRepository;
 import org.noint.pickminbloom.post.response.GetPostCoordinatesResponse;
 import org.noint.pickminbloom.post.util.S3Util;

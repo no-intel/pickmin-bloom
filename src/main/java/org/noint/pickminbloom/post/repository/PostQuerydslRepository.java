@@ -11,7 +11,6 @@ import org.noint.pickminbloom.post.dto.GetPostResponseDto;
 import org.noint.pickminbloom.post.entity.Post;
 import org.springframework.stereotype.Repository;
 
-import java.time.LocalDateTime;
 import java.util.List;
 
 import static org.noint.pickminbloom.post.entity.QPost.post;

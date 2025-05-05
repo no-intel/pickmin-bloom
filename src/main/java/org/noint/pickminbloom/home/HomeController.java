@@ -1,4 +1,4 @@
-package org.noint.pickminbloom.home.controller;
+package org.noint.pickminbloom.home;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;

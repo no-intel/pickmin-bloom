@@ -1,7 +1,6 @@
 package org.noint.pickminbloom.post.response;
 
 import org.noint.pickminbloom.post.dto.GetPostResponseDto;
-import org.noint.pickminbloom.post.entity.Post;
 
 import java.util.ArrayList;
 import java.util.List;
