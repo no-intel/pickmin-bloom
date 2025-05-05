@@ -36,6 +36,9 @@ public class Post {
     @Column(nullable = false, name = "type")
     private String type;
 
+    @Column(nullable = false, name = "requester_id")
+    private Long requesterId;
+
     @Column(nullable = false, name = "created_at")
     private LocalDateTime createdAt;
 
