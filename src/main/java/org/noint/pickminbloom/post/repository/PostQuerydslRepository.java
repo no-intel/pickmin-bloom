@@ -65,7 +65,8 @@ public class PostQuerydslRepository {
                         Expressions.numberTemplate(Double.class, "ST_Y({0})", post.coordinates)
                                 .between(dto.minLongitude(), dto.maxLongitude()),
                         Expressions.numberTemplate(Double.class, "ST_X({0})", post.coordinates)
-                                .between(dto.minLatitude(), dto.maxLatitude())
+                                .between(dto.minLatitude(), dto.maxLatitude()),
+                        post.deletedAt.isNull()
                 )
                 .orderBy(distance.asc())
                 .limit(20)
