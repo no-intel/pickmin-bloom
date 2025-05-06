@@ -1,7 +1,7 @@
 package org.noint.pickminbloom.post.util;
 
 import lombok.extern.slf4j.Slf4j;
-import org.noint.pickminbloom.exception.post.EmptyFaillException;
+import org.noint.pickminbloom.exception.post.EmptyFailException;
 import org.noint.pickminbloom.exception.post.EncodeFailException;
 import org.springframework.stereotype.Component;
 import org.springframework.web.multipart.MultipartFile;
@@ -16,7 +16,7 @@ public class FileCodecUtil {
     public String encode(MultipartFile file) {
         try {
             if (file == null || file.isEmpty()) { // 빈 파일 또는 null 확인
-                throw new EmptyFaillException();
+                throw new EmptyFailException();
             }
 
             byte[] fileBytes = file.getBytes();
