@@ -1,0 +1,51 @@
+<div class="modal fade" id="register-post-modal" tabindex="-1" role="dialog" aria-labelledby="엽서 등록 신청"
+     aria-hidden="true">
+    <div class="modal-dialog modal-xl" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">엽서 등록 신청</h5>
+                <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">×</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-lg-6 d-none d-lg-block bg-login-image">
+                            <img src="/img/post-register.png" alt="register-post-image" style="max-width: 100%; height: auto;">
+                        </div>
+                        <div class="col-lg-6">
+                            <label for="post-name">엽서 이름</label>
+                            <input type="text" class="form-control" id="post-name" placeholder="엽서 이름">
+                            <label for="post-latitude">위도(구글 좌표 기준 왼쪽)</label>
+                            <input type="number" class="form-control" id="post-latitude" placeholder="32.22222">
+                            <label for="post-longitude">경도(구글 좌표 기준 오른쪽)</label>
+                            <input type="number" class="form-control" id="post-longitude" placeholder="127.22222">
+                            <div class="mb-3">
+                                <label for="post-img" class="form-label">엽서 이미지 업로드</label>
+                                <div class="input-group">
+                                    <input type="file" class="form-control" id="post-img">
+                                    <label class="input-group-text" for="post-img">Upload</label>
+                                </div>
+                            </div>
+
+                            <div class="form-check form-switch mb-3">
+                                <input class="form-check-input" type="checkbox" id="no-img">
+                                <label class="form-check-label" for="no-img">이미지 없음</label>
+                            </div>
+                            <a href="../../pickmin-bloom/src/main/resources/templates/index.html" class="btn btn-primary btn-user btn-block">
+                                등록 신청
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+
+</script>
