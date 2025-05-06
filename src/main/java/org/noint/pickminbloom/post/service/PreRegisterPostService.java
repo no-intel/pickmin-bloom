@@ -1,9 +1,6 @@
 package org.noint.pickminbloom.post.service;
 
 import lombok.RequiredArgsConstructor;
-import org.locationtech.jts.geom.Coordinate;
-import org.locationtech.jts.geom.GeometryFactory;
-import org.locationtech.jts.geom.Point;
 import org.noint.pickminbloom.exception.post.DuplicateCoordinateException;
 import org.noint.pickminbloom.post.dto.PreRegisterPostDto;
 import org.noint.pickminbloom.post.entity.Post;
@@ -22,18 +19,16 @@ import java.util.Optional;
 @Transactional
 public class PreRegisterPostService {
 
-    private final GeometryFactory geometryFactory;
     private final FileCodecUtil fileCodecUtil;
     private final PrePostRepository prePostRepository;
     private final PrePostQuerydslRepository prePostQuerydslRepository;
     private final PostQuerydslRepository postQuerydslRepository;
 
     public void preRegisterPost(PreRegisterPostDto dto) {
-        Point point = geometryFactory.createPoint(new Coordinate(dto.postLon(), dto.postLat()));
         Optional<PrePost> prePostData = prePostQuerydslRepository.findByCoor(dto.postLat(), dto.postLon());
-//        Optional<Post> postData = postQuerydslRepository.findByCoor(dto.postLat(), dto.postLon());
-        if (prePostData.isPresent()) {
-            throw new DuplicateCoordinateException(point.toString());
+        Optional<Post> postData = postQuerydslRepository.findByCoor(dto.postLat(), dto.postLon());
+        if (prePostData.isPresent() || postData.isPresent()) {
+            throw new DuplicateCoordinateException(dto.postLat() +", " + dto.postLon());
         }
 
         PrePost prePost = new PrePost(

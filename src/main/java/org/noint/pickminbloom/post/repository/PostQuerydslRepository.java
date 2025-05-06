@@ -7,9 +7,11 @@ import com.querydsl.jpa.impl.JPAQueryFactory;
 import lombok.RequiredArgsConstructor;
 import org.noint.pickminbloom.post.dto.GetPostCoordinatesByViewDto;
 import org.noint.pickminbloom.post.dto.GetPostResponseDto;
+import org.noint.pickminbloom.post.entity.Post;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
+import java.util.Optional;
 
 import static org.noint.pickminbloom.post.entity.QPost.post;
 
@@ -21,14 +23,14 @@ public class PostQuerydslRepository {
 
     public List<GetPostResponseDto> findPostsByView(GetPostCoordinatesByViewDto dto) {
         // 중심 좌표를 WKT 형식으로 변환 (mysql 순서: 위도, 경도)
-        String centerWkt = String.format("POINT(%f %f)", dto.latitude(), dto.longitude());
+        String wkt = String.format("POINT(%f %f)", dto.latitude(), dto.longitude());
 
         // 거리 계산용 식 (순서 바뀜: 위도, 경도)
         StringTemplate distanceExpr = Expressions.stringTemplate(
                 "ST_Distance_Sphere(ST_GeomFromText(CONCAT('POINT(', {1}, ' ', {0}, ')'), 4326), ST_GeomFromText({2}, 4326))",
-                post.longitude, // {0} = 경도
-                post.latitude,  // {1} = 위도
-                centerWkt       // {2} = 중심좌표 (POINT(위도 경도))
+                post.longitude,
+                post.latitude,
+                wkt
         );
 
         return queryFactory
@@ -53,19 +55,14 @@ public class PostQuerydslRepository {
                 .fetch();
     }
 
-//    public Optional<Post> findByCoor(Point point) {
-//        String wkt = String.format("POINT(%f %f)", point.getX(), point.getY());
-//        BooleanTemplate pointEq = Expressions.booleanTemplate(
-//                "ST_Equals({0},  ST_GeomFromText({1}, 4326))",
-//                post.coordinates,
-//                wkt
-//        );
-//        return Optional.ofNullable(queryFactory
-//                .selectFrom(post)
-//                .where(
-//                        pointEq,
-//                        post.deletedAt.isNull()
-//                )
-//                .fetchFirst());
-//    }
+    public Optional<Post> findByCoor(Double latitude, Double longitude) {
+        return Optional.ofNullable(queryFactory
+                .selectFrom(post)
+                .where(
+                        post.latitude.eq(latitude),
+                        post.longitude.eq(longitude),
+                        post.deletedAt.isNull()
+                )
+                .fetchFirst());
+    }
 }
