@@ -27,7 +27,7 @@ public record PreRegisterPostDto(
                 request.getPostName(),
                 request.getPostLat(),
                 request.getPostLon(),
-                request.getType(),
+                PostType.fromString(request.getPostType()),
                 validateImgFile(request.getPostImg(), request.isNoImg()),
                 request.isNoImg(),
                 registerId

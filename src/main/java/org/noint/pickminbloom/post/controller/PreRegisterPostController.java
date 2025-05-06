@@ -1,5 +1,6 @@
 package org.noint.pickminbloom.post.controller;
 
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.noint.pickminbloom.member.entity.Member;
 import org.noint.pickminbloom.member.service.GetMemberService;
@@ -24,8 +25,8 @@ public class PreRegisterPostController {
     private final PreRegisterPostService preRegisterPostService;
 
     @PostMapping
-    public ResponseEntity<Void> preRestPost(@ModelAttribute PreRegisterPostRequest request,
-                                      @AuthenticationPrincipal OAuth2User user) {
+    public ResponseEntity<?> preRestPost(@Valid @ModelAttribute PreRegisterPostRequest request,
+                                            @AuthenticationPrincipal OAuth2User user) {
         Member member = getMemberService.getMember(user.getAttribute("email"));
         PreRegisterPostDto dto = new PreRegisterPostDto(request, member.getId());
         preRegisterPostService.preRegisterPost(dto);

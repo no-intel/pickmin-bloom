@@ -8,6 +8,7 @@ import org.hibernate.annotations.JdbcTypeCode;
 import org.hibernate.type.SqlTypes;
 import org.locationtech.jts.geom.Point;
 import org.noint.pickminbloom.post.enums.PostType;
+import org.noint.pickminbloom.post.enums.PrePostStatus;
 
 import java.time.LocalDateTime;
 
@@ -24,9 +25,11 @@ public class PrePost {
     @Column(nullable = false)
     private String name;
 
-    @Column(nullable = false, name = "coordinates", columnDefinition = "POINT")
-    @JdbcTypeCode(SqlTypes.GEOMETRY)
-    private Point coordinates;
+    @Column(nullable = false)
+    private Double latitude;
+
+    @Column(nullable = false)
+    private Double longitude;
 
     @Column(columnDefinition = "TEXT")
     private String img;
@@ -41,6 +44,10 @@ public class PrePost {
     @Column(nullable = false, name = "requester_id")
     private Long requesterId;
 
+    @Column(nullable = false)
+    @Enumerated(EnumType.STRING)
+    private PrePostStatus status;
+
     @Column(nullable = false, name = "created_at")
     private LocalDateTime createdAt;
 
@@ -51,22 +58,20 @@ public class PrePost {
     private LocalDateTime deletedAt;
 
     public PrePost(String name,
-                   Point coordinates,
+                   Double latitude,
+                   Double longitude,
                    PostType type,
                    String postImg,
                    boolean noImg,
                    Long requesterId) {
         this.name = name;
-        initializeCoordinates(coordinates);
+        this.latitude = latitude;
+        this.longitude = longitude;
         this.type = type;
         this.img = postImg;
         this.noImg = noImg;
         this.requesterId = requesterId;
+        this.status = PrePostStatus.WAITING;
         createdAt = LocalDateTime.now();
-    }
-
-    private void initializeCoordinates(Point coordinates) {
-        this.coordinates = coordinates;
-        coordinates.setSRID(4326);
     }
 }

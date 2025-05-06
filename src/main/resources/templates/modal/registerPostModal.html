@@ -21,6 +21,15 @@
                             <input type="number" class="form-control" id="post-latitude" placeholder="32.22222">
                             <label for="post-longitude">경도(구글 좌표 기준 오른쪽)</label>
                             <input type="number" class="form-control" id="post-longitude" placeholder="127.22222">
+                            <label for="post-type">엽서 구분</label>
+                            <div class="dropdown mb-4">
+                                <select class="form-select" aria-label="Default select example" id="post-type">
+                                    <option selected value="null">구분</option>
+                                    <option value="버섯">버섯</option>
+                                    <option value="빅플">빅플</option>
+                                    <option value="탐험">탐험</option>
+                                </select>
+                            </div>
                             <div class="mb-3">
                                 <label for="post-img" class="form-label">엽서 이미지 업로드</label>
                                 <div class="input-group">
@@ -53,7 +62,14 @@
         const postLon = document.getElementById('post-longitude').value;
         const postImg = document.getElementById('post-img').files[0];
         const noImg = document.getElementById('no-img').checked;
+        const postType = document.getElementById('post-type').value;
 
+        console.log(postName)
+        console.log(postLat)
+        console.log(postLon)
+        console.log(postImg)
+        console.log(noImg)
+        console.log(postType)
         try {
             const formData = new FormData();
             formData.append('postName', postName);
@@ -61,6 +77,11 @@
             formData.append('postLon', postLon);
             formData.append('postImg', postImg);
             formData.append('noImg', noImg);
+            formData.append('postType', postType);
+
+            if (!vaildation(formData)){
+                throw new Error("엽서 신청에 필요한 조건을 만족하지 못했습니다.");
+            }
 
             const response = await fetch('/pre-posts', {
                 method: 'POST',
@@ -78,5 +99,44 @@
         } catch (error) {
             console.error('Error:', error);
         }
+    }
+    function vaildation(formData) {
+        if (!formData.get('postName') || formData.get('postName').trim() === "") {
+            alert("엽서 이름은 필수입니다!")
+            return false;
+        }
+
+        if (!formData.get('postLat') || isNaN(formData.get('postLat'))) {
+            alert("위도를 입력하세요!")
+            return false;
+        }
+
+        if (!formData.get('postLon') || isNaN(formData.get('postLon'))) {
+            alert("경도를 입력하세요!")
+            return false;
+        }
+
+        const postType = formData.get('postType');
+        const validPostTypes = ["탐험", "버섯", "빅플"];
+        if (!validPostTypes.includes(postType)) {
+            alert("엽서 구분은 '탐험', '버섯', '빅플' 중 하나여야 합니다!")
+            return false;
+        }
+
+        const noImg = formData.get('noImg') === "true" || formData.get('noImg') === true;
+        if (!noImg) {
+            const postImg = formData.get('postImg');
+            if (!postImg || !(postImg instanceof File)) {
+                alert("이미지를 업로드해 주세요!")
+                return false;
+            }
+
+            const allowedExtensions = ["image/jpeg", "image/png", "image/jpg"];
+            if (!allowedExtensions.includes(postImg.type)) {
+                alert("JPEG, JPG, PNG 형식의 이미지 파일만 가능합니다.")
+                return false;
+            }
+        }
+        return true;
     }
 </script>
