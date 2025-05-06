@@ -26,12 +26,11 @@ public class Post {
     @Column(name = "name")
     private String name;
 
-    @Column(nullable = false, name = "coordinates", columnDefinition = "POINT")
-    @JdbcTypeCode(SqlTypes.GEOMETRY)
-    private Point coordinates;
+    @Column(nullable = false)
+    private Double latitude;
 
-    @Column(name = "location")
-    private String location;
+    @Column(nullable = false)
+    private Double longitude;
 
     @Column(nullable = false, name = "type")
     private String type;
@@ -50,19 +49,14 @@ public class Post {
 
     public Post(String geohash,
                 String name,
-                Point coordinates,
-                String location,
+                Double latitude,
+                Double longitude,
                 String type) {
         this.geohash = geohash;
         this.name = name;
-        initializeCoordinates(coordinates);
-        this.location = location;
+        this.latitude = latitude;
+        this.longitude = longitude;
         this.type = type;
         this.createdAt = LocalDateTime.now();
     };
-
-    private void initializeCoordinates(Point coordinates) {
-        this.coordinates = coordinates;
-        coordinates.setSRID(4326);
-    }
 }
