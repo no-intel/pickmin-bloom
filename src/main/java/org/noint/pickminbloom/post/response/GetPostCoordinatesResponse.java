@@ -11,7 +11,6 @@ public record GetPostCoordinatesResponse(double latitude,
                                          String name,
                                          String geohash,
                                          String type,
-                                         String location,
                                          double distance,
                                          String presignedUrl) {
 
@@ -19,13 +18,12 @@ public record GetPostCoordinatesResponse(double latitude,
         List<GetPostCoordinatesResponse> responses = new ArrayList<>();
         posts.forEach(post -> {
             responses.add(new GetPostCoordinatesResponse(
-                    post.coordinates().getY(),
-                    post.coordinates().getX(),
+                    post.latitude(),
+                    post.longitude(),
                     post.name(),
                     post.geohash(),
                     post.type(),
-                    post.location(),
-                    Math.round(post.distance() * 100.0) / 100.0, // 소수점 2번째 자리까지 반올림
+                    Math.round(post.distance() * 100.0) / 100.0,
                     presignedUrls.get(post.geohash())
             ));
         });

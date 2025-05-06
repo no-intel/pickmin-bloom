@@ -7,7 +7,6 @@ public record RegisterPostRequest(
         Double longitude,
         MultipartFile image,
         String name,
-        String type,
-        String location
+        String type
 ) {
 }

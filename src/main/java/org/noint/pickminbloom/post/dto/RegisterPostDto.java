@@ -9,10 +9,9 @@ public record RegisterPostDto(
         Double longitude,
         MultipartFile image,
         String name,
-        String type,
-        String location
+        String type
 ) {
     public RegisterPostDto(String geohash, RegisterPostRequest request) {
-        this(geohash, request.latitude(), request.longitude(), request.image(), request.name(), request.type(), request.location());
+        this(geohash, request.latitude(), request.longitude(), request.image(), request.name(), request.type());
     }
 }

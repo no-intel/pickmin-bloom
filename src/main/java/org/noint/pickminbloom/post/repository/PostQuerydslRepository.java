@@ -5,10 +5,8 @@ import com.querydsl.core.types.dsl.Expressions;
 import com.querydsl.core.types.dsl.StringTemplate;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import lombok.RequiredArgsConstructor;
-import org.locationtech.jts.geom.Point;
 import org.noint.pickminbloom.post.dto.GetPostCoordinatesByViewDto;
 import org.noint.pickminbloom.post.dto.GetPostResponseDto;
-import org.noint.pickminbloom.post.entity.Post;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
@@ -21,32 +19,16 @@ public class PostQuerydslRepository {
 
     private final JPAQueryFactory queryFactory;
 
-    public List<Post> findPostsWithinDistance(Point referencePoint, Integer distanceInMeters) {
-        return queryFactory
-                .selectFrom(post)
-                .where(
-                        Expressions.booleanTemplate(
-                                "ST_DISTANCE_SPHERE({0}, {1}) <= {2}",
-                                post.coordinates,
-                                referencePoint,
-                                distanceInMeters
-                        )
-                ).orderBy(Expressions.numberTemplate(
-                        Double.class,
-                        "ST_DISTANCE_SPHERE({0}, {1})",
-                        post.coordinates,
-                        referencePoint
-                ).asc())
-                .fetch();
-    }
-
     public List<GetPostResponseDto> findPostsByView(GetPostCoordinatesByViewDto dto) {
-        String pointWKT = String.format("POINT(%f %f)", dto.latitude(), dto.longitude());
+        // 중심 좌표를 WKT 형식으로 변환 (mysql 순서: 위도, 경도)
+        String centerWkt = String.format("POINT(%f %f)", dto.latitude(), dto.longitude());
 
-        StringTemplate distance = Expressions.stringTemplate(
-                "ST_Distance_Sphere({0}, ST_GeomFromText({1}, 4326))",
-                post.coordinates,
-                pointWKT
+        // 거리 계산용 식 (순서 바뀜: 위도, 경도)
+        StringTemplate distanceExpr = Expressions.stringTemplate(
+                "ST_Distance_Sphere(ST_GeomFromText(CONCAT('POINT(', {1}, ' ', {0}, ')'), 4326), ST_GeomFromText({2}, 4326))",
+                post.longitude, // {0} = 경도
+                post.latitude,  // {1} = 위도
+                centerWkt       // {2} = 중심좌표 (POINT(위도 경도))
         );
 
         return queryFactory
@@ -54,23 +36,36 @@ public class PostQuerydslRepository {
                         post.id,
                         post.geohash,
                         post.name,
-                        post.coordinates,
-                        post.location,
+                        post.latitude,
+                        post.longitude,
                         post.type,
                         post.createdAt,
-                        distance.castToNum(Double.class).as("distance")
-                        ))
+                        distanceExpr.castToNum(Double.class).as("distance")
+                ))
                 .from(post)
                 .where(
-                        Expressions.numberTemplate(Double.class, "ST_Y({0})", post.coordinates)
-                                .between(dto.minLongitude(), dto.maxLongitude()),
-                        Expressions.numberTemplate(Double.class, "ST_X({0})", post.coordinates)
-                                .between(dto.minLatitude(), dto.maxLatitude()),
+                        post.longitude.between(dto.minLongitude(), dto.maxLongitude()),
+                        post.latitude.between(dto.minLatitude(), dto.maxLatitude()),
                         post.deletedAt.isNull()
                 )
-                .orderBy(distance.asc())
+                .orderBy(distanceExpr.asc())
                 .limit(20)
                 .fetch();
     }
 
+//    public Optional<Post> findByCoor(Point point) {
+//        String wkt = String.format("POINT(%f %f)", point.getX(), point.getY());
+//        BooleanTemplate pointEq = Expressions.booleanTemplate(
+//                "ST_Equals({0},  ST_GeomFromText({1}, 4326))",
+//                post.coordinates,
+//                wkt
+//        );
+//        return Optional.ofNullable(queryFactory
+//                .selectFrom(post)
+//                .where(
+//                        pointEq,
+//                        post.deletedAt.isNull()
+//                )
+//                .fetchFirst());
+//    }
 }
