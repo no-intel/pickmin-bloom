@@ -50,7 +50,7 @@
                 </div>
             </div>
             <div class="modal-footer">
-                <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
+                <button class="btn btn-secondary" type="button" data-dismiss="modal" onclick="closeModal()" id="register-post-modal-close-btn">Cancel</button>
             </div>
         </div>
     </div>
@@ -64,20 +64,16 @@
         const noImg = document.getElementById('no-img').checked;
         const postType = document.getElementById('post-type').value;
 
-        console.log(postName)
-        console.log(postLat)
-        console.log(postLon)
-        console.log(postImg)
-        console.log(noImg)
-        console.log(postType)
         try {
             const formData = new FormData();
             formData.append('postName', postName);
             formData.append('postLat', postLat);
             formData.append('postLon', postLon);
-            formData.append('postImg', postImg);
             formData.append('noImg', noImg);
             formData.append('postType', postType);
+            if (!noImg && postImg) {
+                formData.append('postImg', postImg);
+            }
 
             if (!vaildation(formData)){
                 throw new Error("엽서 신청에 필요한 조건을 만족하지 못했습니다.");
@@ -90,11 +86,14 @@
             });
 
             if (!response.ok) {
-                console.log(response);
-                throw new Error('Network response was not ok');
+                const result = await response.json();
+                alert(result.message);
+                return;
             }
 
-            return response.json();
+            document.getElementById('register-post-modal-close-btn').click();
+            alert("등록 신청이 완료 됐습니다.")
+            return null;
 
         } catch (error) {
             console.error('Error:', error);
@@ -138,5 +137,18 @@
             }
         }
         return true;
+    }
+
+    function closeModal() {
+        document.getElementById('post-name').value = '';
+        document.getElementById('post-latitude').value = '';
+        document.getElementById('post-longitude').value = '';
+        document.getElementById('post-img').value = '';
+        document.getElementById('no-img').checked = false;
+        document.getElementById('post-type').value = 'null';
+
+        const modal = document.getElementById('register-post-modal');
+        const bootstrapModal = bootstrap.Modal.getInstance(modal) || new bootstrap.Modal(modal);
+        bootstrapModal.hide();
     }
 </script>

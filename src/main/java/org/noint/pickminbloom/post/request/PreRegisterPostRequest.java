@@ -2,7 +2,6 @@ package org.noint.pickminbloom.post.request;
 
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
-import jakarta.validation.constraints.Pattern;
 import lombok.Getter;
 import lombok.Setter;
 import org.springframework.web.multipart.MultipartFile;
@@ -21,7 +20,6 @@ public class PreRegisterPostRequest {
 
     private MultipartFile postImg;
 
-    @NotNull(message = "이미지 여부를 명시해야 합니다!")
     private boolean noImg;
 
     private String postType;
