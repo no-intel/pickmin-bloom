@@ -2,7 +2,7 @@ package org.noint.pickminbloom.post.util;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.noint.pickminbloom.exception.post.EmptyFaillException;
+import org.noint.pickminbloom.exception.post.EmptyFailException;
 import org.springframework.mock.web.MockMultipartFile;
 
 import java.util.Base64;
@@ -50,6 +50,6 @@ class FailCodecTest {
         );
 
         // when&then
-        assertThrows(EmptyFaillException.class, () -> fileCodecUtil.encode(mockMultipartFile));
+        assertThrows(EmptyFailException.class, () -> fileCodecUtil.encode(mockMultipartFile));
     }
 }

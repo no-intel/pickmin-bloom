@@ -24,7 +24,7 @@
                             <div class="mb-3">
                                 <label for="post-img" class="form-label">엽서 이미지 업로드</label>
                                 <div class="input-group">
-                                    <input type="file" class="form-control" id="post-img">
+                                    <input type="file" class="form-control" id="post-img" accept="image/*">
                                     <label class="input-group-text" for="post-img">Upload</label>
                                 </div>
                             </div>
@@ -33,7 +33,7 @@
                                 <input class="form-check-input" type="checkbox" id="no-img">
                                 <label class="form-check-label" for="no-img">이미지 없음</label>
                             </div>
-                            <a href="../../pickmin-bloom/src/main/resources/templates/index.html" class="btn btn-primary btn-user btn-block">
+                            <a class="btn btn-primary btn-user btn-block" onclick="registerPost()">
                                 등록 신청
                             </a>
                         </div>
@@ -47,5 +47,36 @@
     </div>
 </div>
 <script>
+    async function registerPost() {
+        const postName = document.getElementById('post-name').value;
+        const postLat = document.getElementById('post-latitude').value;
+        const postLon = document.getElementById('post-longitude').value;
+        const postImg = document.getElementById('post-img').files[0];
+        const noImg = document.getElementById('no-img').checked;
 
+        try {
+            const formData = new FormData();
+            formData.append('postName', postName);
+            formData.append('postLat', postLat);
+            formData.append('postLon', postLon);
+            formData.append('postImg', postImg);
+            formData.append('noImg', noImg);
+
+            const response = await fetch('/pre-posts', {
+                method: 'POST',
+                body: formData,
+                credentials: 'include'
+            });
+
+            if (!response.ok) {
+                console.log(response);
+                throw new Error('Network response was not ok');
+            }
+
+            return response.json();
+
+        } catch (error) {
+            console.error('Error:', error);
+        }
+    }
 </script>

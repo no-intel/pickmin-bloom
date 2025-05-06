@@ -1,6 +1,5 @@
 package org.noint.pickminbloom.post.service;
 
-import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.locationtech.jts.geom.Coordinate;
 import org.locationtech.jts.geom.GeometryFactory;
@@ -9,6 +8,7 @@ import org.noint.pickminbloom.post.entity.Post;
 import org.noint.pickminbloom.post.repository.PostRepository;
 import org.noint.pickminbloom.post.util.S3Util;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 @Service
 @RequiredArgsConstructor
