@@ -6,6 +6,7 @@ import org.noint.pickminbloom.member.service.GetMemberService;
 import org.noint.pickminbloom.post.dto.UpdatePrePostStatusDto;
 import org.noint.pickminbloom.post.enums.PrePostStatus;
 import org.noint.pickminbloom.post.service.ConfirmPrePostService;
+import org.noint.pickminbloom.post.service.RejectPrePostService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.oauth2.core.user.OAuth2User;
@@ -17,6 +18,7 @@ import org.springframework.web.bind.annotation.*;
 public class UpdatePrePostStatusController {
 
     private final ConfirmPrePostService confirmPrePostService;
+    private final RejectPrePostService rejectPrePostService;
     private final GetMemberService getMemberService;
 
     @PutMapping("/{prePostId}/confirm")
@@ -26,6 +28,16 @@ public class UpdatePrePostStatusController {
         UpdatePrePostStatusDto updatePrePostStatusDto = new UpdatePrePostStatusDto(prePostId, PrePostStatus.CONFIRMED, member.getId());
         confirmPrePostService.confirm(updatePrePostStatusDto);
         return ResponseEntity.ok().build();
-
     }
+
+    @PutMapping("/{prePostId}/reject")
+    public ResponseEntity<Void> reject(@PathVariable Long prePostId,
+                                        @AuthenticationPrincipal OAuth2User user) {
+        Member member = getMemberService.getMember(user.getAttribute("email"));
+        UpdatePrePostStatusDto updatePrePostStatusDto = new UpdatePrePostStatusDto(prePostId, PrePostStatus.REJECTED, member.getId());
+        rejectPrePostService.reject(updatePrePostStatusDto);
+        return ResponseEntity.ok().build();
+    }
+
+
 }
