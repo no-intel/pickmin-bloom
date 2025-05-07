@@ -1,9 +1,11 @@
 package org.noint.pickminbloom.post.enums;
 
+import lombok.Getter;
 import org.noint.pickminbloom.exception.post.NotMatchPostTypeException;
 
 import java.util.Arrays;
 
+@Getter
 public enum PostType {
     EXPLORER("탐험"),
     MUSHROOM("버섯"),

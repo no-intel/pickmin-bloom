@@ -22,7 +22,7 @@ public record GetPostCoordinatesResponse(double latitude,
                     post.longitude(),
                     post.name(),
                     post.geohash(),
-                    post.type(),
+                    post.type().getTypeKor(),
                     Math.round(post.distance() * 100.0) / 100.0,
                     presignedUrls.get(post.geohash())
             ));

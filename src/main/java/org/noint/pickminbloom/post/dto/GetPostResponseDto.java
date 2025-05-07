@@ -1,6 +1,7 @@
 package org.noint.pickminbloom.post.dto;
 
 import com.querydsl.core.annotations.QueryProjection;
+import org.noint.pickminbloom.post.enums.PostType;
 
 import java.time.LocalDateTime;
 
@@ -10,7 +11,7 @@ public record GetPostResponseDto(
         String name,
         Double latitude,
         Double longitude,
-        String type,
+        PostType type,
         LocalDateTime createdAt,
         Double distance
 ) {
