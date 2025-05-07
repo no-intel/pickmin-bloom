@@ -12,7 +12,7 @@ import org.springframework.transaction.annotation.Transactional;
 @Service
 @RequiredArgsConstructor
 @Transactional
-public class PreRegisterPostService {
+public class RegisterPrePostService {
 
     private final FileCodecUtil fileCodecUtil;
     private final PrePostRepository prePostRepository;
