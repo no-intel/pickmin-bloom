@@ -64,3 +64,6 @@ aws:
 server:
   address: 0.0.0.0
   port: 8080
+  servlet:
+    session:
+      timeout: 1d

@@ -36,7 +36,6 @@ public class SecurityConfig {
                     ).csrf(AbstractHttpConfigurer::disable)
                     .build();
         } catch (Exception e) {
-            e.printStackTrace();
             log.error("Security config error: {}", e.getMessage());
             throw new SecurityException();
         }
