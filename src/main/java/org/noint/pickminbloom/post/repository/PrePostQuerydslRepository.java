@@ -1,10 +1,7 @@
 package org.noint.pickminbloom.post.repository;
 
-import com.querydsl.core.types.dsl.BooleanTemplate;
-import com.querydsl.core.types.dsl.Expressions;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import lombok.RequiredArgsConstructor;
-import org.locationtech.jts.geom.Point;
 import org.noint.pickminbloom.post.entity.PrePost;
 import org.noint.pickminbloom.post.enums.PrePostStatus;
 import org.springframework.stereotype.Repository;
@@ -25,7 +22,7 @@ public class PrePostQuerydslRepository {
                 .where(
                         prePost.latitude.eq(latitude),
                         prePost.longitude.eq(longitude),
-                        prePost.status.ne(PrePostStatus.DISPROVED)
+                        prePost.status.ne(PrePostStatus.REJECTED)
                 )
                 .fetchFirst());
     }

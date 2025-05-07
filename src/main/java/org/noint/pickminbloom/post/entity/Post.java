@@ -56,12 +56,16 @@ public class Post {
                 String name,
                 Double latitude,
                 Double longitude,
-                PostType type) {
+                PostType type,
+                Long requesterId,
+                Long confirmedBy) {
         this.geohash = geohash;
         this.name = name;
         this.latitude = latitude;
         this.longitude = longitude;
         this.type = type;
         this.createdAt = LocalDateTime.now();
+        this.requesterId = requesterId;
+        this.confirmedBy = confirmedBy;
     };
 }

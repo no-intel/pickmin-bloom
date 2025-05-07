@@ -44,6 +44,9 @@ public class PrePost {
     @Column(nullable = false, name = "requester_id")
     private Long requesterId;
 
+    @Column(nullable = false, name = "updated_by")
+    private Long updatedBy;
+
     @Column(nullable = false)
     @Enumerated(EnumType.STRING)
     private PrePostStatus status;
@@ -73,5 +76,11 @@ public class PrePost {
         this.requesterId = requesterId;
         this.status = PrePostStatus.WAITING;
         createdAt = LocalDateTime.now();
+    }
+
+    public void updateStatus(PrePostStatus status, Long updatedBy) {
+        this.status = status;
+        this.updatedBy = updatedBy;
+        this.updatedAt = LocalDateTime.now();
     }
 }
