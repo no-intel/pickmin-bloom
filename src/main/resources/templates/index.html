@@ -242,12 +242,12 @@
         <!-- End of Page Wrapper -->
 
         <!-- Modal-->
-        <div th:replace="modal/registerPostModal.html"></div>
-        <div th:replace="modal/logoutModal.html"></div>
+        <div th:replace="~{modal/registerPostModal.html}"></div>
+        <div th:replace="~{modal/logoutModal.html}"></div>
 
     </div>
 
-    <div th:include="script.html"></div>
+    <div th:replace="~{script.html}"></div>
 
     <script>
         let posts = null;
