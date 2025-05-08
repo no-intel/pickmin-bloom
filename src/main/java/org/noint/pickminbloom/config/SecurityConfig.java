@@ -6,6 +6,7 @@ import org.noint.pickminbloom.config.filter.FakeOAuth2AuthFilter;
 import org.noint.pickminbloom.member.service.SignService;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.http.HttpMethod;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configurers.AbstractHttpConfigurer;
@@ -26,8 +27,8 @@ public class SecurityConfig {
             return http
                     .addFilterBefore(new FakeOAuth2AuthFilter(), UsernamePasswordAuthenticationFilter.class)
                     .authorizeHttpRequests(auth -> auth
-                            .requestMatchers("/", "/sign", "/favicon.ico", "/img/**", "/js/**", "/css/**", "/lib/**", "/posts")
-                            .permitAll()
+                            .requestMatchers("/", "/sign", "/favicon.ico", "/img/**", "/js/**", "/css/**", "/lib/**").permitAll()
+                            .requestMatchers(HttpMethod.GET, "/posts").permitAll()
                             .anyRequest().authenticated())
                     .oauth2Login(oauth -> oauth
                             .loginPage("/sign")
