@@ -28,7 +28,7 @@ public class RegisterPrePostController {
     public ResponseEntity<?> preRestPost(@Valid @ModelAttribute PreRegisterPostRequest request,
                                             @AuthenticationPrincipal OAuth2User user) {
         Member member = getMemberService.getMember(user.getAttribute("email"));
-        PreRegisterPostDto dto = new PreRegisterPostDto(request, member.getId());
+        PreRegisterPostDto dto = new PreRegisterPostDto(request, member);
         registerPrePostService.preRegisterPost(dto);
         return ResponseEntity.status(HttpStatus.CREATED).build();
     }

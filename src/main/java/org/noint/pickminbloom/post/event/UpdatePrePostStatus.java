@@ -1,5 +1,6 @@
 package org.noint.pickminbloom.post.event;
 
+import org.noint.pickminbloom.member.entity.Member;
 import org.noint.pickminbloom.post.entity.PrePost;
 import org.noint.pickminbloom.post.enums.PostType;
 
@@ -9,7 +10,7 @@ public record UpdatePrePostStatus(
         byte[] img,
         String name,
         PostType type,
-        Long requesterId,
+        Member requester,
         Long confirmedBy
 ) {
     public static UpdatePrePostStatus confirmPrePost(PrePost prePost, Long confirmedBy) {
@@ -19,7 +20,7 @@ public record UpdatePrePostStatus(
                 prePost.getImg(),
                 prePost.getName(),
                 prePost.getType(),
-                prePost.getRequesterId(),
+                prePost.getRequester(),
                 confirmedBy
         );
     }

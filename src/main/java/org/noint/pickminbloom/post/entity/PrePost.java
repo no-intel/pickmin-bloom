@@ -6,6 +6,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.noint.pickminbloom.exception.post.ImgToByteException;
+import org.noint.pickminbloom.member.entity.Member;
 import org.noint.pickminbloom.post.enums.PostType;
 import org.noint.pickminbloom.post.enums.PrePostStatus;
 import org.springframework.web.multipart.MultipartFile;
@@ -41,8 +42,9 @@ public class PrePost {
     @Enumerated(EnumType.STRING)
     private PostType type;
 
-    @Column(nullable = false, name = "requester_id")
-    private Long requesterId;
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(nullable = false, name = "requested_by")
+    private Member requester;
 
     @Column(name = "updated_by")
     private Long updatedBy;
@@ -65,13 +67,13 @@ public class PrePost {
                    Double longitude,
                    PostType type,
                    MultipartFile postImg,
-                   Long requesterId) {
+                   Member requester) {
         this.name = name;
         this.latitude = latitude;
         this.longitude = longitude;
         this.type = type;
         convertByte(postImg);
-        this.requesterId = requesterId;
+        this.requester = requester;
         this.status = PrePostStatus.WAITING;
         createdAt = LocalDateTime.now();
     }

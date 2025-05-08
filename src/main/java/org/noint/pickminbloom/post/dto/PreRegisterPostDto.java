@@ -1,6 +1,7 @@
 package org.noint.pickminbloom.post.dto;
 
 import org.noint.pickminbloom.exception.post.NotImgException;
+import org.noint.pickminbloom.member.entity.Member;
 import org.noint.pickminbloom.post.enums.PostType;
 import org.noint.pickminbloom.post.request.PreRegisterPostRequest;
 import org.springframework.web.multipart.MultipartFile;
@@ -14,7 +15,7 @@ public record PreRegisterPostDto(
         Double postLon,
         PostType type,
         MultipartFile postImg,
-        Long registerId
+        Member requester
 ) {
     private static final List<String> ALLOWED_IMAGE_TYPES = Arrays.asList(
             "image/jpeg",
@@ -23,14 +24,14 @@ public record PreRegisterPostDto(
             "image/webp"
         );
 
-    public PreRegisterPostDto(PreRegisterPostRequest request, Long registerId) {
+    public PreRegisterPostDto(PreRegisterPostRequest request, Member requester) {
         this(
                 request.getPostName(),
                 request.getPostLat(),
                 request.getPostLon(),
                 PostType.fromString(request.getPostType()),
                 validateImgFile(request.getPostImg()),
-                registerId
+                requester
         );
     }
 

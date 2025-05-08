@@ -25,7 +25,7 @@ public class RegisterPrePostService {
                 dto.postLon(),
                 dto.type(),
                 dto.postImg(),
-                dto.registerId()
+                dto.requester()
         );
         prePostRepository.save(prePost);
     }

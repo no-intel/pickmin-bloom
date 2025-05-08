@@ -5,6 +5,7 @@ import lombok.*;
 import org.hibernate.annotations.JdbcTypeCode;
 import org.hibernate.type.SqlTypes;
 import org.locationtech.jts.geom.Point;
+import org.noint.pickminbloom.member.entity.Member;
 import org.noint.pickminbloom.post.enums.PostType;
 
 import java.time.LocalDateTime;
@@ -37,8 +38,9 @@ public class Post {
     @Enumerated(EnumType.STRING)
     private PostType type;
 
-    @Column(nullable = false, name = "requester_id")
-    private Long requesterId;
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(nullable = false, name = "requested_by")
+    private Member requester;
 
     @Column(nullable = false, name = "confirmed_by")
     private Long confirmedBy;
@@ -57,7 +59,7 @@ public class Post {
                 Double latitude,
                 Double longitude,
                 PostType type,
-                Long requesterId,
+                Member requester,
                 Long confirmedBy) {
         this.geohash = geohash;
         this.name = name;
@@ -65,7 +67,7 @@ public class Post {
         this.longitude = longitude;
         this.type = type;
         this.createdAt = LocalDateTime.now();
-        this.requesterId = requesterId;
+        this.requester = requester;
         this.confirmedBy = confirmedBy;
     };
 }

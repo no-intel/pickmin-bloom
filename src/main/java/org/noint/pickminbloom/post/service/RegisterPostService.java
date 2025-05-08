@@ -49,7 +49,7 @@ public class RegisterPostService {
                 event.latitude(),
                 event.longitude(),
                 event.type(),
-                event.requesterId(),
+                event.requester(),
                 event.confirmedBy()
         );
         postRepository.save(post);
