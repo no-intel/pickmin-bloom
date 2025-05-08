@@ -21,8 +21,8 @@ import org.springframework.web.multipart.MultipartFile;
 public class RegisterPostService {
 
     private final PostRepository postRepository;
-    private final S3Util s3Util;
     private final GeoHashUtil geoHashUtil;
+    private final S3Util s3Util;
     private final FileCodecUtil fileCodecUtil;
 
     @Transactional

@@ -6,12 +6,14 @@ import org.noint.pickminbloom.post.dto.GetPostCoordinatesByViewDto;
 import org.noint.pickminbloom.post.dto.GetPostResponseDto;
 import org.noint.pickminbloom.post.repository.PostQuerydslRepository;
 import org.noint.pickminbloom.post.response.GetPostCoordinatesResponse;
+import org.noint.pickminbloom.post.util.FileCodecUtil;
 import org.noint.pickminbloom.post.util.S3Util;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 @Slf4j
 @Service

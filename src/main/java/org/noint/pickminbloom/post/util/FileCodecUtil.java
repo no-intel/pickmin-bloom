@@ -10,10 +10,23 @@ import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
 import java.util.Base64;
+import java.util.Map;
+import java.util.stream.Collectors;
 
 @Slf4j
 @Component
 public class FileCodecUtil {
+
+    public Map<String, String> encode(Map<String, byte[]> imgMap) {
+        return imgMap.entrySet().stream()
+                .collect(Collectors.toMap(
+                        Map.Entry::getKey,                             // Key 그대로 유지
+                        entry -> entry.getValue() == null
+                                ? null                                 // Value가 null인 경우 그대로 null 유지
+                                : Base64.getEncoder().encodeToString(entry.getValue()) // Value가 null이 아니라면 Base64로 인코딩
+                ));
+
+    }
 
     public String encode(MultipartFile file) {
         try {
@@ -29,10 +42,8 @@ public class FileCodecUtil {
         }
     }
 
-    public MultipartFile decodeToMultipartFile(String geohash, String base64) {
+    public MultipartFile decodeToMultipartFile(String geohash, byte[] imageBytes) {
         try {
-            byte[] imageBytes = decodeBase64(base64);
-
             // 이미지의 content-type과 확장자 자동 판별
             String[] imageInfo = detectContentTypeAndExtension(imageBytes);
             String contentType = imageInfo[0];
@@ -46,11 +57,11 @@ public class FileCodecUtil {
         }
     }
 
-    // MAME 헤더(확장자)가 있다면 제거
-    private static byte[] decodeBase64(String base64) {
-        String pureBase64 = base64.contains(",") ? base64.split(",")[1] : base64;
-        return Base64.getDecoder().decode(pureBase64);
-    }
+//    // MAME 헤더(확장자)가 있다면 제거
+//    private static byte[] decodeBase64(String base64) {
+//        String pureBase64 = base64.contains(",") ? base64.split(",")[1] : base64;
+//        return Base64.getDecoder().decode(pureBase64);
+//    }
 
     // 바이트 코드 통해서 확장자 설정
     private String[] detectContentTypeAndExtension(byte[] imageBytes) throws IOException {
@@ -74,6 +85,6 @@ public class FileCodecUtil {
                 (imageBytes[2] & 0xFF) == 0xFF) {
             return new String[]{"image/jpeg", "jpeg"};
         }
-        throw new NotImgException();
+        return new String[]{"image/webp", "webp"};
     }
 }

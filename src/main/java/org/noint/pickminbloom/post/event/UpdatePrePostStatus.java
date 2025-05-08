@@ -6,7 +6,7 @@ import org.noint.pickminbloom.post.enums.PostType;
 public record UpdatePrePostStatus(
         Double latitude,
         Double longitude,
-        String img,
+        byte[] img,
         String name,
         PostType type,
         Long requesterId,

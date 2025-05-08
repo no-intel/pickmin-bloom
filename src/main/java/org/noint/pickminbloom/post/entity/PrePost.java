@@ -4,14 +4,16 @@ import jakarta.persistence.*;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-import org.hibernate.annotations.JdbcTypeCode;
-import org.hibernate.type.SqlTypes;
-import org.locationtech.jts.geom.Point;
+import lombok.extern.slf4j.Slf4j;
+import org.noint.pickminbloom.exception.post.ImgToByteException;
 import org.noint.pickminbloom.post.enums.PostType;
 import org.noint.pickminbloom.post.enums.PrePostStatus;
+import org.springframework.web.multipart.MultipartFile;
 
+import java.io.IOException;
 import java.time.LocalDateTime;
 
+@Slf4j
 @Entity
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
@@ -31,11 +33,9 @@ public class PrePost {
     @Column(nullable = false)
     private Double longitude;
 
-    @Column(columnDefinition = "TEXT")
-    private String img;
-
-    @Column(name = "no_img")
-    private boolean noImg;
+    @Lob
+    @Column(columnDefinition = "MEDIUMBLOB")
+    private byte[] img;
 
     @Column(nullable = false)
     @Enumerated(EnumType.STRING)
@@ -44,7 +44,7 @@ public class PrePost {
     @Column(nullable = false, name = "requester_id")
     private Long requesterId;
 
-    @Column(nullable = false, name = "updated_by")
+    @Column(name = "updated_by")
     private Long updatedBy;
 
     @Column(nullable = false)
@@ -64,15 +64,13 @@ public class PrePost {
                    Double latitude,
                    Double longitude,
                    PostType type,
-                   String postImg,
-                   boolean noImg,
+                   MultipartFile postImg,
                    Long requesterId) {
         this.name = name;
         this.latitude = latitude;
         this.longitude = longitude;
         this.type = type;
-        this.img = postImg;
-        this.noImg = noImg;
+        convertByte(postImg);
         this.requesterId = requesterId;
         this.status = PrePostStatus.WAITING;
         createdAt = LocalDateTime.now();
@@ -82,5 +80,14 @@ public class PrePost {
         this.status = status;
         this.updatedBy = updatedBy;
         this.updatedAt = LocalDateTime.now();
+    }
+
+    private void convertByte(MultipartFile img) {
+        try {
+            this.img = img.getBytes();
+        } catch (IOException e) {
+            log.error("MultipartFile to byte error: {}", e.getMessage());
+            throw new ImgToByteException();
+        }
     }
 }

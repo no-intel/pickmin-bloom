@@ -20,8 +20,6 @@ public class PreRegisterPostRequest {
 
     private MultipartFile postImg;
 
-    private boolean noImg;
-
     private String postType;
 
 }

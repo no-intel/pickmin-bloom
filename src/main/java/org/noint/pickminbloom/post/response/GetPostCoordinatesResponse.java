@@ -13,7 +13,6 @@ public record GetPostCoordinatesResponse(double latitude,
                                          String type,
                                          double distance,
                                          String presignedUrl) {
-
     public static List<GetPostCoordinatesResponse> create(List<GetPostResponseDto> posts, Map<String, String> presignedUrls) {
         List<GetPostCoordinatesResponse> responses = new ArrayList<>();
         posts.forEach(post -> {
