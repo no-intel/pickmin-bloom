@@ -3,11 +3,14 @@ package org.noint.pickminbloom.post.service;
 import lombok.RequiredArgsConstructor;
 import org.noint.pickminbloom.post.dto.UpdatePrePostStatusDto;
 import org.noint.pickminbloom.post.entity.PrePost;
+import org.noint.pickminbloom.post.enums.PrePostStatus;
 import org.noint.pickminbloom.post.event.UpdatePrePostStatus;
 import org.noint.pickminbloom.post.validator.ConfirmPrePostValidator;
 import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
+import java.util.List;
 
 @Service
 @RequiredArgsConstructor
@@ -23,5 +26,14 @@ public class ConfirmPrePostService {
         confirmPrePostValidator.validateStatus(prePost.getStatus());
         prePost.updateStatus(dto.status(), dto.updatedBy());
         eventPublisher.publishEvent(UpdatePrePostStatus.confirmPrePost(prePost, dto.updatedBy()));
+    }
+
+    // 임시기능
+    public void confirmAll() {
+        List<PrePost> prePostList = getPrePostService.getAllPrePost();
+        for (PrePost prePost : prePostList) {
+            prePost.updateStatus(PrePostStatus.CONFIRMED, 1L);
+            eventPublisher.publishEvent(UpdatePrePostStatus.confirmPrePost(prePost, 1L));
+        }
     }
 }

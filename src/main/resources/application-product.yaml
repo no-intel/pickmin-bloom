@@ -50,15 +50,14 @@ logging:
             extract: TRACE
 aws:
   s3:
-    endpoint: http://localhost:4566
-    region: us-east-1
+    region: ap-northeast-2
     bucket:
       post: pickmin-bloom-post
     presigned:
-      duration: 30
+      duration: 300
     credentials:
-      access-key: test
-      secret-key: test
+      access-key: ${AWS_ACCESS_KEY}
+      secret-key: ${AWS_SECRET_KEY}
 server:
   address: 0.0.0.0
   port: 8080

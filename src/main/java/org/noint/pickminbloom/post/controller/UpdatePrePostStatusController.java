@@ -39,5 +39,9 @@ public class UpdatePrePostStatusController {
         return ResponseEntity.ok().build();
     }
 
-
+    @PutMapping("/confirm/all")
+    public ResponseEntity<Void> confirmAll() {
+        confirmPrePostService.confirmAll();
+        return ResponseEntity.ok().build();
+    }
 }
