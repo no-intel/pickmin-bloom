@@ -1,16 +1,14 @@
 spring:
-  profiles:
-    active: local
   application:
     name: pickmin-bloom
   datasource:
-    url: jdbc:mysql://127.0.0.1:3306/pickmin_bloom?useSSL=false&characterEncoding=UTF-8&serverTimezone=UTC
-    username: admin
+    url: jdbc:mysql://pickmin-bloom.c18ys0iw669m.ap-northeast-2.rds.amazonaws.com/pickmin_bloom?useSSL=false&characterEncoding=UTF-8&serverTimezone=UTC
+    username: padmin
     password: admin
     driver-class-name: com.mysql.cj.jdbc.Driver
   jpa:
     hibernate:
-      ddl-auto: update
+      ddl-auto: none
     properties:
       hibernate:
         dialect: org.hibernate.dialect.MySQL8Dialect

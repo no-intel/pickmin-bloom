@@ -1,0 +1,67 @@
+spring:
+  application:
+    name: pickmin-bloom
+  datasource:
+    url: jdbc:mysql://127.0.0.1:3306/pickmin_bloom?useSSL=false&characterEncoding=UTF-8&serverTimezone=UTC
+    username: admin
+    password: admin
+    driver-class-name: com.mysql.cj.jdbc.Driver
+  jpa:
+    hibernate:
+      ddl-auto: update
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.MySQL8Dialect
+        show_sql: true
+        format_sql: true
+        highlight_sql: true
+  security:
+    oauth2:
+      client:
+        registration:
+          google:
+            client-id: ${GOOGLE_OAUTH_CLIENT_KEY}
+            client-secret: ${GOOGLE_OAUTH_SECRET_KEY}
+            redirect-uri: "http://localhost:8080/login/oauth2/code/google"
+            scope:
+              - profile
+              - email
+  thymeleaf:
+    prefix: classpath:/templates/         # Thymeleaf 템플릿 폴더 위치
+    suffix: .html                         # Thymeleaf 템플릿 파일 확장자
+    mode: HTML5                           # Thymeleaf 처리 모드
+    encoding: UTF-8                       # 파일 인코딩 설정
+    cache: false                          # 캐싱 비활성화 (개발 시 편리)
+    enabled: true
+  servlet:
+    multipart:
+      enabled: true
+      max-file-size: 10MB
+      max-request-size: 10MB
+
+logging:
+  level:
+    org:
+      hibernate:
+        SQL: DEBUG
+        orm:
+          jdbc:
+            bind: TRACE
+            extract: TRACE
+aws:
+  s3:
+    endpoint: http://localhost:4566
+    region: us-east-1
+    bucket:
+      post: pickmin-bloom-post
+    presigned:
+      duration: 30
+    credentials:
+      access-key: test
+      secret-key: test
+server:
+  address: 0.0.0.0
+  port: 8080
+  servlet:
+    session:
+      timeout: 1d
