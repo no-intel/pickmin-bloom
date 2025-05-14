@@ -1,9 +1,11 @@
-package org.noint.pickminbloom.post.util;
+package org.noint.pickminbloom.post.util.s3;
 
 import jakarta.annotation.PostConstruct;
 import lombok.extern.slf4j.Slf4j;
 import org.noint.pickminbloom.exception.post.S3UploadException;
+import org.noint.pickminbloom.post.dto.GetPostResponseDto;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
@@ -27,10 +29,11 @@ import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
 
+@Profile("local")
 @Slf4j
 @Component
 @Transactional
-public class S3Util {
+public class LocalStackS3Util implements S3util {
     private S3Client s3Client;
     private S3Presigner s3Presigner;
 
@@ -45,6 +48,9 @@ public class S3Util {
 
     @Value("${aws.s3.presigned.duration}")
     String presignedDuration;
+
+    @Value("${aws.s3.publicBaseUrl}")
+    String publicBaseUrl;
 
     @Value("${aws.s3.credentials.access-key}")
     String accessKey;
@@ -107,6 +113,16 @@ public class S3Util {
         }
     }
 
+    public Map<String, String> getDownloadUrl(List<GetPostResponseDto> posts) {
+        return posts.stream()
+                .collect(Collectors.toMap(
+                        GetPostResponseDto::geohash,
+                        post -> post.noImg() ? null : publicBaseUrl + "/" + post.geohash()
+                ));
+
+    }
+
+    // 버킷 파일 비공개시 사용
     public Map<String, String> createdPresignedUrlsForDownload(List<String> geohashes) {
         return geohashes.stream()
                 .collect(Collectors.toMap(
