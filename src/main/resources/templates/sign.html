@@ -22,48 +22,76 @@
     <!-- Custom styles for this template-->
     <link href="/lib/vendor/css/sb-admin-2.css" rel="stylesheet">
 
+    <style>
+        body {
+            background: linear-gradient(135deg, #4e73df, #224abe);
+            font-family: 'Nunito', sans-serif;
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .login-card {
+            width: 100%;
+            max-width: 420px;
+            background: #fff;
+            border-radius: 1rem;
+            padding: 2rem;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
+        }
+
+        .login-title {
+            font-weight: 700;
+            font-size: 1.5rem;
+            color: #4e73df;
+        }
+
+        .google-btn {
+            width: 100%;
+            margin-top: 1rem;
+        }
+
+        .google-btn img {
+            width: 100%;
+            height: auto;
+        }
+
+        .divider {
+            margin: 1.5rem 0;
+            text-align: center;
+            font-size: 0.9rem;
+            color: #888;
+            position: relative;
+        }
+
+        .divider::before,
+        .divider::after {
+            content: '';
+            display: inline-block;
+            width: 40%;
+            height: 1px;
+            background: #ccc;
+            vertical-align: middle;
+            margin: 0 0.5rem;
+        }
+    </style>
 </head>
 
-<body class="bg-gradient-primary">
+<body>
 
-    <div class="container">
+    <div class="login-card text-center">
+        <h1 class="login-title mb-4">로그인</h1>
 
-        <!-- Outer Row -->
-        <div class="row justify-content-center">
+        <a href="/oauth2/authorization/google" class="google-btn">
+            <img src="/img/web_light_rd_SI.svg" alt="Sign in with Google">
+        </a>
 
-            <div class="col-xl-10 col-lg-12 col-md-9">
+        <div class="divider">or</div>
 
-                <div class="card o-hidden border-0 shadow-lg my-5">
-                    <div class="card-body p-0">
-                        <!-- Nested Row within Card Body -->
-                        <div class="row">
-                            <div class="col-lg-6 d-none d-lg-block bg-login-image"></div>
-                            <div class="col-lg-6">
-                                <div class="p-5">
-                                    <div class="text-center">
-                                        <h1 class="h4 text-gray-900 mb-4">Welcome Back!</h1>
-                                    </div>
-                                    <div class="d-flex justify-content-center gap-3 mb-3">.
-                                        <a class="btn p-0 border-0" href="/oauth2/authorization/google">
-                                            <img alt="light themed pill shaped Sign in with Google button" src="/img/web_light_rd_SI.svg">
-                                        </a>
-                                    </div>
-                                    <hr>
-                                    <div class="d-flex justify-content-center gap-3">
-                                        <a class="btn p-0 border-0" href="/oauth2/authorization/google">
-                                            <img alt="light themed pill shaped Sign up with Google button" src="/img/web_light_rd_SU.svg">
-                                        </a>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-            </div>
-
-        </div>
-
+        <a href="/oauth2/authorization/google" class="google-btn">
+            <img src="/img/web_light_rd_SU.svg" alt="Sign up with Google">
+        </a>
     </div>
 
     <!-- scripts.html -->
