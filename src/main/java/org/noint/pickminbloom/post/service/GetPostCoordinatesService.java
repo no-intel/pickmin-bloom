@@ -6,14 +6,12 @@ import org.noint.pickminbloom.post.dto.GetPostCoordinatesByViewDto;
 import org.noint.pickminbloom.post.dto.GetPostResponseDto;
 import org.noint.pickminbloom.post.repository.PostQuerydslRepository;
 import org.noint.pickminbloom.post.response.GetPostCoordinatesResponse;
-import org.noint.pickminbloom.post.util.FileCodecUtil;
-import org.noint.pickminbloom.post.util.S3Util;
+import org.noint.pickminbloom.post.util.s3.S3util;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.Map;
-import java.util.stream.Collectors;
 
 @Slf4j
 @Service
@@ -21,14 +19,11 @@ import java.util.stream.Collectors;
 @Transactional(readOnly = true)
 public class GetPostCoordinatesService {
     private final PostQuerydslRepository postQuerydslRepository;
-    private final S3Util s3Util;
+    private final S3util s3Util;
 
     public List<GetPostCoordinatesResponse> getPostCoordinates(GetPostCoordinatesByViewDto dto) {
         List<GetPostResponseDto> posts = postQuerydslRepository.findPostsByView(dto);
-        List<String> geohashes = posts.stream()
-                .map(GetPostResponseDto::geohash)
-                .toList();
-        Map<String, String> presignedUrls = s3Util.createdPresignedUrlsForDownload(geohashes);
-        return GetPostCoordinatesResponse.create(posts, presignedUrls);
+        Map<String, String> downloadUrl = s3Util.getDownloadUrl(posts);
+        return GetPostCoordinatesResponse.create(posts, downloadUrl);
     }
 }

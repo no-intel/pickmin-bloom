@@ -15,6 +15,7 @@ public record PreRegisterPostDto(
         Double postLon,
         PostType type,
         MultipartFile postImg,
+        boolean noImg,
         Member requester
 ) {
     private static final List<String> ALLOWED_IMAGE_TYPES = Arrays.asList(
@@ -31,6 +32,7 @@ public record PreRegisterPostDto(
                 request.getPostLon(),
                 PostType.fromString(request.getPostType()),
                 validateImgFile(request.getPostImg()),
+                request.getPostImg() == null,
                 requester
         );
     }

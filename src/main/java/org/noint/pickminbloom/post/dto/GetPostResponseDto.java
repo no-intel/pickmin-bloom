@@ -12,6 +12,7 @@ public record GetPostResponseDto(
         Double latitude,
         Double longitude,
         PostType type,
+        boolean noImg,
         LocalDateTime createdAt,
         Double distance
 ) {

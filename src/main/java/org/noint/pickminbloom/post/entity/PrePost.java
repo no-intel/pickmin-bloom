@@ -38,6 +38,9 @@ public class PrePost {
     @Column(columnDefinition = "MEDIUMBLOB")
     private byte[] img;
 
+    @Column(nullable = false, name = "no_img")
+    private boolean noImg;
+
     @Column(nullable = false)
     @Enumerated(EnumType.STRING)
     private PostType type;
@@ -67,12 +70,14 @@ public class PrePost {
                    Double longitude,
                    PostType type,
                    MultipartFile postImg,
+                   boolean noImg,
                    Member requester) {
         this.name = name;
         this.latitude = latitude;
         this.longitude = longitude;
         this.type = type;
         convertByte(postImg);
+        this.noImg = noImg;
         this.requester = requester;
         this.status = PrePostStatus.WAITING;
         createdAt = LocalDateTime.now();

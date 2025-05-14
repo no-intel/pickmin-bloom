@@ -12,8 +12,8 @@ public record GetPostCoordinatesResponse(double latitude,
                                          String geohash,
                                          String type,
                                          double distance,
-                                         String presignedUrl) {
-    public static List<GetPostCoordinatesResponse> create(List<GetPostResponseDto> posts, Map<String, String> presignedUrls) {
+                                         String downloadUrl) {
+    public static List<GetPostCoordinatesResponse> create(List<GetPostResponseDto> posts, Map<String, String> downloadUrls) {
         List<GetPostCoordinatesResponse> responses = new ArrayList<>();
         posts.forEach(post -> {
             responses.add(new GetPostCoordinatesResponse(
@@ -23,7 +23,7 @@ public record GetPostCoordinatesResponse(double latitude,
                     post.geohash(),
                     post.type().getTypeKor(),
                     Math.round(post.distance() * 100.0) / 100.0,
-                    presignedUrls.get(post.geohash())
+                    downloadUrls.get(post.geohash())
             ));
         });
 

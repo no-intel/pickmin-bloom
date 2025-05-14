@@ -11,6 +11,7 @@ public record UpdatePrePostStatus(
         String name,
         PostType type,
         Member requester,
+        boolean noImg,
         Long confirmedBy
 ) {
     public static UpdatePrePostStatus confirmPrePost(PrePost prePost, Long confirmedBy) {
@@ -21,6 +22,7 @@ public record UpdatePrePostStatus(
                 prePost.getName(),
                 prePost.getType(),
                 prePost.getRequester(),
+                prePost.isNoImg(),
                 confirmedBy
         );
     }

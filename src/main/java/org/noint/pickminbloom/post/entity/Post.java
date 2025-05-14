@@ -38,6 +38,9 @@ public class Post {
     @Enumerated(EnumType.STRING)
     private PostType type;
 
+    @Column(nullable = false, name = "no_img")
+    private boolean noImg;
+
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(nullable = false, name = "requested_by")
     private Member requester;
@@ -60,12 +63,14 @@ public class Post {
                 Double longitude,
                 PostType type,
                 Member requester,
+                boolean noImg,
                 Long confirmedBy) {
         this.geohash = geohash;
         this.name = name;
         this.latitude = latitude;
         this.longitude = longitude;
         this.type = type;
+        this.noImg = noImg;
         this.createdAt = LocalDateTime.now();
         this.requester = requester;
         this.confirmedBy = confirmedBy;

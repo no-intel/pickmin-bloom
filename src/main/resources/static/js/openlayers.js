@@ -111,7 +111,7 @@ function handleFeatureSelection(feature) {
             <strong>${post.name}</strong>
             <button class="popup-close-btn" onclick="closePopup()" title="닫기">×</button>
         </div>
-        <img src="${post.presignedUrl}" onerror="this.onerror=null; this.src='/img/no-img.png';" style="max-width: 100%; height: auto;"><br>
+        <img src="${post.downloadUrl || "/img/no-img.png"}" onerror="this.onerror=null; this.src='/img/404-img.png';" style="max-width: 100%; height: auto;"><br>
         위치복사: <button class="btn btn-sm btn-light" onclick="copyToClipboard('${post.latitude}, ${post.longitude}')" title="위치 복사">
                 <i class="fas fa-copy"></i>
             </button><br>

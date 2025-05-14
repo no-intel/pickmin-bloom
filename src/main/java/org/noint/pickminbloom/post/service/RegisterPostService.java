@@ -1,15 +1,13 @@
 package org.noint.pickminbloom.post.service;
 
 import lombok.RequiredArgsConstructor;
-import org.locationtech.jts.geom.Coordinate;
 import org.noint.pickminbloom.post.dto.RegisterPostDto;
 import org.noint.pickminbloom.post.entity.Post;
-import org.noint.pickminbloom.post.enums.PostType;
 import org.noint.pickminbloom.post.event.UpdatePrePostStatus;
 import org.noint.pickminbloom.post.repository.PostRepository;
 import org.noint.pickminbloom.post.util.FileCodecUtil;
 import org.noint.pickminbloom.post.util.GeoHashUtil;
-import org.noint.pickminbloom.post.util.S3Util;
+import org.noint.pickminbloom.post.util.s3.S3util;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.transaction.event.TransactionPhase;
@@ -22,7 +20,7 @@ public class RegisterPostService {
 
     private final PostRepository postRepository;
     private final GeoHashUtil geoHashUtil;
-    private final S3Util s3Util;
+    private final S3util s3Util;
     private final FileCodecUtil fileCodecUtil;
 
     @Transactional
@@ -50,6 +48,7 @@ public class RegisterPostService {
                 event.longitude(),
                 event.type(),
                 event.requester(),
+                event.noImg(),
                 event.confirmedBy()
         );
         postRepository.save(post);

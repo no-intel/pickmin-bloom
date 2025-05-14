@@ -19,7 +19,7 @@ const rendPostsImgCard = (posts) => {
     container.innerHTML = "";
 
     posts.forEach(post => {
-        const imageSrc = post.presignedUrl || "/img/no-img.png";
+        const imageSrc = post.downloadUrl || "/img/no-img.png";
         const typeIcon = post.type === "빅플" ? "/img/flower.png" : (post.type === "버섯" ? "/img/mushroom.png" : "/img/explorer.png");
 
         const card = document.createElement('div');
@@ -31,7 +31,7 @@ const rendPostsImgCard = (posts) => {
                 <img src="${imageSrc}" 
                      class="post-img img-fluid mb-2" 
                      alt="${post.name || 'none'}"
-                     onerror="this.onerror=null; this.src='/img/no-img.png';" />
+                     onerror="this.onerror=null; this.src='/img/404-img.png';" />
                 <img src="${typeIcon}" class="post-type-img" alt="${post.type || 'type'}" />
             </div>
         `;

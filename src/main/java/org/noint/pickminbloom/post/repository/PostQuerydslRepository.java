@@ -41,6 +41,7 @@ public class PostQuerydslRepository {
                         post.latitude,
                         post.longitude,
                         post.type,
+                        post.noImg,
                         post.createdAt,
                         distanceExpr.castToNum(Double.class).as("distance")
                 ))
