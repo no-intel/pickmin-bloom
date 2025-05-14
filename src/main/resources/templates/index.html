@@ -234,7 +234,8 @@
                     </div>
                 </footer>
                 <!-- End of Footer -->
-                <div id="map-popup">팦업</div>
+                <div id="post-popup">엽서 팝업</div>
+                <div id="coor-popup">좌표 팝업</div>
             </div>
             <!-- End of Content Wrapper -->
 
@@ -255,7 +256,7 @@
         let isOnlyViewMoving = false;
         window.onload = async () => {
             map = await rendMap();
-            const popup = document.getElementById('map-popup');
+            const popup = document.getElementById('post-popup');
             clickSelect.on('select', function (e) {
                 const selectedFeatures = clickSelect.getFeatures();
                 selectedFeatures.clear();
@@ -275,7 +276,7 @@
                 }
                 if(!map.hasFeatureAtPixel(e.pixel)){
                     popup.style.display = 'none';
-                    overlay.setPosition(undefined);
+                    postOverlay.setPosition(undefined);
 
                     const view = map.getView();
                     const zoom = view.getZoom();
@@ -291,6 +292,18 @@
                     rendPostsImgCard(posts)
                 }
             });
+
+        //     map.getViewport().addEventListener('contextmenu', function (event) {
+        //         event.preventDefault(); // 기본 우클릭 메뉴 방지
+        //
+        //         // 1. 클릭한 화면상의 픽셀 위치
+        //         const pixel = map.getEventPixel(event);
+        //
+        //         // 2. 픽셀을 지도 좌표로 변환
+        //         const coordinate = map.getCoordinateFromPixel(pixel);
+        //
+        //         handleCoorView(coordinate)
+        //     });
         };
 
         function copyToClipboard(text) {

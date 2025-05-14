@@ -58,8 +58,15 @@ const clickSelect = new ol.interaction.Select({
     }
 })
 
-const overlay = new ol.Overlay({
-    element: document.getElementById('map-popup'),
+const postOverlay = new ol.Overlay({
+    element: document.getElementById('post-popup'),
+    positioning: 'center-left',
+    stopEvent: true,
+    offset: [10, 0] // 마커 위 약간 띄우기
+});
+
+const coorOverlay = new ol.Overlay({
+    element: document.getElementById('coor-popup'),
     positioning: 'center-left',
     stopEvent: true,
     offset: [10, 0] // 마커 위 약간 띄우기
@@ -86,16 +93,21 @@ const rendMap = async () => {
 
     map.addInteraction(hoverSelect);
     map.addInteraction(clickSelect);
-    map.addOverlay(overlay);
+    map.addOverlay(postOverlay);
+    // map.addOverlay(coorOverlay);
 
     return map;
 };
 
 function handleFeatureSelection(feature) {
-    const popup = document.getElementById('map-popup');
+    const postPopup = document.getElementById('post-popup');
+    // const coorPopup = document.getElementById('coor-popup');
+    // coorPopup.style.display = 'none';
+    // coorOverlay.setPosition(undefined);
+
     if (!feature) {
-        popup.style.display = 'none';
-        overlay.setPosition(undefined);
+        postPopup.style.display = 'none';
+        postOverlay.setPosition(undefined);
         return;
     }
 
@@ -106,7 +118,7 @@ function handleFeatureSelection(feature) {
     const geohash = targetFeature.get('geohash');
     const post = posts.find(post => post.geohash === geohash);
 
-    popup.innerHTML = `
+    postPopup.innerHTML = `
         <div style="display: flex; justify-content: space-between; align-items: center;">
             <strong>${post.name}</strong>
             <button class="popup-close-btn" onclick="closePopup()" title="닫기">×</button>
@@ -117,22 +129,38 @@ function handleFeatureSelection(feature) {
             </button><br>
         엽서구분 : ${post.type}<br>
     `;
-    popup.style.display = 'block';
-    overlay.setPosition(coord);
+    postPopup.style.display = 'block';
+    postOverlay.setPosition(coord);
     isOnlyViewMoving = true;
     map.getView().setCenter(coord);
 }
 
 function closePopup() {
-    const popup = document.getElementById('map-popup');
+    const popup = document.getElementById('post-popup');
     popup.innerHTML = '';
     popup.style.display = 'none';
 
-    if (typeof overlay !== 'undefined') {
-        overlay.setPosition(undefined);  // 팝업 좌표 제거
+    if (typeof postOverlay !== 'undefined') {
+        postOverlay.setPosition(undefined);  // 팝업 좌표 제거
     }
 
     if (typeof clickSelect !== 'undefined') {
         clickSelect.getFeatures().clear();
     }
 }
+
+// function handleCoorView(coordinate) {
+//     // 3. 좌표를 위도/경도로 변환
+//     const [lon, lat] = ol.proj.toLonLat(coordinate);
+//     // 4. 결과 확인 (소수점 6자리)
+//     console.log(`우클릭한 좌표 - 위도: ${lat.toFixed(6)}, 경도: ${lon.toFixed(6)}`);
+//
+//     const coorPopup = document.getElementById('coor-popup');
+//     console.log(coorPopup)
+//     coorPopup.style.display = 'none';
+//     coorOverlay.setPosition(undefined);
+//
+//     coorPopup.innerHTML = `${lat}, ${lon}`;
+//     coorPopup.style.display = 'block';
+//     coorOverlay.setPosition(coordinate);
+// }
