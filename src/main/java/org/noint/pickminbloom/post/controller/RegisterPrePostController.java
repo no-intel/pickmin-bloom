@@ -9,6 +9,7 @@ import org.noint.pickminbloom.post.request.PreRegisterPostRequest;
 import org.noint.pickminbloom.post.service.RegisterPrePostService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.oauth2.core.user.OAuth2User;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -25,6 +26,7 @@ public class RegisterPrePostController {
     private final RegisterPrePostService registerPrePostService;
 
     @PostMapping
+    @PreAuthorize("isAuthenticated()")
     public ResponseEntity<?> preRestPost(@Valid @ModelAttribute PreRegisterPostRequest request,
                                             @AuthenticationPrincipal OAuth2User user) {
         Member member = getMemberService.getMember(user.getAttribute("email"));

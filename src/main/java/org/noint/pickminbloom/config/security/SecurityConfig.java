@@ -1,8 +1,7 @@
-package org.noint.pickminbloom.config;
+package org.noint.pickminbloom.config.security;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.noint.pickminbloom.config.filter.FakeOAuth2AuthFilter;
 import org.noint.pickminbloom.member.service.SignService;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -20,12 +19,15 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 public class SecurityConfig {
 
     private final SignService signService;
+    private final CustomAuthenticationEntryPoint authenticationEntryPoint;
+    private final CustomAccessDeniedHandler accessDeniedHandler;
+    private final FakeOAuth2AuthFilter fakeOAuth2AuthFilter;
 
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) {
         try {
             return http
-                    .addFilterBefore(new FakeOAuth2AuthFilter(), UsernamePasswordAuthenticationFilter.class)
+                    .addFilterBefore(fakeOAuth2AuthFilter, UsernamePasswordAuthenticationFilter.class)
                     .authorizeHttpRequests(auth -> auth
                             .requestMatchers("/", "/sign", "/favicon.ico", "/img/**", "/js/**", "/css/**", "/lib/**").permitAll()
                             .requestMatchers(HttpMethod.GET, "/posts").permitAll()
@@ -35,6 +37,10 @@ public class SecurityConfig {
                             .defaultSuccessUrl("/")
                             .userInfoEndpoint(userInfo -> userInfo.userService(signService))
                     ).csrf(AbstractHttpConfigurer::disable)
+                    .exceptionHandling(handler -> handler
+                            .authenticationEntryPoint(authenticationEntryPoint)
+                            .accessDeniedHandler(accessDeniedHandler)
+                    )
                     .build();
         } catch (Exception e) {
             log.error("Security config error: {}", e.getMessage());

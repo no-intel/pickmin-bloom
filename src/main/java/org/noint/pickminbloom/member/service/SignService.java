@@ -4,6 +4,7 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.noint.pickminbloom.member.entity.Member;
 import org.noint.pickminbloom.member.repository.MemberRepository;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.oauth2.client.userinfo.DefaultOAuth2UserService;
 import org.springframework.security.oauth2.client.userinfo.OAuth2UserRequest;
 import org.springframework.security.oauth2.client.userinfo.OAuth2UserService;
@@ -13,6 +14,9 @@ import org.springframework.security.oauth2.core.user.OAuth2User;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.Collections;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Optional;
 
 @Slf4j
@@ -29,21 +33,22 @@ public class SignService implements OAuth2UserService<OAuth2UserRequest, OAuth2U
         String email = oauth2User.getAttribute("email");
         String name = oauth2User.getAttribute("name");
 
-        Optional<Member> member = memberRepository.findByEmail(email);
+        Member member = memberRepository.findByEmail(email)
+                .orElseGet(() -> registerMember(email, name));
 
-        if (member.isEmpty()) {
-            registerMember(email, name);
-        }
+        Map<String, Object> attributes = new HashMap<>(oauth2User.getAttributes());
+        attributes.put("role", member.getRole().toAuthority());
 
         return new DefaultOAuth2User(
-                oauth2User.getAuthorities(),
-                oauth2User.getAttributes(),
+                Collections.singleton(new SimpleGrantedAuthority(member.getRole().toAuthority())),
+                attributes,
                 "email"
         );
     }
 
-    protected void registerMember(String email, String name) {
+    protected Member registerMember(String email, String name) {
         Member member = new Member(email, name);
         memberRepository.save(member);
+        return member;
     }
 }

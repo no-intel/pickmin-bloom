@@ -8,6 +8,7 @@ import org.noint.pickminbloom.post.enums.PrePostStatus;
 import org.noint.pickminbloom.post.service.ConfirmPrePostService;
 import org.noint.pickminbloom.post.service.RejectPrePostService;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.oauth2.core.user.OAuth2User;
 import org.springframework.web.bind.annotation.*;
@@ -22,6 +23,7 @@ public class UpdatePrePostStatusController {
     private final GetMemberService getMemberService;
 
     @PutMapping("/{prePostId}/confirm")
+    @PreAuthorize("hasAnyRole('ADMIN', 'MASTER')")
     public ResponseEntity<Void> confirm(@PathVariable Long prePostId,
                                         @AuthenticationPrincipal OAuth2User user) {
         Member member = getMemberService.getMember(user.getAttribute("email"));
@@ -31,6 +33,7 @@ public class UpdatePrePostStatusController {
     }
 
     @PutMapping("/{prePostId}/reject")
+    @PreAuthorize("hasAnyRole('ADMIN', 'MASTER')")
     public ResponseEntity<Void> reject(@PathVariable Long prePostId,
                                         @AuthenticationPrincipal OAuth2User user) {
         Member member = getMemberService.getMember(user.getAttribute("email"));
@@ -40,6 +43,7 @@ public class UpdatePrePostStatusController {
     }
 
     @PutMapping("/confirm/all")
+    @PreAuthorize("hasAnyRole('MASTER')")
     public ResponseEntity<Void> confirmAll() {
         confirmPrePostService.confirmAll();
         return ResponseEntity.ok().build();
