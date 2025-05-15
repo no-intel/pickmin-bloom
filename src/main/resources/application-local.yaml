@@ -40,9 +40,17 @@ spring:
       enabled: true
       max-file-size: 10MB
       max-request-size: 10MB
+  hikari:
+    minimum-idle: 5             # 유휴 상태로 유지할 최소 커넥션 수
+    maximum-pool-size: 10       # 최대 커넥션 수 (RDS 제한 고려!)
+    idle-timeout: 600000        # 커넥션 유휴 상태 유지 시간 (ms)
+    max-lifetime: 1800000       # 커넥션 생존 최대 시간 (ms)
+    connection-timeout: 30000   # 커넥션 획득 시도 타임아웃 (ms)
+    pool-name: HikariPool-Pickmin-Bloom # 로깅 시 보이는 풀 이름
 
 logging:
   level:
+    com.zaxxer.hikari: INFO  # HikariCP 로그 레벨 (커넥션 풀 상태 확인용)
     org:
       hibernate:
         SQL: DEBUG
@@ -68,3 +76,17 @@ server:
   servlet:
     session:
       timeout: 1d
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health, metrics  # 이걸 꼭 설정해야 브라우저/API로 확인 가능
+
+  endpoint:
+    health:
+      show-details: always       # /health에 세부 정보 표시 (ex: DB 상태 등)
+
+  metrics:
+    enable:
+      all: true

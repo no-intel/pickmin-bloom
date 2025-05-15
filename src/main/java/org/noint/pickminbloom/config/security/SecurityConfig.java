@@ -29,7 +29,17 @@ public class SecurityConfig {
             return http
                     .addFilterBefore(fakeOAuth2AuthFilter, UsernamePasswordAuthenticationFilter.class)
                     .authorizeHttpRequests(auth -> auth
-                            .requestMatchers("/", "/sign", "/favicon.ico", "/img/**", "/js/**", "/css/**", "/lib/**").permitAll()
+                            .requestMatchers(
+                                    "/",
+                                    "/sign",
+                                    "/favicon.ico",
+                                    "/img/**",
+                                    "/js/**",
+                                    "/css/**",
+                                    "/lib/**",
+                                    "/actuator/health",
+                                    "/actuator/metrics/**"
+                            ).permitAll()
                             .requestMatchers(HttpMethod.GET, "/posts").permitAll()
                             .anyRequest().authenticated())
                     .oauth2Login(oauth -> oauth
