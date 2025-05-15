@@ -95,7 +95,6 @@ public class AwsS3Util implements S3util {
                             .bucket(bucketName)
                             .key(geohash)
                             .contentType(file.getContentType())
-                            .acl(ObjectCannedACL.PUBLIC_READ)
                             .build(),
                     RequestBody.fromBytes(file.getBytes())
             );
