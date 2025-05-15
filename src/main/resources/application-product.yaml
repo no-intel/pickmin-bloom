@@ -42,13 +42,12 @@ spring:
 
 logging:
   level:
-    org:
-      hibernate:
-        SQL: DEBUG
-        orm:
-          jdbc:
-            bind: TRACE
-            extract: TRACE
+    root: INFO
+    org.hibernate.SQL: OFF  # Hibernate가 실행하는 SQL 로그 출력 비활성화 (보안/성능 이유)
+    org.hibernate.type.descriptor.sql.BasicBinder: OFF  # SQL 파라미터 바인딩 로그 비활성화 (민감정보 노출 우려)
+    org.hibernate.orm.jdbc.bind: OFF  # JDBC 바인딩 상세 로그 비활성화 (TRACE 수준은 운영에 불필요)
+    org.hibernate.orm.jdbc.extract: OFF  # JDBC 결과 추출 로그 비활성화 (불필요한 디스크 사용 방지)
+
 aws:
   s3:
     publicBaseUrl: https://pickmin-bloom-post.s3.ap-northeast-2.amazonaws.com
