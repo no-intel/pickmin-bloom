@@ -6,6 +6,7 @@
 name: Deploy to EC2
 
 on:
+  workflow_dispatch:                              # 수동 실행 허용
   push:
     branches:
       - master
