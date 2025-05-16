@@ -39,7 +39,7 @@ jobs:
           username: ec2-user
           key: ${{ secrets.EC2_PRIVATE_KEY }}
           source: "build/libs/app.jar"
-          target: "/home/ec2-user/app.jar"
+          target: "/home/ec2-user/"
 
       - name: 🚀 EC2에서 배포 스크립트 실행 (SSH)
         uses: appleboy/ssh-action@master
