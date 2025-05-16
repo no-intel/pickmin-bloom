@@ -1,30 +1,33 @@
 package org.noint.pickminbloom.config.mdc;
 
-import jakarta.servlet.*;
+import jakarta.servlet.FilterChain;
+import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
 import org.slf4j.MDC;
 import org.springframework.stereotype.Component;
+import org.springframework.web.filter.OncePerRequestFilter;
 
 import java.io.IOException;
 import java.util.UUID;
 
 @Component
-public class MDCFilter implements Filter {
+public class MDCFilter extends OncePerRequestFilter {
 
     @Override
-    public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain) throws IOException, ServletException {
+    protected void doFilterInternal(HttpServletRequest request,
+                                    HttpServletResponse response,
+                                    FilterChain filterChain) throws ServletException, IOException {
 
         try {
-            String requestId = UUID.randomUUID().toString();
-            String userId = extractUserId((HttpServletRequest) request); // JWT나 세션에서 파싱
 
-            MDC.put("requestId", requestId);
+            MDC.put("requestId", UUID.randomUUID().toString());
+            MDC.put("userId", extractUserId(request));
+            MDC.put("clientIP", request.getRemoteAddr());
+            MDC.put("requestURI", request.getRequestURI());
+            MDC.put("httpMethod", request.getMethod());
 
-            if (userId != null) {
-                MDC.put("userId", userId);
-            }
-
-            chain.doFilter(request, response); // 요청 계속 진행
+            filterChain.doFilter(request, response);
 
         } finally {
             MDC.clear(); // 메모리 누수 방지
