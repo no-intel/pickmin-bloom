@@ -4,7 +4,7 @@
         <div class="modal-content">
             <div class="modal-header">
                 <h5 class="modal-title" id="exampleModalLabel">엽서 등록 신청</h5>
-                <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+                <button class="close" type="button" data-dismiss="modal" aria-label="Close" onclick="closeModal()">
                     <span aria-hidden="true">×</span>
                 </button>
             </div>
@@ -130,9 +130,9 @@
                 return false;
             }
 
-            const allowedExtensions = ["image/jpeg", "image/png", "image/jpg"];
+            const allowedExtensions = ["image/jpeg", "image/png", "image/jpg", "image/webp"];
             if (!allowedExtensions.includes(postImg.type)) {
-                alert("JPEG, JPG, PNG 형식의 이미지 파일만 가능합니다.")
+                alert("JPEG, JPG, PNG, WEBP 형식의 이미지 파일만 가능합니다.")
                 return false;
             }
         }
@@ -146,9 +146,6 @@
         document.getElementById('post-img').value = '';
         document.getElementById('no-img').checked = false;
         document.getElementById('post-type').value = 'null';
-
-        const modal = document.getElementById('register-post-modal');
-        const bootstrapModal = bootstrap.Modal.getInstance(modal) || new bootstrap.Modal(modal);
-        bootstrapModal.hide();
     }
+
 </script>
