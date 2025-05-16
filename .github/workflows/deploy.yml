@@ -7,6 +7,11 @@ name: Deploy to EC2
 
 on:
   workflow_dispatch:                              # 수동 실행 허용
+    inputs:
+      branch:
+        description: '배포할 브랜치'
+        default: 'main'
+        required: true
   push:
     branches:
       - master
