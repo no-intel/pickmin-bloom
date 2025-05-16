@@ -26,6 +26,9 @@ jobs:
       - name: 📥 코드 가져오기 (checkout)
         uses: actions/checkout@v3
 
+      - name: ✅ gradlew 실행 권한 부여
+        run: chmod +x ./gradlew
+
       - name: 🛠️ Gradle Build (No Tests)
         run: ./gradlew clean build -x test
 
