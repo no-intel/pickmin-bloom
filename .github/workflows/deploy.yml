@@ -48,5 +48,8 @@ jobs:
           username: ec2-user
           key: ${{ secrets.EC2_PRIVATE_KEY }}
           script: |
+            set -e
+            cd ~
+            mv ~/build/libs/app.jar ~/app.jar
             chmod +x deploy.sh
             ./deploy.sh
