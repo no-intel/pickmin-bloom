@@ -12,6 +12,8 @@ import org.springframework.security.config.annotation.web.configurers.AbstractHt
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
+import java.util.Optional;
+
 @Slf4j
 @EnableWebSecurity
 @Configuration
@@ -21,13 +23,13 @@ public class SecurityConfig {
     private final SignService signService;
     private final CustomAuthenticationEntryPoint authenticationEntryPoint;
     private final CustomAccessDeniedHandler accessDeniedHandler;
-    private final FakeOAuth2AuthFilter fakeOAuth2AuthFilter;
+    private final Optional<FakeOAuth2AuthFilter> fakeOAuth2AuthFilter;
 
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) {
         try {
-            return http
-                    .addFilterBefore(fakeOAuth2AuthFilter, UsernamePasswordAuthenticationFilter.class)
+            fakeOAuth2AuthFilter.ifPresent(oAuth2AuthFilter -> http.addFilterBefore(oAuth2AuthFilter, UsernamePasswordAuthenticationFilter.class));
+            http
                     .authorizeHttpRequests(auth -> auth
                             .requestMatchers(
                                     "/",
@@ -52,8 +54,8 @@ public class SecurityConfig {
                     .exceptionHandling(handler -> handler
                             .authenticationEntryPoint(authenticationEntryPoint)
                             .accessDeniedHandler(accessDeniedHandler)
-                    )
-                    .build();
+                    );
+            return http.build();
         } catch (Exception e) {
             log.error("Security config error: {}", e.getMessage());
             throw new SecurityException();
