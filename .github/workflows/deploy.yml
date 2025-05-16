@@ -33,6 +33,6 @@ jobs:
           script: |
             cd ~                                    # 홈 디렉토리로 이동
             rm -f app.jar                           # 기존 JAR 삭제
-            wget https://github.com/no-intel/pickmin-bloom/releases/latest/download/app.jar -O app.jar
+            wget https://github.com/no-intel/pickmin-bloom/releases/latest/download/app.jar -O /home/ec2-user/app.jar
             sudo chmod +x deploy.sh                      # 배포 스크립트 실행 권한 부여
             ./deploy.sh                             # 배포 스크립트 실행
