@@ -3,8 +3,8 @@
 
     <property name="LOG_PATH" value="/var/log/myapp"/>
     <property name="APP_NAME" value="pickmin-bloom"/>
-    <property name="CONSOLE_LOG_PATTERN" value="%d{yyyy-MM-dd HH:mm:ss.SSS} [%thread] %clr(%5level) %cyan(%logger) - %msg%n" />
-    <property name="FILE_LOG_PATTERN" value="%d{yyyy-MM-dd HH:mm:ss.SSS} [%thread] %5level %logger - %msg%n" />
+    <property name="CONSOLE_LOG_PATTERN" value="%d{yyyy-MM-dd HH:mm:ss.SSS} [%thread] %clr(%-5level) %cyan(%logger{36}) [%X{requestId} %X{userId}] - %msg%n" />
+    <property name="FILE_LOG_PATTERN" value="%d{yyyy-MM-dd HH:mm:ss.SSS} [%thread] %-5level %logger{36} [%X{requestId} %X{userId}] - %msg%n" />
 
     <!-- 공통 Appender: 콘솔 -->
     <conversionRule conversionWord="clr" converterClass="org.springframework.boot.logging.logback.ColorConverter"/>
@@ -17,9 +17,11 @@
     <!-- 공통 Appender: 파일 로그 -->
     <appender name="FILE" class="ch.qos.logback.core.rolling.RollingFileAppender">
         <file>${LOG_PATH}/${APP_NAME}.log</file>
-        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
-            <fileNamePattern>${LOG_PATH}/${APP_NAME}.%d{yyyy-MM-dd}.log</fileNamePattern>
+        <rollingPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedRollingPolicy">
+            <fileNamePattern>${LOG_PATH}/${APP_NAME}.%d{yyyy-MM-dd}.%i.log.gz</fileNamePattern>
+            <maxFileSize>100MB</maxFileSize>
             <maxHistory>30</maxHistory>
+            <totalSizeCap>10GB</totalSizeCap>
         </rollingPolicy>
         <encoder>
             <pattern>${FILE_LOG_PATTERN}</pattern>
@@ -34,11 +36,15 @@
 
     <!-- prod 프로필일 때: INFO 수준 -->
     <springProfile name="product">
+        <logger name="org.springframework" level="WARN"/>
         <logger name="org.hibernate.SQL" level="OFF"/>
         <logger name="org.hibernate.type.descriptor.sql" level="OFF"/>
-        <root level="DEBUG">
+        <logger name="com.zaxxer.hikari" level="WARN"/>
+        <logger name="com.pickmin" level="INFO"/>
+
+        <root level="INFO">
             <appender-ref ref="CONSOLE"/>
-<!--            <appender-ref ref="FILE"/>-->
+            <appender-ref ref="FILE"/>
         </root>
     </springProfile>
 
