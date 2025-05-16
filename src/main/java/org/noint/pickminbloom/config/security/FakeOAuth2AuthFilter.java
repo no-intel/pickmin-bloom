@@ -22,7 +22,7 @@ import java.io.IOException;
 import java.util.List;
 import java.util.Map;
 
-//@Profile("!product")
+@Profile("!product")
 @Component
 @Order(1)
 @RequiredArgsConstructor
