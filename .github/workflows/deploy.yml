@@ -1,0 +1,32 @@
+# ---------------------------------------
+# GitHub Actions CI/CD 배포 워크플로우
+# 브랜치: main에 push 되면 EC2로 자동 배포
+# ---------------------------------------
+
+name: Deploy to EC2
+
+on:
+  push:
+    branches:
+      - master
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest  # GitHub이 제공하는 Ubuntu 환경에서 실행
+
+    steps:
+      - name: 📥 코드 가져오기 (checkout)
+        uses: actions/checkout@v3  # 현재 리포지토리 코드를 가져옴
+
+      - name: 🚀 EC2에 배포 (SSH 접속)
+        uses: appleboy/ssh-action@master  # SSH로 원격 서버 명령어 실행
+        with:
+          host: ${{ secrets.EC2_HOST }}            # EC2 퍼블릭 IP or 호스트네임 (비밀값)
+          username: ec2-user                       # EC2 기본 사용자 (Amazon Linux 기준)
+          key: ${{ secrets.EC2_PRIVATE_KEY }}      # PEM 키 내용 (비밀값)
+          script: |
+            cd ~                                    # 홈 디렉토리로 이동
+            rm -f app.jar                           # 기존 JAR 삭제
+            wget https://github.com/no-intel/pickmin-bloom/releases/latest/download/app.jar -O app.jar
+            sudo chmod +x deploy.sh                      # 배포 스크립트 실행 권한 부여
+            ./deploy.sh                             # 배포 스크립트 실행
