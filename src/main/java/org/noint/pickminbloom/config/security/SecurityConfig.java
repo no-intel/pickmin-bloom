@@ -38,7 +38,8 @@ public class SecurityConfig {
                                     "/css/**",
                                     "/lib/**",
                                     "/actuator/health",
-                                    "/actuator/metrics/**"
+                                    "/actuator/metrics/**",
+                                    "/policy/**"
                             ).permitAll()
                             .requestMatchers(HttpMethod.GET, "/posts").permitAll()
                             .anyRequest().authenticated())

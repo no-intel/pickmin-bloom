@@ -11,7 +11,7 @@ public class SignController {
 
     @GetMapping("/sign")
     public String sign() {
-        return "/sign";
+        return "sign";
     }
 
     @GetMapping("/sign/out")
