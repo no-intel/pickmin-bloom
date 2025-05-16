@@ -13,9 +13,9 @@ spring:
     properties:
       hibernate:
         dialect: org.hibernate.dialect.MySQL8Dialect
-        show_sql: true
-        format_sql: true
-        highlight_sql: true
+        show_sql: false
+        format_sql: false
+        highlight_sql: false
   security:
     oauth2:
       client:
@@ -24,6 +24,7 @@ spring:
             client-id: ${GOOGLE_OAUTH_CLIENT_KEY}
             client-secret: ${GOOGLE_OAUTH_SECRET_KEY}
             redirect-uri: "https://pickmin-map.com/login/oauth2/code/google"
+#            redirect-uri: "http://localhost:8080/login/oauth2/code/google"
             scope:
               - profile
               - email
@@ -68,9 +69,14 @@ aws:
       access-key: ${AWS_ACCESS_KEY}
       secret-key: ${AWS_SECRET_KEY}
 server:
+  forward-headers-strategy: framework
   servlet:
     session:
       timeout: 1d
+      tracking-modes: cookie
+      cookie:
+        secure: true
+        same-site: None
   tomcat:
     threads:
       max: 100

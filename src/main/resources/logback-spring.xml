@@ -33,12 +33,12 @@
     </springProfile>
 
     <!-- prod 프로필일 때: INFO 수준 -->
-    <springProfile name="prod">
+    <springProfile name="product">
         <logger name="org.hibernate.SQL" level="OFF"/>
         <logger name="org.hibernate.type.descriptor.sql" level="OFF"/>
-        <root level="INFO">
+        <root level="DEBUG">
             <appender-ref ref="CONSOLE"/>
-            <appender-ref ref="FILE"/>
+<!--            <appender-ref ref="FILE"/>-->
         </root>
     </springProfile>
 

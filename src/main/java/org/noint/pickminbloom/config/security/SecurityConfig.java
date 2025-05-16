@@ -39,7 +39,8 @@ public class SecurityConfig {
                                     "/lib/**",
                                     "/actuator/health",
                                     "/actuator/metrics/**",
-                                    "/policy/**"
+                                    "/policy/**",
+                                    "/login/oauth2/**"
                             ).permitAll()
                             .requestMatchers(HttpMethod.GET, "/posts").permitAll()
                             .anyRequest().authenticated())

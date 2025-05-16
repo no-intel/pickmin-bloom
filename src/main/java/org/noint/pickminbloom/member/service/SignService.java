@@ -17,7 +17,6 @@ import org.springframework.transaction.annotation.Transactional;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
-import java.util.Optional;
 
 @Slf4j
 @Service
@@ -28,22 +27,33 @@ public class SignService implements OAuth2UserService<OAuth2UserRequest, OAuth2U
 
     @Transactional
     @Override
-    public OAuth2User loadUser(OAuth2UserRequest userRequest) throws OAuth2AuthenticationException {
-        OAuth2User oauth2User = new DefaultOAuth2UserService().loadUser(userRequest);
-        String email = oauth2User.getAttribute("email");
-        String name = oauth2User.getAttribute("name");
+    public OAuth2User loadUser(OAuth2UserRequest userRequest) {
+        try {
+            log.info("loadUser: {}", userRequest);
 
-        Member member = memberRepository.findByEmail(email)
-                .orElseGet(() -> registerMember(email, name));
+            OAuth2User oauth2User = new DefaultOAuth2UserService().loadUser(userRequest);
+            log.info("oauth2User: {}", oauth2User);
 
-        Map<String, Object> attributes = new HashMap<>(oauth2User.getAttributes());
-        attributes.put("role", member.getRole().toAuthority());
+            String email = oauth2User.getAttribute("email");
+            String name = oauth2User.getAttribute("name");
 
-        return new DefaultOAuth2User(
-                Collections.singleton(new SimpleGrantedAuthority(member.getRole().toAuthority())),
-                attributes,
-                "email"
-        );
+            Member member = memberRepository.findByEmail(email)
+                    .orElseGet(() -> registerMember(email, name));
+            log.info("member: {}", member);
+
+            Map<String, Object> attributes = new HashMap<>(oauth2User.getAttributes());
+            attributes.put("role", member.getRole().toAuthority());
+
+            return new DefaultOAuth2User(
+                    Collections.singleton(new SimpleGrantedAuthority(member.getRole().toAuthority())),
+                    attributes,
+                    "email"
+            );
+        } catch (Exception e) {
+            log.error("OAuth2 로그인 처리 중 에러", e);
+            throw new OAuth2AuthenticationException(e.getMessage());
+        }
+
     }
 
     protected Member registerMember(String email, String name) {
