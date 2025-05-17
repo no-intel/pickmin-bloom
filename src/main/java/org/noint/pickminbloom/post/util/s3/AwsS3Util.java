@@ -107,8 +107,8 @@ public class AwsS3Util implements S3util {
     public Map<String, String> getDownloadUrl(List<GetPostResponseDto> posts) {
         return posts.stream()
                 .collect(Collectors.toMap(
-                        GetPostResponseDto::geohash,
-                        post -> post.noImg() ? null : publicBaseUrl + "/" + post.geohash()
+                        GetPostResponseDto::getKey,
+                        post -> post.noImg() ? null : publicBaseUrl + "/" + post.getKey()
                 ));
 
     }

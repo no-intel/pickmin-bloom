@@ -23,7 +23,7 @@ public record GetPostCoordinatesResponse(double latitude,
                     post.geohash(),
                     post.type().getTypeKor(),
                     Math.round(post.distance() * 100.0) / 100.0,
-                    downloadUrls.get(post.geohash())
+                    downloadUrls.get(post.getKey())
             ));
         });
 

@@ -19,5 +19,9 @@ public record GetPostResponseDto(
 
     @QueryProjection
     public GetPostResponseDto {}
+
+    public String getKey() {
+        return type + "-" + geohash;
+    }
 }
 

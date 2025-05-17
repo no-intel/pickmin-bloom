@@ -40,7 +40,7 @@ public class RegisterPostService {
     public void registerPost(UpdatePrePostStatus event) {
         String geohash = geoHashUtil.encode(event.latitude(), event.latitude());
         MultipartFile img = fileCodecUtil.decodeToMultipartFile(geohash, event.img());
-        s3Util.uploadFile(geohash, img);
+        s3Util.uploadFile(event.type() + "-" + geohash, img);
         Post post = new Post(
                 geohash,
                 event.name(),

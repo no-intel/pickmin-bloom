@@ -4,8 +4,8 @@ spring:
     name: pickmin-bloom
   datasource:
     url: jdbc:mysql://pickmin-bloom.c18ys0iw669m.ap-northeast-2.rds.amazonaws.com/pickmin_bloom?useSSL=false&characterEncoding=UTF-8&serverTimezone=UTC
-    username: padmin
-    password: admin
+    username: ec2
+    password: ${DB_PASS}
     driver-class-name: com.mysql.cj.jdbc.Driver
   jpa:
     hibernate:
@@ -59,10 +59,10 @@ logging:
 
 aws:
   s3:
-    publicBaseUrl: https://pickmin-bloom-post.s3.ap-northeast-2.amazonaws.com
+    publicBaseUrl: https://pickmin-post.s3.ap-northeast-2.amazonaws.com
     region: ap-northeast-2
     bucket:
-      post: pickmin-bloom-post
+      post: pickmin-post
     presigned:
       duration: 300
     credentials:
