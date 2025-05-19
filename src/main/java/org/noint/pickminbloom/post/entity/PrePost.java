@@ -91,7 +91,11 @@ public class PrePost {
 
     private void convertByte(MultipartFile img) {
         try {
-            this.img = img.getBytes();
+            if (img == null) {
+                this.img = null;
+            }else {
+                this.img = img.getBytes();
+            }
         } catch (IOException e) {
             log.error("MultipartFile to byte error: {}", e.getMessage());
             throw new ImgToByteException();
