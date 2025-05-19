@@ -33,12 +33,16 @@ const rightClickMarkers = (map, coordinate) => {
     rightClickLayer = setRightClickLayer(coordinate[0], coordinate[1])
     map.addLayer(rightClickLayer);
 
+    const isLogin = coorPopup.dataset.islogin === 'true';
+    console.log(isLogin);
     coorPopup.innerHTML = `
         <span style="font-size: 15px;">${lat.toFixed(6)}, ${lon.toFixed(6)}</span>
         <br/>
+        ${isLogin ? `
         <a class="btn btn-sm btn-primary" href="javascript:void(0)" data-toggle="modal" data-target="#register-post-modal">
             엽서 등록
-        </a>   
+        </a>` : ''}
+
     `;
     coorPopup.style.display = 'block';
     coorOverlay.setPosition(coordinate);
