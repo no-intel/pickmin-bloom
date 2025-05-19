@@ -89,7 +89,6 @@ const setStandardLayer = (x, y) => {
 };
 
 const markers = (map, posts, x, y) => {
-    console.log(x,y);
     if (standardLayer) {
         map.removeLayer(standardLayer)
     }

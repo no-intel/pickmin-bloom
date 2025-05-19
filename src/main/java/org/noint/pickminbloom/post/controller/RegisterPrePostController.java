@@ -17,6 +17,8 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.Objects;
+
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("/pre-posts")
@@ -29,7 +31,8 @@ public class RegisterPrePostController {
     @PreAuthorize("isAuthenticated()")
     public ResponseEntity<?> preRestPost(@Valid @ModelAttribute PreRegisterPostRequest request,
                                             @AuthenticationPrincipal OAuth2User user) {
-        Member member = getMemberService.getMember(user.getAttribute("email"));
+        String email = Objects.requireNonNull(user.getAttribute("email"));
+        Member member = getMemberService.getMember(email);
         PreRegisterPostDto dto = new PreRegisterPostDto(request, member);
         registerPrePostService.preRegisterPost(dto);
         return ResponseEntity.status(HttpStatus.CREATED).build();

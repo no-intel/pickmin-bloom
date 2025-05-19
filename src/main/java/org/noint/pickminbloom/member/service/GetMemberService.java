@@ -14,8 +14,13 @@ public class GetMemberService {
 
     private final MemberRepository memberRepository;
 
+    public Member getMember(Long memberId) {
+        return memberRepository.findById(memberId)
+                .orElseThrow(() -> new NotExistMemberException("id"));
+    }
+
     public Member getMember(String email) {
         return memberRepository.findByEmail(email)
-                .orElseThrow(NotExistMemberException::new);
+                .orElseThrow(() -> new NotExistMemberException("email"));
     }
 }

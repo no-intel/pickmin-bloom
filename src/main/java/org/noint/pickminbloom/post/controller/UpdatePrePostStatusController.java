@@ -13,6 +13,8 @@ import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.oauth2.core.user.OAuth2User;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.Objects;
+
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("/pre-posts")
@@ -26,7 +28,8 @@ public class UpdatePrePostStatusController {
     @PreAuthorize("hasAnyRole('ADMIN', 'MASTER')")
     public ResponseEntity<Void> confirm(@PathVariable Long prePostId,
                                         @AuthenticationPrincipal OAuth2User user) {
-        Member member = getMemberService.getMember(user.getAttribute("email"));
+        String email = Objects.requireNonNull(user.getAttribute("email"));
+        Member member = getMemberService.getMember(email);
         UpdatePrePostStatusDto updatePrePostStatusDto = new UpdatePrePostStatusDto(prePostId, PrePostStatus.CONFIRMED, member.getId());
         confirmPrePostService.confirm(updatePrePostStatusDto);
         return ResponseEntity.ok().build();
@@ -36,7 +39,8 @@ public class UpdatePrePostStatusController {
     @PreAuthorize("hasAnyRole('ADMIN', 'MASTER')")
     public ResponseEntity<Void> reject(@PathVariable Long prePostId,
                                         @AuthenticationPrincipal OAuth2User user) {
-        Member member = getMemberService.getMember(user.getAttribute("email"));
+        String email = Objects.requireNonNull(user.getAttribute("email"));
+        Member member = getMemberService.getMember(email);
         UpdatePrePostStatusDto updatePrePostStatusDto = new UpdatePrePostStatusDto(prePostId, PrePostStatus.REJECTED, member.getId());
         rejectPrePostService.reject(updatePrePostStatusDto);
         return ResponseEntity.ok().build();

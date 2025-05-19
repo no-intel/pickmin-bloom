@@ -137,7 +137,6 @@
             if (!vaildation(formData)){
                 throw new Error("엽서 신청에 필요한 조건을 만족하지 못했습니다.");
             }
-            console.log("@@@@@@@@@")
             const response = await fetch('/pre-posts', {
                 method: 'POST',
                 body: formData,
