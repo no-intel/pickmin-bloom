@@ -153,14 +153,12 @@
 
         </div>
         <!-- End of Page Wrapper -->
-
-        <!-- Modal-->
-        <div th:replace="~{modal/registerPostModal.html}"></div>
-        <div th:replace="~{modal/logoutModal.html}"></div>
-
     </div>
 
     <div th:replace="~{script.html}"></div>
+    <!-- Modal-->
+    <div th:replace="~{modal/registerPostModal.html}"></div>
+    <div th:replace="~{modal/logoutModal.html}"></div>
 
     <script>
         let posts = null;
@@ -213,6 +211,7 @@
             });
 
             map.getViewport().addEventListener('contextmenu', function (event) {
+                console.log("우클릭")
                 event.preventDefault(); // 기본 우클릭 메뉴 방지
 
                 const postPopup = document.getElementById('post-popup');

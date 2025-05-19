@@ -3,59 +3,118 @@
     <div class="modal-dialog modal-xl" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel">엽서 등록 신청</h5>
-                <button class="close" type="button" data-dismiss="modal" aria-label="Close" onclick="closeModal()">
+                <h5 class="modal-title">엽서 등록 신청</h5>
+                <button class="close" id="close-register-btn" type="button" data-dismiss="modal" aria-label="Close" onclick="closeModal()">
                     <span aria-hidden="true">×</span>
                 </button>
             </div>
+
             <div class="modal-body">
                 <div class="container">
                     <div class="row">
+                        <!-- 왼쪽 이미지 -->
                         <div class="col-lg-6 d-none d-lg-block bg-login-image">
                             <img src="/img/post-register.png" alt="register-post-image" style="max-width: 100%; height: auto;">
                         </div>
-                        <div class="col-lg-6">
-                            <label for="post-name">엽서 이름</label>
-                            <input type="text" class="form-control" id="post-name" placeholder="엽서 이름">
-                            <label for="post-latitude">위도(구글 좌표 기준 왼쪽)</label>
-                            <input type="number" class="form-control" id="post-latitude" placeholder="32.22222">
-                            <label for="post-longitude">경도(구글 좌표 기준 오른쪽)</label>
-                            <input type="number" class="form-control" id="post-longitude" placeholder="127.22222">
-                            <label for="post-type">엽서 구분</label>
-                            <div class="dropdown mb-4">
-                                <select class="form-select" aria-label="Default select example" id="post-type">
-                                    <option selected value="null">구분</option>
-                                    <option value="버섯">버섯</option>
-                                    <option value="빅플">빅플</option>
-                                    <option value="탐험">탐험</option>
-                                </select>
+
+                        <!-- 오른쪽 입력 영역 -->
+                        <div class="col-lg-6 d-flex flex-column justify-content-between">
+                            <!-- 스텝별 입력 영역 -->
+                            <div class="step step-1">
+                                <label for="post-latitude">위도</label>
+                                <input type="number" class="form-control" id="post-latitude" placeholder="예: 36.12345">
+                                <label for="post-longitude">경도</label>
+                                <input type="number" class="form-control" id="post-longitude" placeholder="예: 127.12345">
                             </div>
-                            <div class="mb-3">
-                                <label for="post-img" class="form-label">엽서 이미지 업로드</label>
-                                <div class="input-group">
-                                    <input type="file" class="form-control" id="post-img" accept="image/*">
-                                    <label class="input-group-text" for="post-img">Upload</label>
+
+                            <div class="step step-2 d-none">
+                                <label for="post-name">엽서 이름</label>
+                                <input type="text" class="form-control" id="post-name" placeholder="엽서 이름">
+                            </div>
+
+                            <div class="step step-3 d-none">
+                                <label for="post-type">엽서 구분</label>
+                                <div class="dropdown mb-4">
+                                    <select class="form-select" aria-label="Default select example" id="post-type">
+                                        <option selected value="null">구분</option>
+                                        <option value="버섯">버섯</option>
+                                        <option value="빅플">빅플</option>
+                                        <option value="탐험">탐험</option>
+                                    </select>
                                 </div>
                             </div>
 
-                            <div class="form-check form-switch mb-3">
-                                <input class="form-check-input" type="checkbox" id="no-img">
-                                <label class="form-check-label" for="no-img">이미지 없음</label>
+                            <div class="step step-4 d-none">
+                                <label for="post-img">엽서 이미지 업로드</label>
+                                <div class="input-group mb-2">
+                                    <input type="file" class="form-control" id="post-img" accept="image/*">
+                                    <label class="input-group-text" for="post-img">Upload</label>
+                                </div>
+                                <div class="form-check form-switch mb-3">
+                                    <input class="form-check-input" type="checkbox" id="no-img">
+                                    <label class="form-check-label" for="no-img">이미지 없음</label>
+                                </div>
                             </div>
-                            <a class="btn btn-primary btn-user btn-block" onclick="registerPost()">
-                                등록 신청
-                            </a>
                         </div>
                     </div>
                 </div>
             </div>
-            <div class="modal-footer">
-                <button class="btn btn-secondary" type="button" data-dismiss="modal" onclick="closeModal()" id="register-post-modal-close-btn">Cancel</button>
+
+            <!-- 푸터: 이전/다음 버튼 -->
+            <div class="modal-footer d-flex justify-content-between">
+                <button class="btn btn-secondary" type="button" onclick="prevStep()">이전</button>
+                <button class="btn btn-primary" type="button" onclick="nextStep()">다음</button>
             </div>
         </div>
     </div>
 </div>
+
 <script>
+    let currentStep = 1;
+    const totalSteps = 4;
+
+    function showStep(step) {
+        document.querySelectorAll('.step').forEach((el, idx) => {
+            el.classList.toggle('d-none', idx + 1 !== step);
+        });
+
+        const prevBtn = document.querySelector('.modal-footer .btn-secondary');
+        const nextBtn = document.querySelector('.modal-footer .btn-primary');
+
+        // '이전' 버튼: 1스텝일 경우 자리만 차지 (숨김)
+        prevBtn.style.visibility = (step === 1) ? 'hidden' : 'visible';
+
+        // '다음' 버튼 텍스트 변경
+        nextBtn.textContent = (step === totalSteps) ? '제출' : '다음';
+    }
+
+    function nextStep() {
+        if (currentStep < totalSteps) {
+            currentStep++;
+            showStep(currentStep);
+        } else {
+            registerPost();
+        }
+    }
+
+    function prevStep() {
+        if (currentStep > 1) {
+            currentStep--;
+            showStep(currentStep);
+        }
+    }
+
+    function closeModal() {
+        document.getElementById('post-name').value = '';
+        document.getElementById('post-latitude').value = '';
+        document.getElementById('post-longitude').value = '';
+        document.getElementById('post-img').value = '';
+        document.getElementById('no-img').checked = false;
+        document.getElementById('post-type').value = 'null';
+        currentStep = 1;
+        showStep(currentStep);
+    }
+
     async function registerPost() {
         const postName = document.getElementById('post-name').value;
         const postLat = document.getElementById('post-latitude').value;
@@ -78,7 +137,7 @@
             if (!vaildation(formData)){
                 throw new Error("엽서 신청에 필요한 조건을 만족하지 못했습니다.");
             }
-
+            console.log("@@@@@@@@@")
             const response = await fetch('/pre-posts', {
                 method: 'POST',
                 body: formData,
@@ -91,7 +150,7 @@
                 return;
             }
 
-            document.getElementById('register-post-modal-close-btn').click();
+            document.getElementById('close-register-btn').click();
             alert("등록 신청이 완료 됐습니다.")
             return null;
 
@@ -139,13 +198,23 @@
         return true;
     }
 
-    function closeModal() {
-        document.getElementById('post-name').value = '';
-        document.getElementById('post-latitude').value = '';
-        document.getElementById('post-longitude').value = '';
-        document.getElementById('post-img').value = '';
-        document.getElementById('no-img').checked = false;
-        document.getElementById('post-type').value = 'null';
-    }
+    // 초기화
+    window.addEventListener('DOMContentLoaded', () => showStep(currentStep));
+    // 모달이 닫힐 때 closeModal() 자동 호출
+    document.addEventListener('DOMContentLoaded', function () {
+        const modalElement = document.getElementById('register-post-modal');
+        if (modalElement) {
+            $(modalElement).on('hidden.bs.modal', function () {
+                closeModal(); // 모달 닫히면 입력값 및 스텝 초기화
+            });
+        }
 
+        // 스텝 초기화도 DOM 로드 시점에 실행
+        showStep(currentStep);
+    });
+
+    // document 레벨에서 future DOM에 등장할 요소까지 감지
+    $(document).on('hidden.bs.modal', '#register-post-modal', function () {
+        closeModal();
+    });
 </script>
