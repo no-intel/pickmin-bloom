@@ -38,7 +38,7 @@ public class RegisterPostService {
 
     @TransactionalEventListener(classes = UpdatePrePostStatus.class, phase = TransactionPhase.BEFORE_COMMIT)
     public void registerPost(UpdatePrePostStatus event) {
-        String geohash = geoHashUtil.encode(event.latitude(), event.latitude());
+        String geohash = geoHashUtil.encode(event.latitude(), event.longitude());
         MultipartFile img = fileCodecUtil.decodeToMultipartFile(geohash, event.img());
         s3Util.uploadFile(event.type() + "-" + geohash, img);
         Post post = new Post(
