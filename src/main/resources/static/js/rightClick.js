@@ -39,7 +39,7 @@ const rightClickMarkers = (map, coordinate) => {
         <span style="font-size: 15px;">${lat.toFixed(6)}, ${lon.toFixed(6)}</span>
         <br/>
         ${isLogin ? `
-        <a class="btn btn-sm btn-primary" href="javascript:void(0)" data-toggle="modal" data-target="#register-post-modal">
+        <a class="btn btn-sm btn-primary" href="javascript:void(0)" onclick="registerPostWithCoor(${lat}, ${lon})">
             엽서 등록
         </a>` : ''}
 
@@ -47,3 +47,9 @@ const rightClickMarkers = (map, coordinate) => {
     coorPopup.style.display = 'block';
     coorOverlay.setPosition(coordinate);
 };
+
+const registerPostWithCoor = (lat, lon) => {
+    document.getElementById('post-latitude').value = lat.toFixed(6);
+    document.getElementById('post-longitude').value = lon.toFixed(6);
+    document.getElementById('register-post-btn').click();
+}
