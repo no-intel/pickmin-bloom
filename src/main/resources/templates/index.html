@@ -166,6 +166,10 @@
         let posts = null;
         let map = null;
         let isOnlyViewMoving = false;
+        let markerLayer = null;
+        let standardLayer = null;
+        let rightClickLayer = null;
+
         window.onload = async () => {
             map = await rendMap();
             const popup = document.getElementById('post-popup');
@@ -182,10 +186,13 @@
             });
 
             map.on('singleclick', async (e) => {
+                closeCoorOverlay();
+
                 if(isOnlyViewMoving){
                     isOnlyViewMoving = false;
                     return;
                 }
+
                 if(!map.hasFeatureAtPixel(e.pixel)){
                     popup.style.display = 'none';
                     postOverlay.setPosition(undefined);
@@ -205,17 +212,21 @@
                 }
             });
 
-        //     map.getViewport().addEventListener('contextmenu', function (event) {
-        //         event.preventDefault(); // 기본 우클릭 메뉴 방지
-        //
-        //         // 1. 클릭한 화면상의 픽셀 위치
-        //         const pixel = map.getEventPixel(event);
-        //
-        //         // 2. 픽셀을 지도 좌표로 변환
-        //         const coordinate = map.getCoordinateFromPixel(pixel);
-        //
-        //         handleCoorView(coordinate)
-        //     });
+            map.getViewport().addEventListener('contextmenu', function (event) {
+                event.preventDefault(); // 기본 우클릭 메뉴 방지
+
+                const postPopup = document.getElementById('post-popup');
+                postPopup.style.display = 'none';
+                postOverlay.setPosition(undefined);
+
+                // 1. 클릭한 화면상의 픽셀 위치
+                const pixel = map.getEventPixel(event);
+
+                // 2. 픽셀을 지도 좌표로 변환
+                const coordinate = map.getCoordinateFromPixel(pixel);
+
+                rightClickMarkers(map, coordinate);
+            });
         };
 
         function copyToClipboard(text) {

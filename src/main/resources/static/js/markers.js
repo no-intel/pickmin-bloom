@@ -1,6 +1,3 @@
-let markerLayer = null;
-let standardLayer = null;
-
 const createMarkerFeature = (post) => {
     const lonLat = ol.proj.fromLonLat([post.longitude, post.latitude]);
     const icon = post.type === "빅플" ? "img/flower.png" : (post.type === "버섯" ? "img/mushroom.png" : "img/explorer.png" );
@@ -92,6 +89,7 @@ const setStandardLayer = (x, y) => {
 };
 
 const markers = (map, posts, x, y) => {
+    console.log(x,y);
     if (standardLayer) {
         map.removeLayer(standardLayer)
     }
@@ -108,5 +106,4 @@ const markers = (map, posts, x, y) => {
     const markerFeatures = posts.map(post => createMarkerFeature(post));
     markerLayer = setMarkerLayer(markerFeatures);
     map.addLayer(markerLayer);
-
 };

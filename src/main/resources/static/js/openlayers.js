@@ -94,17 +94,15 @@ const rendMap = async () => {
     map.addInteraction(hoverSelect);
     map.addInteraction(clickSelect);
     map.addOverlay(postOverlay);
-    // map.addOverlay(coorOverlay);
+    map.addOverlay(coorOverlay);
 
     return map;
 };
 
 function handleFeatureSelection(feature) {
-    const postPopup = document.getElementById('post-popup');
-    // const coorPopup = document.getElementById('coor-popup');
-    // coorPopup.style.display = 'none';
-    // coorOverlay.setPosition(undefined);
+    closeCoorOverlay();
 
+    const postPopup = document.getElementById('post-popup');
     if (!feature) {
         postPopup.style.display = 'none';
         postOverlay.setPosition(undefined);
@@ -149,18 +147,8 @@ function closePopup() {
     }
 }
 
-// function handleCoorView(coordinate) {
-//     // 3. 좌표를 위도/경도로 변환
-//     const [lon, lat] = ol.proj.toLonLat(coordinate);
-//     // 4. 결과 확인 (소수점 6자리)
-//     console.log(`우클릭한 좌표 - 위도: ${lat.toFixed(6)}, 경도: ${lon.toFixed(6)}`);
-//
-//     const coorPopup = document.getElementById('coor-popup');
-//     console.log(coorPopup)
-//     coorPopup.style.display = 'none';
-//     coorOverlay.setPosition(undefined);
-//
-//     coorPopup.innerHTML = `${lat}, ${lon}`;
-//     coorPopup.style.display = 'block';
-//     coorOverlay.setPosition(coordinate);
-// }
+function closeCoorOverlay() {
+    const coorPopup = document.getElementById('coor-popup');
+    coorPopup.style.display = 'none';
+    coorOverlay.setPosition(undefined);
+}
