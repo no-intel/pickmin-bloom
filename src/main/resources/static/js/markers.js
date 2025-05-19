@@ -101,7 +101,11 @@ const markers = (map, posts, x, y) => {
         map.removeLayer(markerLayer);
     }
 
-    if (posts.length < 1) return;
+    if (rightClickLayer) {
+        map.removeLayer(rightClickLayer);
+    }
+
+    if (posts.length < 1) {}return;
 
     const markerFeatures = posts.map(post => createMarkerFeature(post));
     markerLayer = setMarkerLayer(markerFeatures);
