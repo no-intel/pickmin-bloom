@@ -1,9 +1,9 @@
-<div class="modal fade" id="register-post-modal" tabindex="-1" role="dialog" aria-labelledby="엽서 등록 신청"
+<div class="modal fade" id="edit-post-modal" tabindex="-1" role="dialog" aria-labelledby="엽서 등록 신청"
      aria-hidden="true">
     <div class="modal-dialog modal-xl" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title">엽서 등록 신청</h5>
+                <h5 class="modal-title">엽서 수정 신청</h5>
                 <button class="close" id="close-register-btn" type="button" data-dismiss="modal" aria-label="Close" onclick="closeRegisterPostModal()">
                     <span aria-hidden="true">×</span>
                 </button>
@@ -14,28 +14,28 @@
                     <div class="row">
                         <!-- 왼쪽 이미지 -->
                         <div class="col-lg-6 d-none d-lg-block bg-login-image">
-                            <img src="/img/post-register.png" alt="register-post-image" style="max-width: 100%; height: auto;">
+                            <img src="/img/edit-post-img.png" alt="edit-post-image" style="max-width: 100%; height: auto;">
                         </div>
 
                         <!-- 오른쪽 입력 영역 -->
                         <div class="col-lg-6 d-flex flex-column justify-content-between">
                             <!-- 스텝별 입력 영역 -->
                             <div class="step step-1">
-                                <label for="post-latitude">위도</label>
-                                <input type="number" class="form-control" id="post-latitude" placeholder="예: 36.12345">
-                                <label for="post-longitude">경도</label>
-                                <input type="number" class="form-control" id="post-longitude" placeholder="예: 127.12345">
+                                <label for="edit-post-latitude">위도</label>
+                                <input type="number" class="form-control" id="edit-post-latitude" placeholder="예: 36.12345">
+                                <label for="edit-post-longitude">경도</label>
+                                <input type="number" class="form-control" id="edit-post-longitude" placeholder="예: 127.12345">
                             </div>
 
                             <div class="step step-2 d-none">
-                                <label for="post-name">엽서 이름</label>
-                                <input type="text" class="form-control" id="post-name" placeholder="엽서 이름">
+                                <label for="edit-post-name">엽서 이름</label>
+                                <input type="text" class="form-control" id="edit-post-name" placeholder="엽서 이름">
                             </div>
 
                             <div class="step step-3 d-none">
-                                <label for="post-type">엽서 구분</label>
+                                <label for="edit-post-type">엽서 구분</label>
                                 <div class="dropdown mb-4">
-                                    <select class="form-select" aria-label="Default select example" id="post-type">
+                                    <select class="form-select" aria-label="Default select example" id="edit-post-type">
                                         <option selected value="null">구분</option>
                                         <option value="버섯">버섯</option>
                                         <option value="빅플">빅플</option>
@@ -45,14 +45,15 @@
                             </div>
 
                             <div class="step step-4 d-none">
-                                <label for="post-img">엽서 이미지 업로드</label>
+                                <label for="edit-post-img">엽서 이미지</label>
                                 <div class="input-group mb-2">
-                                    <input type="file" class="form-control" id="post-img" accept="image/*">
-                                    <label class="input-group-text" for="post-img">Upload</label>
+                                    <input type="file" class="form-control" id="edit-post-img" accept="image/*">
+                                    <label class="input-group-text" for="edit-post-img">Upload</label>
                                 </div>
                                 <div class="form-check form-switch mb-3">
                                     <input class="form-check-input" type="checkbox" id="no-img">
                                     <label class="form-check-label" for="no-img">이미지 없음</label>
+                                    <img id="original-img" src="" alt="orginal-img" onerror="this.onerror=null; this.src='/img/404-img.png';" style="max-width: 100%; height: auto;">
                                 </div>
                             </div>
                         </div>
@@ -70,10 +71,18 @@
 </div>
 
 <script>
+    function requestEditPost(post) {
+        document.getElementById('edit-post-name').value = post.name;
+        document.getElementById('edit-post-latitude').value = post.latitude;
+        document.getElementById('edit-post-longitude').value = post.longitude;
+        document.getElementById('edit-post-type').value = post.type;
+        document.getElementById('original-img').src = post.downloadUrl || null;
+        console.log(post)
+    }
     let currentStep = 1;
     const totalSteps = 4;
 
-    function showRegisterPostStep(step) {
+    function showEditPostStep(step) {
         document.querySelectorAll('.step').forEach((el, idx) => {
             el.classList.toggle('d-none', idx + 1 !== step);
         });
@@ -91,7 +100,7 @@
     function nextStep() {
         if (currentStep < totalSteps) {
             currentStep++;
-            showRegisterPostStep(currentStep);
+            showStep(currentStep);
         } else {
             registerPost();
         }
@@ -100,11 +109,11 @@
     function prevStep() {
         if (currentStep > 1) {
             currentStep--;
-            showRegisterPostStep(currentStep);
+            showStep(currentStep);
         }
     }
 
-    function closeRegisterPostModal() {
+    function closeModal() {
         document.getElementById('post-name').value = '';
         document.getElementById('post-latitude').value = '';
         document.getElementById('post-longitude').value = '';
@@ -112,7 +121,7 @@
         document.getElementById('no-img').checked = false;
         document.getElementById('post-type').value = 'null';
         currentStep = 1;
-        showRegisterPostStep(currentStep);
+        showStep(currentStep);
     }
 
     async function registerPost() {
@@ -198,22 +207,22 @@
     }
 
     // 초기화
-    window.addEventListener('DOMContentLoaded', () => showRegisterPostStep(currentStep));
+    window.addEventListener('DOMContentLoaded', () => showEditPostStep(currentStep));
     // 모달이 닫힐 때 closeModal() 자동 호출
     document.addEventListener('DOMContentLoaded', function () {
-        const modalElement = document.getElementById('register-post-modal');
+        const modalElement = document.getElementById('edit-post-modal');
         if (modalElement) {
             $(modalElement).on('hidden.bs.modal', function () {
-                closeRegisterPostModal(); // 모달 닫히면 입력값 및 스텝 초기화
+                closeModal();
             });
         }
 
         // 스텝 초기화도 DOM 로드 시점에 실행
-        showRegisterPostStep(currentStep);
+        showEditPostStep(currentStep);
     });
 
-    // document 레벨에서 future DOM에 등장할 요소까지 감지
-    $(document).on('hidden.bs.modal', '#register-post-modal', function () {
-        closeRegisterPostModal();
+
+    $(document).on('hidden.bs.modal', '#edit-post-modal', function () {
+        closeModal();
     });
 </script>

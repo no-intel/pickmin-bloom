@@ -113,8 +113,8 @@ function handleFeatureSelection(feature) {
     const isCluster = Array.isArray(feature.get('features'));
     const targetFeature = isCluster ? feature.get('features')[0] : feature;
     const coord = feature.getGeometry().getCoordinates();
-    const geohash = targetFeature.get('geohash');
-    const post = posts.find(post => post.geohash === geohash);
+    const postId = targetFeature.get('postId');
+    const post = posts.find(post => post.postId === postId);
 
     postPopup.innerHTML = `
         <div style="display: flex; justify-content: space-between; align-items: center;">
@@ -126,6 +126,7 @@ function handleFeatureSelection(feature) {
                 <i class="fas fa-copy"></i>
             </button><br>
         엽서구분 : ${post.type}<br>
+        <button class="btn btn-primary post-edit-btn" onclick='requestEditPost(${JSON.stringify(post)})' title="수정" data-toggle="modal" data-target="#edit-post-modal">수정</button>
     `;
     postPopup.style.display = 'block';
     postOverlay.setPosition(coord);

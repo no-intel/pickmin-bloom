@@ -6,7 +6,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
-public record GetPostCoordinatesResponse(double latitude,
+public record GetPostCoordinatesResponse(Long postId,
+                                         double latitude,
                                          double longitude,
                                          String name,
                                          String geohash,
@@ -17,6 +18,7 @@ public record GetPostCoordinatesResponse(double latitude,
         List<GetPostCoordinatesResponse> responses = new ArrayList<>();
         posts.forEach(post -> {
             responses.add(new GetPostCoordinatesResponse(
+                    post.id(),
                     post.latitude(),
                     post.longitude(),
                     post.name(),

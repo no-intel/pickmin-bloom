@@ -24,7 +24,7 @@ const rendPostsImgCard = (posts) => {
 
         const card = document.createElement('div');
         card.className = 'card border-left-success shadow h-100 post-card';
-        card.dataset.geohash = post.geohash;
+        card.dataset.postId = post.postId;
 
         card.innerHTML = `
             <div class="card-body d-flex flex-column justify-content-between p-2 h-100">
@@ -37,7 +37,7 @@ const rendPostsImgCard = (posts) => {
         `;
 
         card.addEventListener('click', () => {
-            const targetHash = card.dataset.geohash;
+            const targetPostId = card.dataset.postId;
 
             // 👉 postVector 레이어 찾기
             const vectorLayer = map.getLayers().getArray()
@@ -46,12 +46,12 @@ const rendPostsImgCard = (posts) => {
 
             const clusterFeatures = vectorLayer.getSource().getFeatures();
 
-            // 👉 클러스터 내부에서 geohash로 feature 탐색
+            // 👉 클러스터 내부에서 postId로 feature 탐색
             let matchedFeature = null;
             for (const cluster of clusterFeatures) {
                 const innerFeatures = cluster.get('features');
                 for (const f of innerFeatures) {
-                    if (f.get('geohash') === targetHash) {
+                    if (String(f.get('postId')) === String(targetPostId)) {
                         matchedFeature = f;
                         break;
                     }
@@ -60,7 +60,7 @@ const rendPostsImgCard = (posts) => {
             }
 
             if (!matchedFeature) {
-                console.warn(`해당 geohash의 feature 없음: ${targetHash}`);
+                console.warn(`해당 postId의 feature 없음: ${targetPostId}`);
                 return;
             }
 
