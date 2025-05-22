@@ -99,7 +99,7 @@ export type Options<VectorSourceType extends import("../source/Vector.js").defau
     } | undefined;
 };
 /**
- * @template {import("../source/Vector.js").default<FeatureType>} [VectorSourceType=import("../source/Vector.js").default<*>]
+ * @template {import("../source/Vector.js").default<FeatureType>} [VectorSourceType=import("../source/vectorLayer.js").default<*>]
  * @template {import('../Feature.js').FeatureLike} [FeatureType=import("./BaseVector.js").ExtractedFeatureType<VectorSourceType>]
  * @typedef {Object} Options
  * @property {string} [className='ol-layer'] A CSS class name to set to the layer element.
@@ -155,7 +155,7 @@ export type Options<VectorSourceType extends import("../source/Vector.js").defau
  * property on the layer object; for example, setting `title: 'My Title'` in the
  * options means that `title` is observable, and has get/set accessors.
  *
- * @template {import("../source/Vector.js").default<FeatureType>} [VectorSourceType=import("../source/Vector.js").default<*>]
+ * @template {import("../source/Vector.js").default<FeatureType>} [VectorSourceType=import("../source/vectorLayer.js").default<*>]
  * @template {import('../Feature.js').FeatureLike} [FeatureType=import("./BaseVector.js").ExtractedFeatureType<VectorSourceType>]
  * @extends {BaseVectorLayer<FeatureType, VectorSourceType, CanvasVectorImageLayerRenderer>}
  * @api

@@ -192,8 +192,8 @@ function setLayerMapProperty(layer, map) {
  * The map is the core component of OpenLayers. For a map to render, a view,
  * one or more layers, and a target container are needed:
  *
- *     import Map from 'ol/Map.js';
- *     import View from 'ol/View.js';
+ *     import Map from 'ol/map.js';
+ *     import View from 'ol/view.js';
  *     import TileLayer from 'ol/layer/Tile.js';
  *     import OSM from 'ol/source/OSM.js';
  *

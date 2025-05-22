@@ -6,11 +6,11 @@ import WebGLVectorLayerRenderer from '../renderer/webgl/VectorLayer.js';
 
 /***
  * @template T
- * @typedef {T extends import("../source/Vector.js").default<infer U extends import("../Feature.js").FeatureLike> ? U : never} ExtractedFeatureType
+ * @typedef {T extends import("../source/vectorLayer.js").default<infer U extends import("../Feature.js").FeatureLike> ? U : never} ExtractedFeatureType
  */
 
 /**
- * @template {import("../source/Vector.js").default<FeatureType>} [VectorSourceType=import("../source/Vector.js").default<*>]
+ * @template {import("../source/Vector.js").default<FeatureType>} [VectorSourceType=import("../source/vectorLayer.js").default<*>]
  * @template {import('../Feature.js').FeatureLike} [FeatureType=ExtractedFeatureType<VectorSourceType>]
  * @typedef {Object} Options
  * @property {string} [className='ol-layer'] A CSS class name to set to the layer element.
@@ -56,7 +56,7 @@ import WebGLVectorLayerRenderer from '../renderer/webgl/VectorLayer.js';
  * property on the layer object; for example, setting `title: 'My Title'` in the
  * options means that `title` is observable, and has get/set accessors.
  *
- * @template {import("../source/Vector.js").default<FeatureType>} [VectorSourceType=import("../source/Vector.js").default<*>]
+ * @template {import("../source/Vector.js").default<FeatureType>} [VectorSourceType=import("../source/vectorLayer.js").default<*>]
  * @template {import('../Feature.js').FeatureLike} [FeatureType=ExtractedFeatureType<VectorSourceType>]
  * @extends {Layer<VectorSourceType, WebGLVectorLayerRenderer>}
  */

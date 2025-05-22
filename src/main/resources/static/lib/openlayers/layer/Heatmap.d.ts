@@ -84,7 +84,7 @@ export type Options<FeatureType extends import("../Feature.js").FeatureLike = im
  * @fires import("../render/Event.js").RenderEvent#prerender
  * @fires import("../render/Event.js").RenderEvent#postrender
  * @template {import("../Feature.js").FeatureLike} [FeatureType=import("../Feature.js").default]
- * @template {import("../source/Vector.js").default<FeatureType>} [VectorSourceType=import("../source/Vector.js").default<FeatureType>]
+ * @template {import("../source/Vector.js").default<FeatureType>} [VectorSourceType=import("../source/vectorLayer.js").default<FeatureType>]
  * @extends {BaseVector<FeatureType, VectorSourceType, WebGLPointsLayerRenderer>}
  * @api
  */

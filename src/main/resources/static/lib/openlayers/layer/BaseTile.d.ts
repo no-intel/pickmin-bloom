@@ -61,7 +61,7 @@ export type Options<TileSourceType extends import("../source/Tile.js").default> 
      * Sets the layer as overlay on a map. The map will not manage
      * this layer in its layers collection, and the layer will be rendered on top. This is useful for
      * temporary layers. The standard way to add a layer to a map and have it managed by the map is to
-     * use {@link import ("../Map.js").default#addLayer map.addLayer()}.
+     * use {@link import ("../map.js").default#addLayer map.addLayer()}.
      */
     map?: import("../Map.js").default | undefined;
     /**
@@ -120,7 +120,7 @@ export type Options<TileSourceType extends import("../source/Tile.js").default> 
  * @property {import("../Map.js").default} [map] Sets the layer as overlay on a map. The map will not manage
  * this layer in its layers collection, and the layer will be rendered on top. This is useful for
  * temporary layers. The standard way to add a layer to a map and have it managed by the map is to
- * use {@link import("../Map.js").default#addLayer map.addLayer()}.
+ * use {@link import("../map.js").default#addLayer map.addLayer()}.
  * @property {import("./Base.js").BackgroundColor} [background] Background color for the layer. If not specified, no background
  * will be rendered.
  * @property {boolean} [useInterimTilesOnError=true] Deprecated.  Use interim tiles on error.

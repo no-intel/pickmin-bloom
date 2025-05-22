@@ -94,7 +94,7 @@ export class VectorSourceEvent extends Event {
  * Example:
  *
  * ```js
- * import Vector from 'ol/source/Vector.js';
+ * import Vector from 'ol/source/vectorLayer.js';
  * import GeoJSON from 'ol/format/GeoJSON.js';
  * import {bbox} from 'ol/loadingstrategy.js';
  *

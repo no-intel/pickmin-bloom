@@ -71,7 +71,7 @@ export type Options<FeatureType extends import("../Feature.js").FeatureLike = im
      * Example:
      *
      * ```js
-     * import Vector from 'ol/source/Vector.js';
+     * import Vector from 'ol/source/vectorLayer.js';
      * import GeoJSON from 'ol/format/GeoJSON.js';
      * import {bbox} from 'ol/loadingstrategy.js';
      *
@@ -191,7 +191,7 @@ import Event from '../events/Event.js';
  * Example:
  *
  * ```js
- * import Vector from 'ol/source/Vector.js';
+ * import Vector from 'ol/source/vectorLayer.js';
  * import GeoJSON from 'ol/format/GeoJSON.js';
  * import {bbox} from 'ol/loadingstrategy.js';
  *

@@ -9,7 +9,7 @@ import {createCanvasContext2D} from '../dom.js';
 
 /**
  * @template {import("../Feature.js").FeatureLike} [FeatureType=import("../Feature.js").default]
- * @template {import("../source/Vector.js").default<FeatureType>} [VectorSourceType=import("../source/Vector.js").default<FeatureType>]
+ * @template {import("../source/Vector.js").default<FeatureType>} [VectorSourceType=import("../source/vectorLayer.js").default<FeatureType>]
  * @typedef {Object} Options
  * @property {string} [className='ol-layer'] A CSS class name to set to the layer element.
  * @property {number} [opacity=1] Opacity (0, 1).
@@ -65,7 +65,7 @@ const DEFAULT_GRADIENT = ['#00f', '#0ff', '#0f0', '#ff0', '#f00'];
  * @fires import("../render/Event.js").RenderEvent#prerender
  * @fires import("../render/Event.js").RenderEvent#postrender
  * @template {import("../Feature.js").FeatureLike} [FeatureType=import("../Feature.js").default]
- * @template {import("../source/Vector.js").default<FeatureType>} [VectorSourceType=import("../source/Vector.js").default<FeatureType>]
+ * @template {import("../source/Vector.js").default<FeatureType>} [VectorSourceType=import("../source/vectorLayer.js").default<FeatureType>]
  * @extends {BaseVector<FeatureType, VectorSourceType, WebGLPointsLayerRenderer>}
  * @api
  */

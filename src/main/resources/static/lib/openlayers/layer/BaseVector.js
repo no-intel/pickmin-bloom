@@ -14,7 +14,7 @@ import {
 
 /***
  * @template T
- * @typedef {T extends import("../source/Vector.js").default<infer U extends import("../Feature.js").FeatureLike> ? U : never} ExtractedFeatureType
+ * @typedef {T extends import("../source/vectorLayer.js").default<infer U extends import("../Feature.js").FeatureLike> ? U : never} ExtractedFeatureType
  */
 
 /**

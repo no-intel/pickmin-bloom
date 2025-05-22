@@ -104,6 +104,7 @@ function handleFeatureSelection(feature) {
 
     const postPopup = document.getElementById('post-popup');
     if (!feature) {
+        console.log('feature가 없습니다.');
         postPopup.style.display = 'none';
         postOverlay.setPosition(undefined);
         return;
