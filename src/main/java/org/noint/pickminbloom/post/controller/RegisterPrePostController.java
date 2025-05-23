@@ -2,6 +2,7 @@ package org.noint.pickminbloom.post.controller;
 
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.noint.pickminbloom.member.entity.Member;
 import org.noint.pickminbloom.member.service.GetMemberService;
 import org.noint.pickminbloom.post.dto.PreRegisterPostDto;
@@ -19,6 +20,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import java.util.Objects;
 
+@Slf4j
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("/pre-posts")
@@ -31,6 +33,7 @@ public class RegisterPrePostController {
     @PreAuthorize("isAuthenticated()")
     public ResponseEntity<?> preRestPost(@Valid @ModelAttribute PreRegisterPostRequest request,
                                             @AuthenticationPrincipal OAuth2User user) {
+        log.info("preRestPost: {}", request);
         String email = Objects.requireNonNull(user.getAttribute("email"));
         Member member = getMemberService.getMember(email);
         PreRegisterPostDto dto = new PreRegisterPostDto(request, member);

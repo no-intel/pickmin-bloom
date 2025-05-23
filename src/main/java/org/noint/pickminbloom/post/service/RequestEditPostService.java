@@ -17,6 +17,7 @@ public class RequestEditPostService {
     private final PostEditRequestRepository postEditRequestRepository;
 
     public void requestEditPost(RequestEditPostDto dto) {
+        log.info("Request edit post: {}", dto);
         PostEditRequest postEditRequest = new PostEditRequest(
                 dto.post(),
                 dto.editedName(),

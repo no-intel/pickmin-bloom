@@ -16,6 +16,7 @@ public class GetPostEditRequestService {
     private final PostEditRequestRepository postEditRequestRepository;
 
     public PostEditRequest getEditPostRequest(Long editPostRequestId) {
+        log.info("Get edit post request: {}", editPostRequestId);
         return postEditRequestRepository.findById(editPostRequestId)
                 .orElseThrow(() -> new NotExistPostEditRequestException("id"));
     }

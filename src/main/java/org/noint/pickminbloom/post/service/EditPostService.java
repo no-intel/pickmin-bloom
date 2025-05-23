@@ -25,6 +25,7 @@ public class EditPostService {
 
     @TransactionalEventListener(classes = UpdatePostEditRequestStatus.class, phase = TransactionPhase.BEFORE_COMMIT)
     public void registerPost(UpdatePostEditRequestStatus event) {
+        log.info("EVENT - Edit post: {}", event);
         Post post = getPostService.getPost(event.postId());
         String editGeohash = geoHashUtil.encode(event.editLatitude(), event.editLongitude());
         boolean isEditNoImg = event.editImg() == null;

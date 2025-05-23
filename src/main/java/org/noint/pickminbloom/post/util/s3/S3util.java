@@ -7,11 +7,11 @@ import java.util.List;
 import java.util.Map;
 
 public interface S3util {
-    void uploadFile(String geohash, MultipartFile file);
+    void uploadFile(String key, MultipartFile file);
 
-    Map<String, String> getDownloadUrl(List<GetPostResponseDto> geohashes);
+    Map<String, String> getDownloadUrl(List<GetPostResponseDto> posts);
 
-    Map<String, String> createdPresignedUrlsForDownload(List<String> geohashes);
+    Map<String, String> createdPresignedUrlsForDownload(List<String> keys);
 
     void renameFile(String oldKey, String newKey);
 

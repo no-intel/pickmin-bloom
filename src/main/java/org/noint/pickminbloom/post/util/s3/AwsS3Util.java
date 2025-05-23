@@ -88,12 +88,13 @@ public class AwsS3Util implements S3util {
         }
     }
 
-    public void uploadFile(String geohash, MultipartFile file){
+    public void uploadFile(String key, MultipartFile file){
+        log.info("Upload file: {}", key);
         try {
             s3Client.putObject(
                     PutObjectRequest.builder()
                             .bucket(bucketName)
-                            .key(geohash)
+                            .key(key)
                             .contentType(file.getContentType())
                             .build(),
                     RequestBody.fromBytes(file.getBytes())
@@ -114,8 +115,8 @@ public class AwsS3Util implements S3util {
     }
 
     // 버킷 파일 비공개시 사용
-    public Map<String, String> createdPresignedUrlsForDownload(List<String> geohashes) {
-        return geohashes.stream()
+    public Map<String, String> createdPresignedUrlsForDownload(List<String> keys) {
+        return keys.stream()
                 .collect(Collectors.toMap(
                         geohash -> geohash,
                         geohash -> {
@@ -135,6 +136,7 @@ public class AwsS3Util implements S3util {
     }
 
     public void renameFile(String oldKey, String newKey) {
+        log.info("Rename file: {} -> {}", oldKey, newKey);
         s3Client.copyObject(
                 CopyObjectRequest.builder()
                         .sourceBucket(bucketName)
@@ -147,6 +149,7 @@ public class AwsS3Util implements S3util {
     }
 
     public void deleteFile(String key) {
+        log.info("Delete file: {}", key);
         s3Client.deleteObject(
                 DeleteObjectRequest.builder()
                         .bucket(bucketName)

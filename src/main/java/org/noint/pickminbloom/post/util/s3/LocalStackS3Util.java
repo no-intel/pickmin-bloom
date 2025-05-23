@@ -94,12 +94,12 @@ public class LocalStackS3Util implements S3util {
         }
     }
 
-    public void uploadFile(String geohash, MultipartFile file){
+    public void uploadFile(String key, MultipartFile file){
         try {
             s3Client.putObject(
                     PutObjectRequest.builder()
                             .bucket(bucketName)
-                            .key(geohash)
+                            .key(key)
                             .contentType(file.getContentType())
                             .build(),
                     RequestBody.fromBytes(file.getBytes())
@@ -120,8 +120,8 @@ public class LocalStackS3Util implements S3util {
     }
 
     // 버킷 파일 비공개시 사용
-    public Map<String, String> createdPresignedUrlsForDownload(List<String> geohashes) {
-        return geohashes.stream()
+    public Map<String, String> createdPresignedUrlsForDownload(List<String> keys) {
+        return keys.stream()
                 .collect(Collectors.toMap(
                         geohash -> geohash,
                         geohash -> {

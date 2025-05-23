@@ -22,6 +22,7 @@ public class GetPostCoordinatesService {
     private final S3util s3Util;
 
     public List<GetPostCoordinatesResponse> getPostCoordinates(GetPostCoordinatesByViewDto dto) {
+        log.info("Get post By coordinates: {}", dto);
         List<GetPostResponseDto> posts = postQuerydslRepository.findPostsByView(dto);
         Map<String, String> downloadUrl = s3Util.getDownloadUrl(posts);
         return GetPostCoordinatesResponse.create(posts, downloadUrl);

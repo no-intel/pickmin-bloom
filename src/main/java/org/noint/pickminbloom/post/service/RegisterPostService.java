@@ -1,6 +1,7 @@
 package org.noint.pickminbloom.post.service;
 
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.noint.pickminbloom.post.dto.RegisterPostDto;
 import org.noint.pickminbloom.post.entity.Post;
 import org.noint.pickminbloom.post.event.UpdatePrePostStatus;
@@ -14,6 +15,7 @@ import org.springframework.transaction.event.TransactionPhase;
 import org.springframework.transaction.event.TransactionalEventListener;
 import org.springframework.web.multipart.MultipartFile;
 
+@Slf4j
 @Service
 @RequiredArgsConstructor
 public class RegisterPostService {
@@ -38,6 +40,7 @@ public class RegisterPostService {
 
     @TransactionalEventListener(classes = UpdatePrePostStatus.class, phase = TransactionPhase.BEFORE_COMMIT)
     public void registerPost(UpdatePrePostStatus event) {
+        log.info("EVENT - Register post: {}", event);
         String geohash = geoHashUtil.encode(event.latitude(), event.longitude());
         MultipartFile img = fileCodecUtil.decodeToMultipartFile(geohash, event.img());
         s3Util.uploadFile(event.type() + "-" + geohash, img);

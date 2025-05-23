@@ -1,6 +1,7 @@
 package org.noint.pickminbloom.post.service;
 
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.noint.pickminbloom.post.dto.UpdatePrePostStatusDto;
 import org.noint.pickminbloom.post.entity.PrePost;
 import org.noint.pickminbloom.post.enums.PrePostStatus;
@@ -12,6 +13,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
+@Slf4j
 @Service
 @RequiredArgsConstructor
 @Transactional
@@ -22,6 +24,7 @@ public class ConfirmPrePostService {
     private final ConfirmPrePostValidator confirmPrePostValidator;
 
     public void confirm(UpdatePrePostStatusDto dto) {
+        log.info("Confirm pre post: {}", dto);
         PrePost prePost = getPrePostService.getPrePost(dto.prePostId());
         confirmPrePostValidator.validateStatus(prePost.getStatus());
         prePost.updateStatus(dto.status(), dto.updatedBy());

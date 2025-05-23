@@ -31,6 +31,7 @@ public class UpdatePostEditRequestController {
     @PreAuthorize("hasAnyRole('ADMIN', 'MASTER')")
     public ResponseEntity<Void> confirm(@PathVariable Long postEditRequestId,
                                         @AuthenticationPrincipal OAuth2User user) {
+        log.info("Confirm post edit request: {}", postEditRequestId);
         String email = Objects.requireNonNull(user.getAttribute("email"));
         Member member = getMemberService.getMember(email);
         UpdatePostEditRequestDto updatePrePostStatusDto = new UpdatePostEditRequestDto(postEditRequestId, member.getId());
@@ -42,6 +43,7 @@ public class UpdatePostEditRequestController {
     @PreAuthorize("hasAnyRole('ADMIN', 'MASTER')")
     public ResponseEntity<Void> reject(@PathVariable Long postEditRequestId,
                                         @AuthenticationPrincipal OAuth2User user) {
+        log.info("Reject post edit request: {}", postEditRequestId);
         String email = Objects.requireNonNull(user.getAttribute("email"));
         Member member = getMemberService.getMember(email);
         UpdatePostEditRequestDto updatePrePostStatusDto = new UpdatePostEditRequestDto(postEditRequestId, member.getId());

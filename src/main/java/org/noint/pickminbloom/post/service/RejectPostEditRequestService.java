@@ -18,6 +18,7 @@ public class RejectPostEditRequestService {
     private final RejectPostEditRequestValidator rejectPostEditRequestValidator;
 
     public void reject(UpdatePostEditRequestDto dto) {
+        log.info("Reject post edit request: {}", dto);
         PostEditRequest editPostRequest = getPostEditRequestService.getEditPostRequest(dto.postEditRequestId());
         rejectPostEditRequestValidator.validateStatus(editPostRequest.getEditStatus());
         editPostRequest.confirm(PostEditRequestStatus.REJECTED, dto.confirmedBy());

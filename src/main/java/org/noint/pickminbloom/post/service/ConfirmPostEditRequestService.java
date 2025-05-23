@@ -21,6 +21,7 @@ public class ConfirmPostEditRequestService {
     private final ConfirmPostEditRequestValidator confirmPostEditRequestValidator;
 
     public void confirm(UpdatePostEditRequestDto dto) {
+        log.info("Confirm post edit request: {}", dto);
         PostEditRequest editPostRequest = getPostEditRequestService.getEditPostRequest(dto.postEditRequestId());
         confirmPostEditRequestValidator.validateStatus(editPostRequest.getEditStatus());
         editPostRequest.confirm(PostEditRequestStatus.CONFIRMED, dto.confirmedBy());

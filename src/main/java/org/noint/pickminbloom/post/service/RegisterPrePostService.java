@@ -1,6 +1,7 @@
 package org.noint.pickminbloom.post.service;
 
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.noint.pickminbloom.post.dto.PreRegisterPostDto;
 import org.noint.pickminbloom.post.entity.PrePost;
 import org.noint.pickminbloom.post.repository.PrePostRepository;
@@ -9,6 +10,7 @@ import org.noint.pickminbloom.post.validator.RegisterPrePostValidator;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+@Slf4j
 @Service
 @RequiredArgsConstructor
 @Transactional
@@ -18,6 +20,7 @@ public class RegisterPrePostService {
     private final RegisterPrePostValidator registerPrePostValidator;
 
     public void preRegisterPost(PreRegisterPostDto dto) {
+        log.info("preRegisterPost: {}", dto);
         registerPrePostValidator.validateCoordinates(dto.postLat(), dto.postLon());
         PrePost prePost = new PrePost(
                 dto.postName(),
