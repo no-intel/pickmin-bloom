@@ -25,7 +25,6 @@ let clickSelect = null;
 let hoverSelect = null;
 
 window.onload = async () => {
-
     postPopup = document.getElementById('post-popup');
     coorPopup = document.getElementById('coor-popup');
     map = await initialMap();
@@ -54,7 +53,7 @@ window.onload = async () => {
     })
 
     map.on('singleclick', async (e) => {
-        // closeCoorOverlay();
+        closeCoorOverlay();
 
         if(isOnlyViewMoving){
             isOnlyViewMoving = false;
@@ -103,17 +102,14 @@ window.onload = async () => {
         postPopup.style.display = 'none';
         postOverlay.setPosition(undefined);
 
+        closeCoorOverlay();
+
         // 1. 클릭한 화면상의 픽셀 위치
         const pixel = map.getEventPixel(event);
 
         // 2. 픽셀을 지도 좌표로 변환
         const coordinate = map.getCoordinateFromPixel(pixel);
 
-        if (rightClickLayer) {
-            map.removeLayer(rightClickLayer)
-            coorPopup.style.display = 'none';
-            coorOverlay.setPosition(undefined);
-        }
         rightClickLayer = rightClickMarkers(coorPopup, coordinate)
         coorOverlay.setPosition(coordinate);
         map.addLayer(rightClickLayer);
@@ -222,7 +218,7 @@ const createPostsImgCard = (posts) => {
 }
 
 function handleSelection(feature) {
-    // closeCoorOverlay();
+    closeCoorOverlay();
 
     // 빈 맵누르면 post popup 끄기
     if (!feature) {
@@ -270,5 +266,13 @@ const requestEditPost = (post) => {
     }else {
         document.getElementById('original-img').src = "/img/no-img.png";
         document.getElementById('edit-no-img').checked = true;
+    }
+}
+
+function closeCoorOverlay() {
+    if (rightClickLayer) {
+        map.removeLayer(rightClickLayer)
+        coorPopup.style.display = 'none';
+        coorOverlay.setPosition(undefined);
     }
 }
