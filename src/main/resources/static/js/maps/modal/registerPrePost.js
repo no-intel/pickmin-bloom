@@ -16,7 +16,7 @@ function showRegisterPostStep(step) {
     nextBtn.textContent = (step === totalSteps) ? '제출' : '다음';
 }
 
-function nextStep() {
+function registerNextStep() {
     if (currentStep < totalSteps) {
         currentStep++;
         showRegisterPostStep(currentStep);
@@ -25,7 +25,7 @@ function nextStep() {
     }
 }
 
-function prevStep() {
+function registerPrevStep() {
     if (currentStep > 1) {
         currentStep--;
         showRegisterPostStep(currentStep);

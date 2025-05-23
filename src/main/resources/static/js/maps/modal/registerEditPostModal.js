@@ -16,7 +16,7 @@ function showEditPostStep(step) {
     nextBtn.textContent = (step === editTotalSteps) ? '제출' : '다음';
 }
 
-function nextStep() {
+function editPostNextStep() {
     if (editStep < editTotalSteps) {
         editStep++;
         showEditPostStep(editStep);
@@ -25,7 +25,7 @@ function nextStep() {
     }
 }
 
-function prevStep() {
+function editPostPrevStep() {
     if (editStep > 1) {
         editStep--;
         showEditPostStep(editStep);
