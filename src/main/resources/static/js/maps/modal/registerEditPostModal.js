@@ -32,7 +32,7 @@ function prevStep() {
     }
 }
 
-function closeModal() {
+function closeEditPostModal() {
     document.getElementById('edit-post-id').value = '';
     document.getElementById('edit-post-name').value = '';
     document.getElementById('edit-post-latitude').value = '';
@@ -80,7 +80,7 @@ async function registerEditPost() {
             return;
         }
 
-        document.getElementById('close-register-btn').click();
+        document.getElementById('close-edit-btn').click();
         alert("등록 신청이 완료 됐습니다.")
         return null;
 
@@ -130,12 +130,12 @@ function vaildation(formData) {
 
 // 초기화
 window.addEventListener('DOMContentLoaded', () => showEditPostStep(editStep));
-// 모달이 닫힐 때 closeModal() 자동 호출
+// 모달이 닫힐 때 closeEditPostModal() 자동 호출
 document.addEventListener('DOMContentLoaded', function () {
     const modalElement = document.getElementById('edit-post-modal');
     if (modalElement) {
         $(modalElement).on('hidden.bs.modal', function () {
-            closeModal();
+            closeEditPostModal();
         });
     }
 
@@ -145,5 +145,5 @@ document.addEventListener('DOMContentLoaded', function () {
 
 
 $(document).on('hidden.bs.modal', '#edit-post-modal', function () {
-    closeModal();
+    closeEditPostModal();
 });
