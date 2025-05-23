@@ -8,8 +8,7 @@ export function getStyle(src) {
     });
 }
 
-export function getClusterStyle(feature) {
-    const features = feature.get('features');
+export function getClusterStyle(features) {
     const size = features.length;
 
     if (size === 1) {
