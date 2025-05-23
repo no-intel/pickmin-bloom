@@ -8,11 +8,14 @@ import {getClusterSource} from "./maps/components/clusterSource.js";
 import {getVectorLayer, getVectorLayerWithCluster} from "./maps/components/vectorLayer.js";
 import {getStyle} from "./maps/components/style.js";
 import {ajax} from "./maps/utils/ajax.js";
+import {rightClickMarkers} from "./maps/rightClick.js";
+
 
 let postList = [];
 let map = null;
 let isOnlyViewMoving = false;
 let postPopup = null;
+let coorPopup = null;
 let postOverlay = null;
 let coorOverlay = null;
 let postLayer = null;
@@ -24,7 +27,7 @@ let hoverSelect = null;
 window.onload = async () => {
 
     postPopup = document.getElementById('post-popup');
-    const coorPopup = document.getElementById('coor-popup');
+    coorPopup = document.getElementById('coor-popup');
     map = await initialMap();
 
     postOverlay = getOverlay(postPopup,'center-left',[10, 0]);
@@ -39,7 +42,6 @@ window.onload = async () => {
 
     // popup이 떠있을 때 동작
     clickSelect.on('select', (e) => {
-        console.log("셀랙션");
         const selectedFeatures = clickSelect.getFeatures();
         selectedFeatures.clear();
 
@@ -52,8 +54,6 @@ window.onload = async () => {
     })
 
     map.on('singleclick', async (e) => {
-        console.log("싱글")
-        console.log(isOnlyViewMoving)
         // closeCoorOverlay();
 
         if(isOnlyViewMoving){
@@ -62,8 +62,6 @@ window.onload = async () => {
         }
 
         if(!map.hasFeatureAtPixel(e.pixel)){
-            console.log("postPopup@@@@@")
-            console.log(postPopup);
             postPopup.style.display = 'none';
             postOverlay.setPosition(undefined);
 
@@ -99,34 +97,56 @@ window.onload = async () => {
         }
     })
 
-    const setMarkers = (map, posts, x, y) => {
-        if (standardLayer) {
-            map.removeLayer(standardLayer)
-        }
+    map.getViewport().addEventListener('contextmenu', function (event) {
+        event.preventDefault(); // 기본 우클릭 메뉴 방지
 
-        const standardFeature = getFeature(x, y);
-        const vectorSource = getVectorSource([standardFeature]);
-        const standardStyle = getStyle('img/pin.png');
-        standardLayer = getVectorLayer(vectorSource, standardStyle);
+        postPopup.style.display = 'none';
+        postOverlay.setPosition(undefined);
 
-        map.addLayer(standardLayer);
+        // 1. 클릭한 화면상의 픽셀 위치
+        const pixel = map.getEventPixel(event);
+
+        // 2. 픽셀을 지도 좌표로 변환
+        const coordinate = map.getCoordinateFromPixel(pixel);
 
         if (rightClickLayer) {
-            map.removeLayer(rightClickLayer);
+            map.removeLayer(rightClickLayer)
+            coorPopup.style.display = 'none';
+            coorOverlay.setPosition(undefined);
         }
-
-        // 기존 마커 레이어가 있으면 제거
-        if (postLayer) {
-            map.removeLayer(postLayer);
-        }
-
-        if (posts.length < 1) {return}
-
-        const markerFeatures = posts.map(post => createPostFeature(post));
-        postLayer = getPostLayer(markerFeatures);
-        map.addLayer(postLayer);
-    };
+        rightClickLayer = rightClickMarkers(coorPopup, coordinate)
+        coorOverlay.setPosition(coordinate);
+        map.addLayer(rightClickLayer);
+    });
 }
+
+const setMarkers = (map, posts, x, y) => {
+    if (standardLayer) {
+        map.removeLayer(standardLayer)
+    }
+
+    const standardFeature = getFeature(x, y);
+    const vectorSource = getVectorSource([standardFeature]);
+    const standardStyle = getStyle('img/pin.png');
+    standardLayer = getVectorLayer(vectorSource, standardStyle);
+
+    map.addLayer(standardLayer);
+
+    if (rightClickLayer) {
+        map.removeLayer(rightClickLayer);
+    }
+
+    // 기존 마커 레이어가 있으면 제거
+    if (postLayer) {
+        map.removeLayer(postLayer);
+    }
+
+    if (posts.length < 1) {return}
+
+    const markerFeatures = posts.map(post => createPostFeature(post));
+    postLayer = getPostLayer(markerFeatures);
+    map.addLayer(postLayer);
+};
 
 function createPostFeature(post) {
     const [lon, lat] = getFromLonLat(post.longitude, post.latitude);
@@ -202,13 +222,10 @@ const createPostsImgCard = (posts) => {
 }
 
 function handleSelection(feature) {
-    console.log("handleSelection")
     // closeCoorOverlay();
 
-    // const postPopup = document.getElementById('post-popup');
     // 빈 맵누르면 post popup 끄기
     if (!feature) {
-        console.log('feature가 없습니다.');
         postPopup.style.display = 'none';
         postOverlay.setPosition(undefined);
         return;
@@ -238,7 +255,5 @@ function handleSelection(feature) {
     postPopup.style.display = 'block';
     postOverlay.setPosition(coord);
     isOnlyViewMoving = true;
-    console.log("isOnlyViewMoving")
-    console.log(isOnlyViewMoving)
     map.getView().setCenter(coord);
 }
