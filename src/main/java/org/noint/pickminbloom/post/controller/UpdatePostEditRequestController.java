@@ -6,6 +6,7 @@ import org.noint.pickminbloom.member.entity.Member;
 import org.noint.pickminbloom.member.service.GetMemberService;
 import org.noint.pickminbloom.post.dto.UpdatePostEditRequestDto;
 import org.noint.pickminbloom.post.service.ConfirmPostEditRequestService;
+import org.noint.pickminbloom.post.service.RejectPostEditRequestService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
@@ -23,6 +24,7 @@ import java.util.Objects;
 @RequestMapping("/posts-edit-request")
 public class UpdatePostEditRequestController {
     private final ConfirmPostEditRequestService confirmPostEditRequestService;
+    private final RejectPostEditRequestService rejectPostEditRequestService;
     private final GetMemberService getMemberService;
 
     @PutMapping("/{prePostId}/confirm")
@@ -33,6 +35,17 @@ public class UpdatePostEditRequestController {
         Member member = getMemberService.getMember(email);
         UpdatePostEditRequestDto updatePrePostStatusDto = new UpdatePostEditRequestDto(prePostId, member.getId());
         confirmPostEditRequestService.confirm(updatePrePostStatusDto);
+        return ResponseEntity.ok().build();
+    }
+
+    @PutMapping("/{prePostId}/reject")
+    @PreAuthorize("hasAnyRole('ADMIN', 'MASTER')")
+    public ResponseEntity<Void> reject(@PathVariable Long prePostId,
+                                        @AuthenticationPrincipal OAuth2User user) {
+        String email = Objects.requireNonNull(user.getAttribute("email"));
+        Member member = getMemberService.getMember(email);
+        UpdatePostEditRequestDto updatePrePostStatusDto = new UpdatePostEditRequestDto(prePostId, member.getId());
+        rejectPostEditRequestService.reject(updatePrePostStatusDto);
         return ResponseEntity.ok().build();
     }
 }
