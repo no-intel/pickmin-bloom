@@ -239,7 +239,7 @@ function handleSelection(feature) {
     postPopup.innerHTML = `
         <div style="display: flex; justify-content: space-between; align-items: center;">
             <strong>${post.name}</strong>
-            <button class="popup-close-btn" onclick="closePopup()" title="닫기">×</button>
+            <button class="post-popup-close-btn" id="post-popup-close-btn" title="닫기">×</button>
         </div>
         <img src="${post.downloadUrl || "/img/no-img.png"}" onerror="this.onerror=null; this.src='/img/404-img.png';" style="max-width: 100%; height: auto;"><br>
         위치복사: <button class="btn btn-sm btn-light" onclick="copyToClipboard('${post.latitude}, ${post.longitude}')" title="위치 복사">
@@ -249,6 +249,7 @@ function handleSelection(feature) {
         <button class="btn btn-primary post-edit-btn" id="post-edit-btn" title="수정" data-toggle="modal" data-target="#edit-post-modal">수정</button>
     `;
     document.getElementById('post-edit-btn').addEventListener('click', () => requestEditPost(post))
+    document.getElementById('post-popup-close-btn').addEventListener('click', () => closePostOverlay())
     postPopup.style.display = 'block';
     postOverlay.setPosition(coord);
     isOnlyViewMoving = true;
@@ -266,6 +267,11 @@ const requestEditPost = (post) => {
     }else {
         document.getElementById('original-img').src = "/img/no-img.png";
     }
+}
+
+function closePostOverlay() {
+    postPopup.style.display = 'none';
+    postPopup.setPosition(undefined);
 }
 
 function closeCoorOverlay() {
