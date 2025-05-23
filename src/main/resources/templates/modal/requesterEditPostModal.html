@@ -1,0 +1,73 @@
+<div class="modal fade" id="edit-post-modal" tabindex="-1" role="dialog" aria-labelledby="엽서 등록 신청"
+     aria-hidden="true">
+    <div class="modal-dialog modal-xl" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">엽서 수정 신청</h5>
+                <button class="close" id="close-register-btn" type="button" data-dismiss="modal" aria-label="Close" onclick="closeRegisterPostModal()">
+                    <span aria-hidden="true">×</span>
+                </button>
+            </div>
+
+            <div class="modal-body">
+                <div class="container">
+                    <div class="row">
+                        <!-- 왼쪽 이미지 -->
+                        <div class="col-lg-6 d-none d-lg-block bg-login-image">
+                            <img src="/img/edit-post-img.png" alt="edit-post-image" style="max-width: 100%; height: auto;">
+                        </div>
+
+                        <!-- 오른쪽 입력 영역 -->
+                        <div class="col-lg-6 d-flex flex-column justify-content-between">
+                            <div class="d-none" id="edit-post-id"></div>
+                            <!-- 스텝별 입력 영역 -->
+                            <div class="edit-step edit-step-1">
+                                <label for="edit-post-latitude">위도</label>
+                                <input type="number" class="form-control" id="edit-post-latitude" placeholder="예: 36.12345">
+                                <label for="edit-post-longitude">경도</label>
+                                <input type="number" class="form-control" id="edit-post-longitude" placeholder="예: 127.12345">
+                            </div>
+
+                            <div class="edit-step edit-step-2 d-none">
+                                <label for="edit-post-name">엽서 이름</label>
+                                <input type="text" class="form-control" id="edit-post-name" placeholder="엽서 이름">
+                            </div>
+
+                            <div class="edit-step edit-step-3 d-none">
+                                <label for="edit-post-type">엽서 구분</label>
+                                <div class="dropdown mb-4">
+                                    <select class="form-select" aria-label="Default select example" id="edit-post-type">
+                                        <option selected value="null">구분</option>
+                                        <option value="버섯">버섯</option>
+                                        <option value="빅플">빅플</option>
+                                        <option value="탐험">탐험</option>
+                                    </select>
+                                </div>
+                            </div>
+
+                            <div class="edit-step edit-step-4 d-none">
+                                <label for="edit-post-img">엽서 이미지</label>
+                                <div class="input-group mb-2">
+                                    <input type="file" class="form-control" id="edit-post-img" accept="image/*">
+                                    <label class="input-group-text" for="edit-post-img">Upload</label>
+                                </div>
+                                <div class="form-check form-switch mb-3">
+                                    <input class="form-check-input" type="checkbox" id="edit-no-img">
+                                    <label class="form-check-label" for="edit-no-img">이미지 변경 없음</label>
+                                </div>
+                                <img id="original-img" src="" alt="orginal-img" onerror="this.onerror=null; this.src='/img/404-img.png';" style="max-width: 100%; height: auto;">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 푸터: 이전/다음 버튼 -->
+            <div class="modal-footer d-flex justify-content-between">
+                <button class="btn btn-secondary" type="button" onclick="prevStep()">이전</button>
+                <button class="btn btn-primary" type="button" onclick="nextStep()">다음</button>
+            </div>
+        </div>
+    </div>
+</div>
+

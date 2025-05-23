@@ -32,7 +32,7 @@ const setRightClickLayer = (x, y) => {
     return getVectorLayer(vectorSource, style);
 };
 
-export const registerPostWithCoor = (lat, lon) => {
+const registerPostWithCoor = (lat, lon) => {
     document.getElementById('post-latitude').value = lat.toFixed(6);
     document.getElementById('post-longitude').value = lon.toFixed(6);
     document.getElementById('register-post-btn').click();

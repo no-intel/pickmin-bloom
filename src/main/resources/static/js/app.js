@@ -250,10 +250,25 @@ function handleSelection(feature) {
                 <i class="fas fa-copy"></i>
             </button><br>
         엽서구분 : ${post.type}<br>
-        <button class="btn btn-primary post-edit-btn" onclick='requestEditPost(${JSON.stringify(post)})' title="수정" data-toggle="modal" data-target="#edit-post-modal">수정</button>
+        <button class="btn btn-primary post-edit-btn" id="post-edit-btn" title="수정" data-toggle="modal" data-target="#edit-post-modal">수정</button>
     `;
+    document.getElementById('post-edit-btn').addEventListener('click', () => requestEditPost(post))
     postPopup.style.display = 'block';
     postOverlay.setPosition(coord);
     isOnlyViewMoving = true;
     map.getView().setCenter(coord);
+}
+
+const requestEditPost = (post) => {
+    document.getElementById('edit-post-id').value = post.postId;
+    document.getElementById('edit-post-name').value = post.name;
+    document.getElementById('edit-post-latitude').value = post.latitude;
+    document.getElementById('edit-post-longitude').value = post.longitude;
+    document.getElementById('edit-post-type').value = post.type;
+    if (post.downloadUrl) {
+        document.getElementById('original-img').src = post.downloadUrl
+    }else {
+        document.getElementById('original-img').src = "/img/no-img.png";
+        document.getElementById('edit-no-img').checked = true;
+    }
 }
