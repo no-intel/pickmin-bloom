@@ -265,7 +265,6 @@ const requestEditPost = (post) => {
         document.getElementById('original-img').src = post.downloadUrl
     }else {
         document.getElementById('original-img').src = "/img/no-img.png";
-        document.getElementById('edit-no-img').checked = true;
     }
 }
 
