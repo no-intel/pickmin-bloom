@@ -27,24 +27,24 @@ public class UpdatePostEditRequestController {
     private final RejectPostEditRequestService rejectPostEditRequestService;
     private final GetMemberService getMemberService;
 
-    @PutMapping("/{prePostId}/confirm")
+    @PutMapping("/{postEditRequestId}/confirm")
     @PreAuthorize("hasAnyRole('ADMIN', 'MASTER')")
-    public ResponseEntity<Void> confirm(@PathVariable Long prePostId,
+    public ResponseEntity<Void> confirm(@PathVariable Long postEditRequestId,
                                         @AuthenticationPrincipal OAuth2User user) {
         String email = Objects.requireNonNull(user.getAttribute("email"));
         Member member = getMemberService.getMember(email);
-        UpdatePostEditRequestDto updatePrePostStatusDto = new UpdatePostEditRequestDto(prePostId, member.getId());
+        UpdatePostEditRequestDto updatePrePostStatusDto = new UpdatePostEditRequestDto(postEditRequestId, member.getId());
         confirmPostEditRequestService.confirm(updatePrePostStatusDto);
         return ResponseEntity.ok().build();
     }
 
-    @PutMapping("/{prePostId}/reject")
+    @PutMapping("/{postEditRequestId}/reject")
     @PreAuthorize("hasAnyRole('ADMIN', 'MASTER')")
-    public ResponseEntity<Void> reject(@PathVariable Long prePostId,
+    public ResponseEntity<Void> reject(@PathVariable Long postEditRequestId,
                                         @AuthenticationPrincipal OAuth2User user) {
         String email = Objects.requireNonNull(user.getAttribute("email"));
         Member member = getMemberService.getMember(email);
-        UpdatePostEditRequestDto updatePrePostStatusDto = new UpdatePostEditRequestDto(prePostId, member.getId());
+        UpdatePostEditRequestDto updatePrePostStatusDto = new UpdatePostEditRequestDto(postEditRequestId, member.getId());
         rejectPostEditRequestService.reject(updatePrePostStatusDto);
         return ResponseEntity.ok().build();
     }
