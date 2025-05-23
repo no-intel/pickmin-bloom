@@ -1,10 +1,14 @@
 package org.noint.pickminbloom.post.entity;
 
 import jakarta.persistence.*;
-import lombok.*;
+import lombok.AccessLevel;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.ToString;
 import lombok.extern.slf4j.Slf4j;
 import org.noint.pickminbloom.exception.post.ImgToByteException;
 import org.noint.pickminbloom.member.entity.Member;
+import org.noint.pickminbloom.post.enums.PostEditRequestStatus;
 import org.noint.pickminbloom.post.enums.PostType;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -44,12 +48,16 @@ public class PostEditRequest {
     @Enumerated(EnumType.STRING)
     private PostType editType;
 
+    @Column(nullable = false, name = "edit_status")
+    @Enumerated(EnumType.STRING)
+    private PostEditRequestStatus editStatus;
+
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(nullable = false, name = "requested_by")
     private Member requester;
 
-    @Column(name = "confirmed_by")
-    private Long confirmedBy;
+    @Column(name = "updated_by")
+    private Long updatedBy;
 
     @Column(nullable = false, name = "created_at")
     private LocalDateTime createdAt;
@@ -73,6 +81,7 @@ public class PostEditRequest {
         this.editLongitude = editLongitude;
         convertByte(editImg);
         this.editType = editType;
+        this.editStatus = PostEditRequestStatus.WAITING;
         this.requester = requester;
         this.createdAt = LocalDateTime.now();
     }
@@ -88,5 +97,11 @@ public class PostEditRequest {
             log.error("MultipartFile to byte error: {}", e.getMessage());
             throw new ImgToByteException();
         }
+    }
+
+    public void confirm(PostEditRequestStatus editStatus , Long updatedBy) {
+        this.editStatus = editStatus;
+        this.updatedBy = updatedBy;
+        this.updatedAt = LocalDateTime.now();
     }
 }

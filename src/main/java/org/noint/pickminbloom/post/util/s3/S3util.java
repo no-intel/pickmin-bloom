@@ -12,4 +12,8 @@ public interface S3util {
     Map<String, String> getDownloadUrl(List<GetPostResponseDto> geohashes);
 
     Map<String, String> createdPresignedUrlsForDownload(List<String> geohashes);
+
+    void renameFile(String oldKey, String newKey);
+
+    void deleteFile(String key);
 }

@@ -108,7 +108,7 @@ public class AwsS3Util implements S3util {
         return posts.stream()
                 .collect(Collectors.toMap(
                         GetPostResponseDto::getKey,
-                        post -> post.noImg() ? null : publicBaseUrl + "/" + post.getKey()
+                        post -> post.noImg() ? "" : publicBaseUrl + "/" + post.getKey()
                 ));
 
     }
@@ -132,5 +132,26 @@ public class AwsS3Util implements S3util {
                             return s3Presigner.presignGetObject(presignRequest).url().toString();
                         }
                 ));
+    }
+
+    public void renameFile(String oldKey, String newKey) {
+        s3Client.copyObject(
+                CopyObjectRequest.builder()
+                        .sourceBucket(bucketName)
+                        .sourceKey(oldKey)
+                        .destinationBucket(bucketName)
+                        .destinationKey(newKey)
+                        .build()
+        );
+        deleteFile(oldKey);
+    }
+
+    public void deleteFile(String key) {
+        s3Client.deleteObject(
+                DeleteObjectRequest.builder()
+                        .bucket(bucketName)
+                        .key(key)
+                        .build()
+        );
     }
 }

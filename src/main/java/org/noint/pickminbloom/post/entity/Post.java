@@ -75,4 +75,17 @@ public class Post {
         this.requester = requester;
         this.confirmedBy = confirmedBy;
     };
+
+    public void editPost(String editName,
+                         String editGeohash,
+                         Double editLatitude,
+                         Double editLongitude,
+                         PostType editType) {
+        this.name = editName;
+        this.geohash = editGeohash;
+        this.latitude = editLatitude;
+        this.longitude = editLongitude;
+        this.type = editType;
+        this.updatedAt = LocalDateTime.now();
+    }
 }

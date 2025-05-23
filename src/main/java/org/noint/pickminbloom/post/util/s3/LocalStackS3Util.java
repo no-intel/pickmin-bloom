@@ -15,10 +15,7 @@ import software.amazon.awssdk.core.sync.RequestBody;
 import software.amazon.awssdk.regions.Region;
 import software.amazon.awssdk.services.s3.S3Client;
 import software.amazon.awssdk.services.s3.S3Configuration;
-import software.amazon.awssdk.services.s3.model.CreateBucketRequest;
-import software.amazon.awssdk.services.s3.model.CreateBucketResponse;
-import software.amazon.awssdk.services.s3.model.GetObjectRequest;
-import software.amazon.awssdk.services.s3.model.PutObjectRequest;
+import software.amazon.awssdk.services.s3.model.*;
 import software.amazon.awssdk.services.s3.presigner.S3Presigner;
 import software.amazon.awssdk.services.s3.presigner.model.GetObjectPresignRequest;
 
@@ -117,7 +114,7 @@ public class LocalStackS3Util implements S3util {
         return posts.stream()
                 .collect(Collectors.toMap(
                         GetPostResponseDto::getKey,
-                        post -> post.noImg() ? null : publicBaseUrl + "/" + post.getKey()
+                        post -> post.noImg() ? "" : publicBaseUrl + "/" + post.getKey()
                 ));
 
     }
@@ -141,5 +138,26 @@ public class LocalStackS3Util implements S3util {
                             return s3Presigner.presignGetObject(presignRequest).url().toString();
                         }
                 ));
+    }
+
+    public void renameFile(String oldKey, String newKey) {
+        s3Client.copyObject(
+                CopyObjectRequest.builder()
+                        .sourceBucket(bucketName)
+                        .sourceKey(oldKey)
+                        .destinationBucket(bucketName)
+                        .destinationKey(newKey)
+                        .build()
+        );
+        deleteFile(oldKey);
+    }
+
+    public void deleteFile(String key){
+        s3Client.deleteObject(
+                DeleteObjectRequest.builder()
+                        .bucket(bucketName)
+                        .key(key)
+                        .build()
+        );
     }
 }
