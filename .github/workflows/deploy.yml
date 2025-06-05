@@ -26,6 +26,23 @@ jobs:
       - name: 📥 코드 가져오기 (checkout)
         uses: actions/checkout@v3
 
+      - name: 📄 변경 파일 확인
+        id: file_check
+        run: |
+          echo "📦 Diff range: ${{ github.event.before }} → ${{ github.sha }}"
+          git fetch origin master
+          CHANGED=$(git diff --name-only ${{ github.event.before }} ${{ github.sha }})
+          echo "변경 파일 목록:"
+          echo "$CHANGED"
+          echo "changed_files=$CHANGED" >> $GITHUB_OUTPUT
+
+      - name: 🚫 README.md만 변경된 경우 종료
+        if: |
+          steps.file_check.outputs.changed_files == 'README.md'
+        run: |
+          echo "🛑 README.md만 변경됨. 배포하지 않음."
+          exit 0
+
       - name: ✅ gradlew 실행 권한 부여
         run: chmod +x ./gradlew
 
