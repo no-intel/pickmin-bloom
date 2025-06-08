@@ -29,12 +29,16 @@ jobs:
       - name: 📄 변경 파일 확인
         id: file_check
         run: |
-          echo "📦 Diff range: ${{ github.event.before }} → ${{ github.sha }}"
-          git fetch origin master
-          CHANGED=$(git diff --name-only ${{ github.event.before }} ${{ github.sha }})
-          echo "변경 파일 목록:"
-          echo "$CHANGED"
-          echo "changed_files=$CHANGED" >> $GITHUB_OUTPUT
+          if [ "${{ github.event_name }}" = "workflow_dispatch" ]; then
+            echo "수동 실행 - diff 생략"
+            echo "changed_files=FORCE_DEPLOY" >> $GITHUB_OUTPUT
+          else
+            git fetch origin master
+            CHANGED=$(git diff --name-only ${{ github.event.before }} ${{ github.sha }})
+            echo "변경 파일 목록:"
+            echo "$CHANGED"
+            echo "changed_files=$CHANGED" >> $GITHUB_OUTPUT
+          fi
 
       - name: 🚫 README.md만 변경된 경우 종료
         if: |
