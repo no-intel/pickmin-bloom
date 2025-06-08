@@ -9,6 +9,7 @@ import {getVectorLayer, getVectorLayerWithCluster} from "./maps/components/vecto
 import {getStyle} from "./maps/components/style.js";
 import {ajax} from "./maps/utils/ajax.js";
 import {rightClickMarkers} from "./maps/rightClick.js";
+import {getCurrentLocation} from "./maps/utils/location.js";
 
 
 let postList = [];
@@ -23,11 +24,16 @@ let standardLayer = null;
 let rightClickLayer = null;
 let clickSelect = null;
 let hoverSelect = null;
+let currentLatitude = null;
+let currentLongitude = null;
+let currentLayer = null;
 
 window.onload = async () => {
     postPopup = document.getElementById('post-popup');
     coorPopup = document.getElementById('coor-popup');
-    map = await initialMap();
+    ({ latitude: currentLatitude, longitude: currentLongitude } = await getCurrentLocation());
+
+    map = await initialMap(currentLatitude, currentLongitude);
 
     postOverlay = getOverlay(postPopup,'center-left',[10, 0]);
     coorOverlay = getOverlay(coorPopup,'center-left',[10, 0]);
@@ -114,6 +120,8 @@ window.onload = async () => {
         coorOverlay.setPosition(coordinate);
         map.addLayer(rightClickLayer);
     });
+
+    setCurrentLocationEvent();
 }
 
 const setMarkers = (map, posts, x, y) => {
@@ -267,6 +275,26 @@ const requestEditPost = (post) => {
     }else {
         document.getElementById('original-img').src = "/img/no-img.png";
     }
+}
+
+function setCurrentLocationEvent() {
+    const btn = document.getElementById('current-location-btn');
+    btn.addEventListener('click', () => {
+        if (currentLayer){
+            map.removeLayer(currentLayer);
+        }
+
+        const view = map.getView();
+        const [y, x] = getFromLonLat(currentLongitude, currentLatitude);
+        view.setCenter([y, x]);
+
+        const currentFeature = getFeature(x, y);
+        const vectorSource = getVectorSource([currentFeature]);
+        const currentStyle = getStyle('img/standing.png');
+        currentLayer = getVectorLayer(vectorSource, currentStyle);
+
+        map.addLayer(currentLayer);
+    });
 }
 
 function closePostOverlay() {
