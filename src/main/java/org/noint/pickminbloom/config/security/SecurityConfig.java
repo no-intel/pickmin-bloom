@@ -48,7 +48,7 @@ public class SecurityConfig {
                             .anyRequest().authenticated())
                     .oauth2Login(oauth -> oauth
                             .loginPage("/sign")
-                            .defaultSuccessUrl("/")
+                            .defaultSuccessUrl("/", true)
                             .userInfoEndpoint(userInfo -> userInfo.userService(signService))
                     ).csrf(AbstractHttpConfigurer::disable)
                     .exceptionHandling(handler -> handler
