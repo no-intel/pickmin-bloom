@@ -1,10 +1,199 @@
 <!DOCTYPE html>
 <html lang="ko" xmlns:th="http://www.thymeleaf.org">
 <head>
-    <meta charset="UTF-8">
-    <title>우해해</title>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible">
+	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+	<meta name="description" content="">
+	<meta name="author" content="">
+
+	<title>픽 블 엽</title>
+
+	<!-- Custom fonts for this template-->
+	<link href="https://pickmin-map.com/lib/openlayers/ol.css" rel="stylesheet">
+	<link href="https://pickmin-map.com/lib/vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
+	<link
+		href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i"
+		rel="stylesheet">
+	<!-- 스크롤 라이브러리 -->
+	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/simplebar@latest/dist/simplebar.min.css" />
+
+	<!-- Custom styles for this template-->
+	<link href="https://pickmin-map.com/lib/vendor/css/sb-admin-2.css" rel="stylesheet">
+
+	<link rel="stylesheet" href="indexStyle.css">
+	<link rel="apple-touch-icon" href="/apple-touch-icon.png">
+	
+	<!-- 퍼블리싱 테스트용입니다. 퍼블리싱 작업완료 후 삭제합니다. -->
+	<script>document.write('<script src="http://' + (location.host || 'localhost').split(':')[0] + ':35729/livereload.js?snipver=1"></' + 'script>')</script>
+	<!-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script> -->
+	<!-- /퍼블리싱 테스트용입니다. 퍼블리싱 작업완료 후 삭제합니다. -->
 </head>
-<body>
-우해해
+
+<body id="page-top">
+
+	<!-- Page Wrapper -->
+	<div id="wrapper">
+
+		<!-- Content Wrapper -->
+		<div id="content-wrapper">
+
+			<!-- Main Content -->
+			<div id="content">
+
+				<!-- Topbar -->
+				<nav class="navbar">
+					<!-- Page Heading -->
+					<h1 class="navbar-logo">
+						<a href="">
+							<strong class="navbar-logo-img">픽블엽</strong>
+							<small class="navbar-logo-txt">피크민 블룸 엽서 스팟 v0.2.1</small>
+							<!-- <small class="navbar-logo-txt" th:text="'피크민 블룸 엽서 스팟 v' + ${version}"></small> -->
+						</a>
+					</h1>
+					
+					<!-- Topbar Navbar -->
+					<ul class="navbar-nav">
+						<!-- Nav Item - User Information -->
+						<li class="nav-item"> <!--<li th:if="${isLogin}" class="nav-item">-->
+							<a class="btn btn-primary" id="register-post-btn" href="javascript:void(0)" data-toggle="modal" data-target="#register-post-modal">
+								엽서 등록
+							</a>
+						</li>
+						<li class="nav-item"> <!--<li th:if="${isLogin}" class="nav-item">-->
+							<a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+								<span class="mr-2 d-none d-lg-inline text-gray-600 small">name</span>
+								<!-- <span class="mr-2 d-none d-lg-inline text-gray-600 small" th:text="${name}"></span> -->
+								<img class="img-profile rounded-circle" src="https://dummyimage.com/100x100/cfcfe8/fff">
+								<!-- <img class="img-profile rounded-circle" th:src="${picture}"> -->
+							</a>
+							<!-- Dropdown - User Information -->
+							<div class="dropdown-menu dropdown-menu-right shadow animated--grow-in" aria-labelledby="userDropdown">
+								<a class="dropdown-item" href="javascript:void(0)" data-toggle="modal" data-target="#logoutModal">
+									<i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i>
+									Logout
+								</a>
+							</div>
+						</li>
+						<li class="nav-item">
+						<!-- <li th:unless="${isLogin}" class="nav-item no-arrow"> -->
+							<a class="btn btn-primary" href="/sign">
+								로그인
+							</a>
+						</li>
+					</ul>
+
+				</nav>
+				<!-- End of Topbar -->
+
+				<!-- Begin Page Content -->
+				<main>
+					
+					<!-- 지도 -->
+					<div class="map-box">
+						<div id="map">지도</div>
+					</div>
+
+					<!-- 아래쪽 박스 -->
+					<div class="spot-box">
+						<ul class="spot-box-tab">
+							<li class="active"><a href="">주변 스팟 <span class="value">20</span></a></li>
+							<li><a href="">최근 등록된 스팟</a></li>
+						</ul>
+						<div id="post-overflow" data-simplebar>
+							<!-- 카드 목록 컨테이너 (수평 스크롤) -->
+							<div id="post-container">
+								<div class="post-card active" data-post-id="934">
+									<img src="https://pickmin-post.s3.ap-northeast-2.amazonaws.com/EXPLORER-wydm9rvy014s" class="post-img" alt="세종대왕" onerror="this.onerror=null; this.src='/img/404-img.png';">
+									<span class="post-type-img post-type-img--explorer"></span>
+								</div>
+								<div class="post-card" data-post-id="465">
+									<img src="https://pickmin-post.s3.ap-northeast-2.amazonaws.com/FLOWER-wydm9rqpzgyr" class="post-img" alt="광화문 기념비전" onerror="this.onerror=null; this.src='/img/404-img.png';">
+									<span class="post-type-img post-type-img--flower"></span>
+								</div>
+								<div class="post-card" data-post-id="1084">
+									<img src="https://pickmin-post.s3.ap-northeast-2.amazonaws.com/FLOWER-wydm9x1m5un9" class="post-img" alt="벛꽃벽" onerror="this.onerror=null; this.src='/img/404-img.png';">
+									<span class="post-type-img post-type-img--flower"></span>
+								</div>
+								<div class="post-card" data-post-id="994">
+									<img src="https://pickmin-post.s3.ap-northeast-2.amazonaws.com/MUSHROOM-wydm9qvm7h47" class="post-img" alt="서울 성공회성당" onerror="this.onerror=null; this.src='/img/404-img.png';">
+									<span class="post-type-img post-type-img--mushroom"></span>
+								</div>
+								<div class="post-card" data-post-id="1770">
+									<img src="https://pickmin-post.s3.ap-northeast-2.amazonaws.com/FLOWER-wydm9jbvczbh" class="post-img" alt="토끼 벽화" onerror="this.onerror=null; this.src='/img/404-img.png';">
+									<span class="post-type-img post-type-img--flower"></span>
+								</div>
+								<div class="post-card" data-post-id="819">
+									<img src="https://pickmin-post.s3.ap-northeast-2.amazonaws.com/FLOWER-wydm9qte8rn9" class="post-img" alt="연못의 꽃" onerror="this.onerror=null; this.src='/img/404-img.png';">
+									<span class="post-type-img post-type-img--flower"></span>
+								</div>
+								<div class="post-card" data-post-id="1765">
+									<img src="https://pickmin-post.s3.ap-northeast-2.amazonaws.com/FLOWER-wydmdptede06" class="post-img" alt="흥인지문(동대문)" onerror="this.onerror=null; this.src='/img/404-img.png';">
+									<span class="post-type-img post-type-img--flower"></span>
+								</div>
+								<div class="post-card" data-post-id="438">
+									<img src="https://pickmin-post.s3.ap-northeast-2.amazonaws.com/MUSHROOM-wydmdnm5242m" class="post-img" alt="불조심!" onerror="this.onerror=null; this.src='/img/404-img.png';">
+									<span class="post-type-img post-type-img--mushroom"></span>
+								</div>
+								<div class="post-card" data-post-id="569">
+									<img src="https://pickmin-post.s3.ap-northeast-2.amazonaws.com/FLOWER-wydmdnmumzdy" class="post-img" alt="Gate of Gwanghee" onerror="this.onerror=null; this.src='/img/404-img.png';">
+									<span class="post-type-img post-type-img--flower"></span>
+								</div>
+							</div>
+						</div>
+					</div>
+
+				</main>
+				<!-- End of Main Content -->
+			</div><!--    #content end        -->
+
+			<div id="post-popup" style="display: block;">
+				<div style="display: flex; justify-content: space-between; align-items: center;">
+					<strong>안녕인사동 정자</strong>
+					<button class="post-popup-close-btn" id="post-popup-close-btn" title="닫기">×</button>
+				</div>
+				<img src="https://pickmin-post.s3.ap-northeast-2.amazonaws.com/FLOWER-wydmc84z602j" onerror="this.onerror=null; this.src='/img/404-img.png';" style="max-width: 100%; height: auto;"><br>
+				위치복사: <button class="btn btn-sm btn-light" onclick="copyToClipboard('37.574489, 126.983843')" title="위치 복사">
+						<i class="fas fa-copy"></i>
+					</button><br>
+				엽서구분 : 빅플<br>
+				<button class="btn btn-primary post-edit-btn" id="post-edit-btn" title="수정" data-toggle="modal" data-target="#edit-post-modal">수정</button>
+			</div>
+			<div id="coor-popup" data-islogin="true" style="display: block;">
+				<span style="font-size: 15px;">37.585084, 126.994352</span>
+				<br>
+				<a class="btn btn-sm btn-primary" href="javascript:void(0)">엽서 등록</a>
+			</div>
+			<!-- <div id="coor-popup" th:data-islogin="${isLogin}">좌표 팝업</div> -->
+			<!-- End of Content Wrapper -->
+
+		</div>
+		<!-- End of Page Wrapper -->
+	</div>
+
+	<!-- Modal-->
+	<div th:replace="~{modal/registerPostModal.html}"></div>
+	<div th:replace="~{modal/requesterEditPostModal.html}"></div>
+	<div th:replace="~{modal/logoutModal.html}"></div>
+
+	<div th:replace="~{script.html}"></div>
+	
+	<div id="tost-message">토스트 팝업</div>
+
+	<script>
+		function showToast(text) {
+			const tostMessage = document.getElementById('tost-message');
+			tostMessage.textContent = text;
+			tostMessage.classList.add('active');
+			setTimeout(() => tostMessage.classList.remove('active'), 1000);
+		}
+		
+		function copyToClipboard(text) {
+			navigator.clipboard.writeText(text)
+				.then(() => showToast("위치가 복사되었습니다."))
+				.catch(err => showToast("복사에 실패했습니다."));
+		}
+	</script>
 </body>
+
 </html>
