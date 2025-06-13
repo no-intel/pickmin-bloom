@@ -77,7 +77,7 @@
 						</li>
 						<li class="nav-item">
 						<!-- <li th:unless="${isLogin}" class="nav-item no-arrow"> -->
-							<a class="btn btn-primary" href="/sign">
+							<a class="btn btn-secondary" href="/sign">
 								로그인
 							</a>
 						</li>
@@ -98,7 +98,7 @@
 					<div class="spot-box">
 						<ul class="spot-box-tab">
 							<li class="active"><a href="">주변 스팟 <span class="value">20</span></a></li>
-							<li><a href="">최근 등록된 스팟</a></li>
+							<li><a href="">최근 등록된 스팟 (준비중)</a></li>
 						</ul>
 						<div id="post-overflow" data-simplebar>
 							<!-- 카드 목록 컨테이너 (수평 스크롤) -->
@@ -106,38 +106,47 @@
 								<div class="post-card active" data-post-id="934">
 									<img src="https://pickmin-post.s3.ap-northeast-2.amazonaws.com/EXPLORER-wydm9rvy014s" class="post-img" alt="세종대왕" onerror="this.onerror=null; this.src='/img/404-img.png';">
 									<span class="post-type-img post-type-img--explorer"></span>
+									<span class="post-card-hover"></span>
 								</div>
 								<div class="post-card" data-post-id="465">
 									<img src="https://pickmin-post.s3.ap-northeast-2.amazonaws.com/FLOWER-wydm9rqpzgyr" class="post-img" alt="광화문 기념비전" onerror="this.onerror=null; this.src='/img/404-img.png';">
 									<span class="post-type-img post-type-img--flower"></span>
+									<span class="post-card-hover"></span>
 								</div>
 								<div class="post-card" data-post-id="1084">
 									<img src="https://pickmin-post.s3.ap-northeast-2.amazonaws.com/FLOWER-wydm9x1m5un9" class="post-img" alt="벛꽃벽" onerror="this.onerror=null; this.src='/img/404-img.png';">
 									<span class="post-type-img post-type-img--flower"></span>
+									<span class="post-card-hover"></span>
 								</div>
 								<div class="post-card" data-post-id="994">
 									<img src="https://pickmin-post.s3.ap-northeast-2.amazonaws.com/MUSHROOM-wydm9qvm7h47" class="post-img" alt="서울 성공회성당" onerror="this.onerror=null; this.src='/img/404-img.png';">
 									<span class="post-type-img post-type-img--mushroom"></span>
+									<span class="post-card-hover"></span>
 								</div>
 								<div class="post-card" data-post-id="1770">
 									<img src="https://pickmin-post.s3.ap-northeast-2.amazonaws.com/FLOWER-wydm9jbvczbh" class="post-img" alt="토끼 벽화" onerror="this.onerror=null; this.src='/img/404-img.png';">
 									<span class="post-type-img post-type-img--flower"></span>
+									<span class="post-card-hover"></span>
 								</div>
 								<div class="post-card" data-post-id="819">
 									<img src="https://pickmin-post.s3.ap-northeast-2.amazonaws.com/FLOWER-wydm9qte8rn9" class="post-img" alt="연못의 꽃" onerror="this.onerror=null; this.src='/img/404-img.png';">
 									<span class="post-type-img post-type-img--flower"></span>
+									<span class="post-card-hover"></span>
 								</div>
 								<div class="post-card" data-post-id="1765">
 									<img src="https://pickmin-post.s3.ap-northeast-2.amazonaws.com/FLOWER-wydmdptede06" class="post-img" alt="흥인지문(동대문)" onerror="this.onerror=null; this.src='/img/404-img.png';">
 									<span class="post-type-img post-type-img--flower"></span>
+									<span class="post-card-hover"></span>
 								</div>
 								<div class="post-card" data-post-id="438">
 									<img src="https://pickmin-post.s3.ap-northeast-2.amazonaws.com/MUSHROOM-wydmdnm5242m" class="post-img" alt="불조심!" onerror="this.onerror=null; this.src='/img/404-img.png';">
 									<span class="post-type-img post-type-img--mushroom"></span>
+									<span class="post-card-hover"></span>
 								</div>
 								<div class="post-card" data-post-id="569">
 									<img src="https://pickmin-post.s3.ap-northeast-2.amazonaws.com/FLOWER-wydmdnmumzdy" class="post-img" alt="Gate of Gwanghee" onerror="this.onerror=null; this.src='/img/404-img.png';">
 									<span class="post-type-img post-type-img--flower"></span>
+									<span class="post-card-hover"></span>
 								</div>
 							</div>
 						</div>
@@ -148,16 +157,33 @@
 			</div><!--    #content end        -->
 
 			<div id="post-popup" style="display: block;">
-				<div style="display: flex; justify-content: space-between; align-items: center;">
-					<strong>안녕인사동 정자</strong>
+				<div>
 					<button class="post-popup-close-btn" id="post-popup-close-btn" title="닫기">×</button>
 				</div>
-				<img src="https://pickmin-post.s3.ap-northeast-2.amazonaws.com/FLOWER-wydmc84z602j" onerror="this.onerror=null; this.src='/img/404-img.png';" style="max-width: 100%; height: auto;"><br>
-				위치복사: <button class="btn btn-sm btn-light" onclick="copyToClipboard('37.574489, 126.983843')" title="위치 복사">
-						<i class="fas fa-copy"></i>
-					</button><br>
-				엽서구분 : 빅플<br>
-				<button class="btn btn-primary post-edit-btn" id="post-edit-btn" title="수정" data-toggle="modal" data-target="#edit-post-modal">수정</button>
+				<img src="https://pickmin-post.s3.ap-northeast-2.amazonaws.com/FLOWER-wydmc84z602j" onerror="this.onerror=null; this.src='/img/404-img.png';"><br>
+				<div class="post-popup-inner">
+					<strong class="post-popup__title">안녕인사동 정자</strong>
+					<p class="post-popup__type post-popup__type--flower">빅플라워</p>
+					<p class="post-popup__type post-popup__type--explorer">탐험</p>
+					<p class="post-popup__type post-popup__type--mushroom">버섯</p>
+					<div class="post-popup__detail">
+						<p>위도 : 13.00000</p>
+						<p>경도 : 139.00000</p>
+						<br>
+						<p>2025-00-00 등록</p>
+						<p>2025-00-00 마지막 수정</p>
+						</p>
+					</div>
+				</div>
+				<div class="button-set">
+					<div class="button-set__left">
+						<button class="btn btn-sm btn-outline-secondary post-edit-btn" id="post-edit-btn" title="수정" data-toggle="modal" data-target="#edit-post-modal">수정</button>
+					</div>
+					<div class="button-set__right">
+						<button class="btn btn-sm btn-primary" onclick="copyToClipboard('37.574489, 126.983843')">위치 복사</button>
+					</div>
+				</div>
+				
 			</div>
 			<div id="coor-popup" data-islogin="true" style="display: block;">
 				<span style="font-size: 15px;">37.585084, 126.994352</span>
