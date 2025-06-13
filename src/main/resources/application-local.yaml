@@ -50,8 +50,9 @@ spring:
   mail:
     host: smtp.gmail.com
     port: 587
-    username: pickmap@gmail.com
-    passowrd: tunt pxfo abzu eeid
+    username: pickmap25@gmail.com
+    password: ${MAIL_PASSWORD}
+    master: tkdduf212@gmail.com
     properties:
       mail:
         smtp:

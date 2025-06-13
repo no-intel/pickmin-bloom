@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>엽서 등록 신청</title>
+</head>
+<body>
+<h2>엽서 등록 신청</h2>
+<p>엽서 등록 신청이 왔습니다.</p>
+
+<table>
+    <tr>
+        <th>항목</th>
+        <th>값</th>
+    </tr>
+    <tr>
+        <td>ID</td>
+        <td th:text="${id}">ID</td>
+    </tr>
+    <tr>
+        <td>NAME</td>
+        <td th:text="${name}">NAME</td>
+    </tr>
+    <tr>
+        <td>위도</td>
+        <td th:text="${latitude}">latitude</td>
+    </tr>
+    <tr>
+        <td>경도</td>
+        <td th:text="${longitude}">longitude</td>
+    </tr>
+</table>
+</body>
+</html>
