@@ -159,12 +159,14 @@
 			<div id="post-popup" style="display: block;">
 				<div class="post-popup-inner">
 					<button class="post-popup-close-btn" id="post-popup-close-btn" title="닫기"></button>
-					<img src="https://pickmin-post.s3.ap-northeast-2.amazonaws.com/FLOWER-wydmc84z602j" onerror="this.onerror=null; this.src='/img/404-img.png';"><br>
+					<div class="post-popup__img-box">
+						<img src="https://pickmin-post.s3.ap-northeast-2.amazonaws.com/FLOWER-wydmc84z602j" onerror="this.onerror=null; this.src='/img/404-img.png';">
+					</div>
 					<div class="post-popup__info">
-						<strong class="post-popup__title">안녕인사동 정자</strong>
 						<p class="post-popup__type post-popup__type--flower">빅플라워</p>
 						<p class="post-popup__type post-popup__type--explorer">탐험</p>
 						<p class="post-popup__type post-popup__type--mushroom">버섯</p>
+						<strong class="post-popup__title">안녕인사동 정자안녕인사동 정자안녕인사동 정자안녕인사동 정자</strong>
 						<div class="post-popup__detail">
 							<p>위도 : 13.00000</p>
 							<p>경도 : 139.00000</p>
@@ -199,6 +201,77 @@
 	</div>
 
 	<!-- Modal-->
+	
+	<div class="modal fade show" id="register-post-modal" tabindex="-1" role="dialog" aria-labelledby="엽서 등록 신청" aria-modal="true" style="display: block;">
+		<div class="modal-dialog modal-xl" role="document">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h5 class="modal-title">엽서 등록 신청</h5>
+					<button class="close" id="close-register-btn" type="button" data-dismiss="modal" aria-label="Close" onclick="closeRegisterPostModal()">
+						<span aria-hidden="true">×</span>
+					</button>
+				</div>
+
+				<div class="modal-body">
+					<div class="container">
+						<div class="row">
+							<!-- 왼쪽 이미지 -->
+							<div class="col-lg-6 d-none d-lg-block bg-login-image">
+								<img src="/img/post-register.png" alt="register-post-image" style="max-width: 100%; height: auto;">
+							</div>
+
+							<!-- 오른쪽 입력 영역 -->
+							<div class="col-lg-6 d-flex flex-column justify-content-between">
+								<!-- 스텝별 입력 영역 -->
+								<div class="step step-1">
+									<label for="post-latitude">위도</label>
+									<input type="number" class="form-control" id="post-latitude" placeholder="예: 36.12345">
+									<label for="post-longitude">경도</label>
+									<input type="number" class="form-control" id="post-longitude" placeholder="예: 127.12345">
+								</div>
+
+								<div class="step step-2 d-none">
+									<label for="post-name">엽서 이름</label>
+									<input type="text" class="form-control" id="post-name" placeholder="엽서 이름">
+								</div>
+
+								<div class="step step-3 d-none">
+									<label for="post-type">엽서 구분</label>
+									<div class="dropdown mb-4">
+										<select class="form-select" aria-label="Default select example" id="post-type">
+											<option selected="" value="null">구분</option>
+											<option value="버섯">버섯</option>
+											<option value="빅플">빅플</option>
+											<option value="탐험">탐험</option>
+										</select>
+									</div>
+								</div>
+
+								<div class="step step-4 d-none">
+									<label for="post-img">엽서 이미지 업로드</label>
+									<div class="input-group mb-2">
+										<input type="file" class="form-control" id="post-img" accept="image/*">
+										<label class="input-group-text" for="post-img">Upload</label>
+									</div>
+									<div class="form-check form-switch mb-3">
+										<input class="form-check-input" type="checkbox" id="no-img">
+										<label class="form-check-label" for="no-img">이미지 없음</label>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+
+				<!-- 푸터: 이전/다음 버튼 -->
+				<div class="modal-footer d-flex justify-content-between">
+					<button class="btn btn-secondary" type="button" onclick="registerPrevStep()" style="visibility: hidden;">이전</button>
+					<button class="btn btn-primary" type="button" onclick="registerNextStep()">다음</button>
+				</div>
+			</div>
+		</div>
+	</div>
+	
 	<div th:replace="~{modal/registerPostModal.html}"></div>
 	<div th:replace="~{modal/requesterEditPostModal.html}"></div>
 	<div th:replace="~{modal/logoutModal.html}"></div>
