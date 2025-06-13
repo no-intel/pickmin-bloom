@@ -157,38 +157,39 @@
 			</div><!--    #content end        -->
 
 			<div id="post-popup" style="display: block;">
-				<div>
-					<button class="post-popup-close-btn" id="post-popup-close-btn" title="닫기">×</button>
-				</div>
-				<img src="https://pickmin-post.s3.ap-northeast-2.amazonaws.com/FLOWER-wydmc84z602j" onerror="this.onerror=null; this.src='/img/404-img.png';"><br>
 				<div class="post-popup-inner">
-					<strong class="post-popup__title">안녕인사동 정자</strong>
-					<p class="post-popup__type post-popup__type--flower">빅플라워</p>
-					<p class="post-popup__type post-popup__type--explorer">탐험</p>
-					<p class="post-popup__type post-popup__type--mushroom">버섯</p>
-					<div class="post-popup__detail">
-						<p>위도 : 13.00000</p>
-						<p>경도 : 139.00000</p>
-						<br>
-						<p>2025-00-00 등록</p>
-						<p>2025-00-00 마지막 수정</p>
-						</p>
+					<button class="post-popup-close-btn" id="post-popup-close-btn" title="닫기"></button>
+					<img src="https://pickmin-post.s3.ap-northeast-2.amazonaws.com/FLOWER-wydmc84z602j" onerror="this.onerror=null; this.src='/img/404-img.png';"><br>
+					<div class="post-popup__info">
+						<strong class="post-popup__title">안녕인사동 정자</strong>
+						<p class="post-popup__type post-popup__type--flower">빅플라워</p>
+						<p class="post-popup__type post-popup__type--explorer">탐험</p>
+						<p class="post-popup__type post-popup__type--mushroom">버섯</p>
+						<div class="post-popup__detail">
+							<p>위도 : 13.00000</p>
+							<p>경도 : 139.00000</p>
+							<br>
+							<p>2025-00-00 등록</p>
+							<p>2025-00-00 마지막 수정</p>
+							</p>
+						</div>
+					</div>
+					<div class="button-set">
+						<div class="button-set__left">
+							<button class="btn btn-sm btn-outline-secondary post-edit-btn" id="post-edit-btn" title="수정" data-toggle="modal" data-target="#edit-post-modal">수정</button>
+							<button class="btn btn-sm btn-outline-secondary" title="신고" data-toggle="modal" data-target="">신고</button>
+						</div>
+						<div class="button-set__right">
+							<button class="btn btn-sm btn-primary" onclick="copyToClipboard('37.574489, 126.983843')">위치 복사</button>
+						</div>
 					</div>
 				</div>
-				<div class="button-set">
-					<div class="button-set__left">
-						<button class="btn btn-sm btn-outline-secondary post-edit-btn" id="post-edit-btn" title="수정" data-toggle="modal" data-target="#edit-post-modal">수정</button>
-					</div>
-					<div class="button-set__right">
-						<button class="btn btn-sm btn-primary" onclick="copyToClipboard('37.574489, 126.983843')">위치 복사</button>
-					</div>
-				</div>
-				
 			</div>
 			<div id="coor-popup" data-islogin="true" style="display: block;">
-				<span style="font-size: 15px;">37.585084, 126.994352</span>
-				<br>
-				<a class="btn btn-sm btn-primary" href="javascript:void(0)">엽서 등록</a>
+				<div class="coor-popup-inner">
+					<span>37.585084, 126.994352</span>
+					<a class="btn btn-sm btn-primary" href="javascript:void(0)">엽서 등록</a>
+				</div>
 			</div>
 			<!-- <div id="coor-popup" th:data-islogin="${isLogin}">좌표 팝업</div> -->
 			<!-- End of Content Wrapper -->

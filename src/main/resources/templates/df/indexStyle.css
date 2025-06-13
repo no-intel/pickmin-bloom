@@ -5,6 +5,8 @@ a:link{text-decoration:none;}
 a:visited{text-decoration:none;}
 a:hover{text-decoration:none;}
 
+@keyframes slide-top{0%{transform:translateY(20px);opacity: 0;}100%{transform:translateY(0);opacity: 1;}}
+
 .btn{border-radius: 30px;}
 
 .btn-primary{border-color:#ff45a5;color:#ffffff;background-color:#ff45a5;}
@@ -64,7 +66,7 @@ a:hover{text-decoration:none;}
 .container-fluid{padding: 0;}
 #wrapper{height: 100vh;overflow:hidden;}
 
-.map-box{height: calc(100vh - 70px - 160px);background-color: #ade;}
+.map-box{height: calc(100vh - 70px - 160px);background:url(sample.png) repeat;}
 
 #tost-message{position:absolute;bottom:100px;}
 #tost-message{opacity:0;position:fixed;top:50%;left:50%;z-index:9999;padding:1rem 2rem;border-radius:.5rem;transition:opacity .3s ease;transform:translate(-50%, -50%);pointer-events:none;color:#ffffff;font-size:1rem;background-color:rgba(0, 0, 0, .8);}
@@ -72,6 +74,7 @@ a:hover{text-decoration:none;}
 #tost-message.active{opacity:1;pointer-events:auto;}
 
 .spot-box{position:absolute;bottom:0;left:0;width:100%;height:160px;background-color:#ffffff;box-shadow:0 -3px 3px rgba(0,0,0, .08),0 -10px 10px rgba(0,0,0, .04);}
+.spot-box:before{content:'';position: absolute;top: 0;right: 10px;width: 260px;height: 100%;background: url(spot-box-bg.png) 100% 20px no-repeat;background-size: 100% auto;}
 .spot-box-tab{display:flex;position:absolute;top:16px;left:20px;z-index:1;margin-bottom:0;padding:0;}
 .spot-box-tab li{position:relative;}
 .spot-box-tab li:before{position:absolute;top:50%;left:0;width:0;height:12px;margin-top:-6px;border-left:1px solid #424e7766;content:'';}
@@ -120,11 +123,12 @@ a:hover{text-decoration:none;}
 
 .post-card:hover .post-type-img:before{transform: rotate(20deg);}
 
+
+
 #coor-popup {
 	background: white;
-	border: 1px solid #ccc;
 	padding: 8px 12px;
-	border-radius: 6px;
+	border-radius: 8px;
 	min-width: 120px;
 	max-width: 240px;
 	box-shadow: 0px 4px 2px rgba(0, 0, 0, 0.03), 0px 14px 9px rgba(0, 0, 0, 0.05), 0px 32px 20px rgba(0, 0, 0, 0.08);
@@ -134,15 +138,19 @@ a:hover{text-decoration:none;}
 	color: #333;
 	text-align: right;
 	position: absolute;
-	top: 600px;
-	left: 200px;
+	top: 200px;
+	left: 500px;
+	backdrop-filter: blur(2px);
+	animation:slide-top .5s both;
 }
+
+.coor-popup-inner{display: flex;flex-direction: column;gap:8px;align-items: center;}
+.coor-popup-inner span{text-align: center;}
 
 #post-popup {
 	background: #ffffffe6;
-	border: 1px solid #ccc;
 	padding: 8px 12px;
-	border-radius: 6px;
+	border-radius: 8px;
 	min-width: 120px;
 	max-width: 240px;
 	box-shadow: 0px 4px 2px rgba(0, 0, 0, 0.03), 0px 14px 9px rgba(0, 0, 0, 0.05), 0px 32px 20px rgba(0, 0, 0, 0.08);
@@ -153,6 +161,8 @@ a:hover{text-decoration:none;}
 	position: absolute;
 	top: 200px;
 	left: 200px;
+	backdrop-filter: blur(2px);
+	animation:slide-top .5s both;
 }
 
 #post-popup img {
