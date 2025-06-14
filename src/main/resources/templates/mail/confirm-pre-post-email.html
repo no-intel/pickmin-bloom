@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>픽블엽 메일 알림</title>
+</head>
+<body>
+<table width="100%" cellpadding="0" cellspacing="0" style="font-family: Arial, sans-serif;margin:0;padding: 0;">
+    <tr>
+        <td align="center">
+            <table style="background-color: #ffffff; border: 3px solid #e1e4eb;border-radius: 10px;">
+                <tr>
+                    <td align="center" style="color:#424E77;padding:40px 30px 60px 30px">
+                        <img src="https://pickmin-map.com/img/top.png" alt="" style="width:400px;height:auto;max-width: 100%;">
+                        <h2 style="padding: 20px 0 20px 0;margin:0;font-size:24px;">엽서 등록 완료</h2>
+                        <p style="padding: 0 0 8px 0;margin:0;word-break: keep-all;">
+                            등록 신청해주신 엽서 스팟이 검토를 마치고 무사히 <span style="font-weight: bold;color:#ff45a5">픽블엽</span>에 등록되었습니다🎉🎉
+                        </p>
+                        <p style="padding: 0;margin:0;word-break: keep-all;">
+                            소중한 기여에 깊은 감사를 드리며, 앞으로도 <span style="font-weight: bold;color:#ff45a5">픽블엽</span> 많이 이용해주세요!
+                        </p>
+
+                        <p style="font-weight: bold;margin:0;padding: 40px 0 8px 0;">🌼 등록한 엽서 🌼</p>
+
+                        <table width="100%" cellpadding="0" cellspacing="0" style="background-color: #f2f3f7;max-width: 400px;margin:0 0 40px 0">
+                            <tr>
+                                <td style="border-top: 2px solid #c0c6d7;width: 30%;word-break: keep-all;color:#424E77;padding:8px;">스팟 이름</td>
+                                <td style=";border-top: 2px solid #c0c6d7;font-weight: bold;word-break: keep-all;color:#424E77;padding:8px;" th:text="${name}">NAME</td>
+                            </tr>
+                            <tr>
+                                <td style="width: 30%; border-top: 1px solid #c0c6d7;word-break: keep-all;color:#424E77;padding:8px;">위도</td>
+                                <td style="border-top: 1px solid #c0c6d7;word-break: keep-all;color:#424E77;padding:8px;" th:text="${latitude}">latitude</td>
+                            </tr>
+                            <tr>
+                                <td style="width: 30%; border-top: 1px solid #c0c6d7;border-bottom: 2px solid #c0c6d7;word-break: keep-all;color:#424E77;padding:8px;">경도</td>
+                                <td style="border-top: 1px solid #c0c6d7;border-bottom: 2px solid #c0c6d7;word-break: keep-all;color:#424E77;padding:8px;" th:text="${longitude}">longitude</td>
+                            </tr>
+                        </table>
+                        <a href="http://pickmin-map.com" target="_blank" style="padding:16px 40px;margin:0;color:#fff;text-decoration: none;font-size:18px;background-color:#ff45a5;border-radius: 30px;"><b>픽블엽</b> 바로가기</a>
+                    </td>
+                </tr>
+            </table>
+        </td>
+    </tr>
+</table>
+</body>
+</html>

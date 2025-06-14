@@ -1,19 +1,20 @@
 package org.noint.pickminbloom.mail.service;
 
-import jakarta.activation.DataSource;
 import jakarta.mail.MessagingException;
 import jakarta.mail.internet.MimeMessage;
-import jakarta.mail.util.ByteArrayDataSource;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.noint.pickminbloom.exception.mail.MessagingBuildException;
+import org.noint.pickminbloom.mail.template.ConfirmPrePostTemplate;
 import org.noint.pickminbloom.mail.template.RegisterPrePostTemplate;
 import org.noint.pickminbloom.post.event.RegisterPrePost;
+import org.noint.pickminbloom.post.event.UpdatePrePostStatus;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.context.event.EventListener;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.stereotype.Service;
-import org.thymeleaf.context.Context;
+import org.springframework.transaction.event.TransactionPhase;
+import org.springframework.transaction.event.TransactionalEventListener;
 
 @Slf4j
 @Service
@@ -22,6 +23,7 @@ public class MailService {
 
     private final JavaMailSender javaMailSender;
     private final RegisterPrePostTemplate registerPrePostTemplate;
+    private final ConfirmPrePostTemplate confirmPrePostTemplate;
 
     @Value("${spring.mail.username}")
     private String from;
@@ -29,17 +31,41 @@ public class MailService {
     @Value("${spring.mail.master}")
     private String master;
 
-    @EventListener(classes = RegisterPrePost.class)
-    public void sendRegisterMail(RegisterPrePost event) throws MessagingException {
+    @TransactionalEventListener(classes = RegisterPrePost.class, phase = TransactionPhase.AFTER_COMMIT)
+    public void sendRegisterMail(RegisterPrePost event) {
+        log.info("EVENT - Sending register prePost mail: {}", event);
         String html = registerPrePostTemplate.build(event);
         MimeMessage message = javaMailSender.createMimeMessage();
-        MimeMessageHelper helper = new MimeMessageHelper(message, true, "UTF-8");
-        helper.setTo(master);
-        helper.setSubject("엽서 등록 신청");
-        helper.setFrom(from);
-        helper.setText(html, true);
-        helper.addInline("img", registerPrePostTemplate.bindImg(event.img()));
+        try {
+            MimeMessageHelper helper = new MimeMessageHelper(message, true, "UTF-8");
+            helper.setTo(master);
+            helper.setSubject("엽서 등록 신청");
+            helper.setFrom(from);
+            helper.setText(html, true);
+            helper.addInline("img", registerPrePostTemplate.bindImg(event.img()));
+        } catch (MessagingException e) {
+            log.error("sendRegisterPrePostMail Exception", e);
+            throw new MessagingBuildException("RegisterPrePostMail");
+        }
+        javaMailSender.send(message);
+    }
 
+    @TransactionalEventListener(classes = UpdatePrePostStatus.class, phase = TransactionPhase.AFTER_COMMIT)
+    public void confirmPrePost(UpdatePrePostStatus event) {
+        log.info("EVENT - Sending confirm prePost mail: {}", event);
+        String html = confirmPrePostTemplate.build(event);
+        MimeMessage message = javaMailSender.createMimeMessage();
+        try {
+            MimeMessageHelper helper = new MimeMessageHelper(message, true, "UTF-8");
+            helper.setTo(event.requester().getEmail());
+            helper.setSubject("엽서 등록 승인");
+            helper.setFrom(from);
+            helper.setText(html, true);
+            helper.addInline("img", confirmPrePostTemplate.bindImg(event.img()));
+        } catch (MessagingException e) {
+            log.error("sendConfirmPrePostMail Exception", e);
+            throw new MessagingBuildException("ConfirmPrePostMail");
+        }
         javaMailSender.send(message);
     }
 }

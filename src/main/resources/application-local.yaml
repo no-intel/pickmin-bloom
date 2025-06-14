@@ -72,8 +72,8 @@ logging:
             extract: TRACE
 aws:
   s3:
-    endpoint: http://localhost:4566
-    publicBaseUrl: http://localhost:4566/pickmin-post
+    endpoint: http://localhost:4999
+    publicBaseUrl: http://localhost:4999/pickmin-post
     region: us-east-1
     bucket:
       post: pickmin-post
