@@ -47,13 +47,16 @@
 					<h1 class="navbar-logo">
 						<a href="">
 							<strong class="navbar-logo-img">픽블엽</strong>
-							<small class="navbar-logo-txt">피크민 블룸 엽서 스팟 v0.2.1</small>
+							<small class="navbar-logo-txt">피크민 블룸 엽서 스팟<span>v0.2.1</span></small>
 							<!-- <small class="navbar-logo-txt" th:text="'피크민 블룸 엽서 스팟 v' + ${version}"></small> -->
 						</a>
 					</h1>
 					
 					<!-- Topbar Navbar -->
 					<ul class="navbar-nav">
+						<li class="nav-item">
+							<a href="javascript:void(0)" id="navbar-help-btn" data-toggle="modal" data-target="#help-modal" title="도움말"></a>
+						</li>
 						<!-- Nav Item - User Information -->
 						<li class="nav-item"> <!--<li th:if="${isLogin}" class="nav-item">-->
 							<a class="btn btn-primary" id="register-post-btn" href="javascript:void(0)" data-toggle="modal" data-target="#register-post-modal">
@@ -154,19 +157,19 @@
 
 				</main>
 				<!-- End of Main Content -->
-			</div><!--    #content end        -->
+			</div><!--	#content end	-->
 
-			<div id="post-popup" style="display: block;">
+			<div id="post-popup" style="display: block1;">
 				<div class="post-popup-inner">
 					<button class="post-popup-close-btn" id="post-popup-close-btn" title="닫기"></button>
 					<div class="post-popup__img-box">
 						<img src="https://pickmin-post.s3.ap-northeast-2.amazonaws.com/FLOWER-wydmc84z602j" onerror="this.onerror=null; this.src='/img/404-img.png';">
 					</div>
 					<div class="post-popup__info">
-						<p class="post-popup__type post-popup__type--flower">빅플라워</p>
-						<p class="post-popup__type post-popup__type--explorer">탐험</p>
+						<!-- <p class="post-popup__type post-popup__type--flower">빅플라워</p> -->
+						<!-- <p class="post-popup__type post-popup__type--explorer">탐험</p> -->
 						<p class="post-popup__type post-popup__type--mushroom">버섯</p>
-						<strong class="post-popup__title">안녕인사동 정자안녕인사동 정자안녕인사동 정자안녕인사동 정자</strong>
+						<strong class="post-popup__title">안녕인사동 정자</strong>
 						<div class="post-popup__detail">
 							<p>위도 : 13.00000</p>
 							<p>경도 : 139.00000</p>
@@ -187,10 +190,11 @@
 					</div>
 				</div>
 			</div>
-			<div id="coor-popup" data-islogin="true" style="display: block;">
+			
+			<div id="coor-popup" data-islogin="true" style="display: block1;">
 				<div class="coor-popup-inner">
 					<span>37.585084, 126.994352</span>
-					<a class="btn btn-sm btn-primary" href="javascript:void(0)">엽서 등록</a>
+					<a class="btn btn-sm btn-primary" href="javascript:void(0)">이 위치에 엽서 등록</a>
 				</div>
 			</div>
 			<!-- <div id="coor-popup" th:data-islogin="${isLogin}">좌표 팝업</div> -->
@@ -202,75 +206,252 @@
 
 	<!-- Modal-->
 	
-	<div class="modal fade show" id="register-post-modal" tabindex="-1" role="dialog" aria-labelledby="엽서 등록 신청" aria-modal="true" style="display: block;">
-		<div class="modal-dialog modal-xl" role="document">
+	<div class="modal fade show" id="register-post-modal" tabindex="-1" role="dialog" aria-labelledby="엽서 등록 신청" aria-modal="true" style="display: block1;">
+		<div class="modal-dialog" role="document">
 			<div class="modal-content">
 				<div class="modal-header">
 					<h5 class="modal-title">엽서 등록 신청</h5>
-					<button class="close" id="close-register-btn" type="button" data-dismiss="modal" aria-label="Close" onclick="closeRegisterPostModal()">
+					<button class="close" id="" type="button" data-dismiss="modal" aria-label="Close" onclick="">
 						<span aria-hidden="true">×</span>
 					</button>
 				</div>
 
 				<div class="modal-body">
 					<div class="container">
-						<div class="row">
-							<!-- 왼쪽 이미지 -->
-							<div class="col-lg-6 d-none d-lg-block bg-login-image">
-								<img src="/img/post-register.png" alt="register-post-image" style="max-width: 100%; height: auto;">
+						<section class="input-section">
+							<div class="input-box">
+								<label for="post-latitude">위도</label>
+								<input type="number" class="form-control" id="post-latitude" placeholder="예: 36.12345">
 							</div>
-
-							<!-- 오른쪽 입력 영역 -->
-							<div class="col-lg-6 d-flex flex-column justify-content-between">
-								<!-- 스텝별 입력 영역 -->
-								<div class="step step-1">
-									<label for="post-latitude">위도</label>
-									<input type="number" class="form-control" id="post-latitude" placeholder="예: 36.12345">
-									<label for="post-longitude">경도</label>
-									<input type="number" class="form-control" id="post-longitude" placeholder="예: 127.12345">
+							<div class="input-box">
+								<label for="post-longitude">경도</label>
+								<input type="number" class="form-control" id="post-longitude" placeholder="예: 127.12345">
+							</div>
+							<div class="input-box">
+								<label for="post-name">엽서 이름</label>
+								<input type="text" class="form-control" id="post-name" placeholder="엽서 이름">
+							</div>
+							<div class="input-box">
+								<label for="post-type">엽서 구분</label>
+								<div class="input-box__radio input-box__radio--post-type">
+									<input type="radio" id="option1" name="option" value="1">
+									<label for="option1"><span class="icon-mushroom"></span>버섯</label>
+									<input type="radio" id="option2" name="option" value="2">
+									<label for="option2"><span class="icon-flower"></span>빅플라워</label>
+									<input type="radio" id="option3" name="option" value="3">
+									<label for="option3"><span class="icon-explorer"></span>탐험</label>
 								</div>
-
-								<div class="step step-2 d-none">
-									<label for="post-name">엽서 이름</label>
-									<input type="text" class="form-control" id="post-name" placeholder="엽서 이름">
+							</div>
+							<div class="input-box">
+								<label for="post-img">엽서 이미지 업로드</label>
+								<div class="input-box__file">
+									<input type="file" class="form-control" id="post-img" accept="image/*">
 								</div>
-
-								<div class="step step-3 d-none">
-									<label for="post-type">엽서 구분</label>
-									<div class="dropdown mb-4">
-										<select class="form-select" aria-label="Default select example" id="post-type">
-											<option selected="" value="null">구분</option>
-											<option value="버섯">버섯</option>
-											<option value="빅플">빅플</option>
-											<option value="탐험">탐험</option>
-										</select>
-									</div>
+								<div class="form-check form-switch">
+									<input class="form-check-input" type="checkbox" id="no-img">
+									<label class="form-check-label" for="no-img">이미지 없음</label>
 								</div>
+							</div>
+						</section>
+					</div>
+				</div>
 
-								<div class="step step-4 d-none">
-									<label for="post-img">엽서 이미지 업로드</label>
-									<div class="input-group mb-2">
-										<input type="file" class="form-control" id="post-img" accept="image/*">
-										<label class="input-group-text" for="post-img">Upload</label>
-									</div>
-									<div class="form-check form-switch mb-3">
-										<input class="form-check-input" type="checkbox" id="no-img">
-										<label class="form-check-label" for="no-img">이미지 없음</label>
-									</div>
+				<div class="modal-footer">
+					<div class="button-set">
+						<div class="button-set__left">
+							<button class="btn btn-outline-secondary">취소</button>
+						</div>
+						<div class="button-set__right">
+							<button class="btn btn-primary">등록 신청</button>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	
+	<div class="modal fade show" id="" tabindex="-1" role="dialog" aria-labelledby="엽서 수정 신청" aria-modal="true" style="display: block1;">
+		<div class="modal-dialog" role="document">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h5 class="modal-title">엽서 수정 신청</h5>
+					<button class="close" id="" type="button" data-dismiss="modal" aria-label="Close" onclick="">
+						<span aria-hidden="true">×</span>
+					</button>
+				</div>
+
+				<div class="modal-body">
+					<div class="container">
+						<section class="input-section">
+							<p class="input-section__help">
+								스팟이 삭제된 경우<br>
+								위도와 경도를 0으로 입력해주세요.
+							</p>
+							<div class="input-box">
+								<label for="post-latitude">위도</label>
+								<input type="number" class="form-control" id="post-latitude" value="30.15616">
+							</div>
+							<div class="input-box">
+								<label for="post-longitude">경도</label>
+								<input type="number" class="form-control" id="post-longitude" value="129.15615">
+							</div>
+							<div class="input-box">
+								<label for="post-name">엽서 이름</label>
+								<input type="text" class="form-control" id="post-name" value="어린이공원">
+							</div>
+							<div class="input-box">
+								<label for="post-type">엽서 구분</label>
+								<div class="input-box__radio input-box__radio--post-type">
+									<input type="radio" id="edit-option1" name="edit-option" value="1" checked>
+									<label for="edit-option1"><span class="icon-mushroom"></span>버섯</label>
+									<input type="radio" id="edit-option2" name="edit-option" value="2">
+									<label for="edit-option2"><span class="icon-flower"></span>빅플라워</label>
+									<input type="radio" id="edit-option3" name="edit-option" value="3">
+									<label for="edit-option3"><span class="icon-explorer"></span>탐험</label>
 								</div>
+							</div>
+							<div class="input-box">
+								<label for="post-img">바뀐 엽서 이미지 업로드</label>
+								<div class="input-box__file">
+									<input type="file" class="form-control" id="edit-post-img" accept="image/*">
+								</div>
+								<div class="form-check form-switch">
+									<input class="form-check-input" type="checkbox" id="edit-unchanged-img">
+									<label class="form-check-label" for="edit-unchanged-img">기존 등록된 이미지와 동일</label>
+								</div>
+								<div class="form-check form-switch">
+									<input class="form-check-input" type="checkbox" id="edit-no-img">
+									<label class="form-check-label" for="edit-no-img">이미지 없음</label>
+								</div>
+							</div>
+						</section>
+					</div>
+				</div>
+
+				<div class="modal-footer">
+					<div class="button-set">
+						<div class="button-set__left">
+							<button class="btn btn-outline-secondary">취소</button>
+						</div>
+						<div class="button-set__right">
+							<button class="btn btn-primary">수정 신청</button>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	
+	<div class="modal fade show" id="notice-modal" tabindex="-1" role="dialog" aria-labelledby="픽블엽" aria-modal="true" style="display: block;">
+		<div class="modal-dialog" role="document">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h5 class="modal-title">픽블엽</h5>
+					<button class="close" id="" type="button" data-dismiss="modal" aria-label="Close" onclick="">
+						<span aria-hidden="true">×</span>
+					</button>
+				</div>
+
+				<div class="modal-body">
+					<div class="container">
+						<div class="notice-box">
+							<div class="notice-box__img notice-box__img--top mb-3">
+								<img src="navbar-logo.svg" alt="">
+							</div>
+							<h5 class="font-weight-bold mb-3">📢 공지사항</h5>
+							<ul class="list-unstyled lh-lg small">
+								<li><strong>1.</strong> 해당 페이지는 <strong>피크민 블룸</strong> 엽서작을 돕기 위해 만들어졌습니다.</li>
+								<li><strong>2.</strong> 엽서는 지정 좌표 기준 가까운 <strong>20개</strong>까지 보여 줍니다.</li>
+								<li><strong>3.</strong> 엽서 등록을 위해서는 <span class="text-danger font-weight-bold">로그인</span>이 필요합니다.</li>
+								<li><strong>4.</strong> 등록은 <strong>관리자 승인</strong> 이후 완료됩니다.</li>
+								<li><strong>5.</strong> 엽서 좌표는 <strong>정확하게 입력</strong>해주세요. 겹침 방지됩니다.</li>
+								<li><strong>6.</strong> 화면 구성을 맡아 도와 줄 <strong>프론트 엔드 개발자가 있다면 아래 이메일로 연락 부탁</strong>드립니다. 사이드 프로젝트 필요하신 분 없으신가요ㅠ..</li>
+							</ul>
+							<h6 class="font-weight-bold mt-4">✨ 새로운 기능</h6>
+							<ul class="list-unstyled lh-lg small">
+								<li>1. 엽서 등록 신청 승인 후 메일 알림 기능</li>
+								<li>2. 엽서 등록, 수정 신청 시 로딩창 추가</li>
+							</ul>
+							<h6 class="font-weight-bold mt-4">🛠️ 개발 예정 기능</h6>
+							<ul class="list-unstyled lh-lg small">
+								<li>1. 엽서 신고 기능</li>
+								<li>2. 좌표 검색 기능</li>
+								<li>3. 최근등록 엽서 목록 제공</li>
+							</ul>
+							<p class="mt-4 mb-0 small text-muted">
+								💻 무지성 개발자: <a href="mailto:tkdduf212@gmail.com">tkdduf212@gmail.com</a>
+							</p>
+							<div class="notice-box__img notice-box__img--bottom mt-4">
+								<img src="main-bg.png" alt="">
 							</div>
 						</div>
 					</div>
 				</div>
 
-				<!-- 푸터: 이전/다음 버튼 -->
-				<div class="modal-footer d-flex justify-content-between">
-					<button class="btn btn-secondary" type="button" onclick="registerPrevStep()" style="visibility: hidden;">이전</button>
-					<button class="btn btn-primary" type="button" onclick="registerNextStep()">다음</button>
+				<div class="modal-footer">
+					<div class="button-set">
+						<div class="button-set__center">
+							<button class="btn btn-outline-secondary">닫기</button>
+						</div>
+					</div>
 				</div>
 			</div>
 		</div>
 	</div>
+	
+	<div class="modal fade show" id="" tabindex="-1" role="dialog" aria-labelledby="엽서 신고" aria-modal="true" style="display: block1;">
+		<div class="modal-dialog" role="document">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h5 class="modal-title">엽서 신고</h5>
+					<button class="close" id="" type="button" data-dismiss="modal" aria-label="Close" onclick="">
+						<span aria-hidden="true">×</span>
+					</button>
+				</div>
+
+				<div class="modal-body">
+					<div class="container">
+						<section class="input-section">
+							<div class="input-box">
+								<label for="report-type">신고 사유 구분</label>
+								<div class="input-box__radio input-box__radio--report-type">
+									<input type="radio" id="reason1" name="reason" value="1">
+									<label for="reason1">개인정보 노출</label>
+									<input type="radio" id="reason2" name="reason" value="2">
+									<label for="reason2">광고, 도배성 콘텐츠</label>
+									<input type="radio" id="reason3" name="reason" value="3">
+									<label for="reason3">허위 사실</label>
+									<input type="radio" id="reason4" name="reason" value="3">
+									<label for="reason4">욕설, 음란물</label>
+									<input type="radio" id="reason5" name="reason" value="3">
+									<label for="reason5">기타</label>
+								</div>
+							</div>
+							<div class="input-box">
+								<label for="post-name">(선택) 기타 및 세부 사항</label>
+								<textarea name="" class="form-control" id="" placeholder=""></textarea>
+							</div>
+						</section>
+					</div>
+				</div>
+
+				<div class="modal-footer">
+					<div class="button-set">
+						<div class="button-set__left">
+							<button class="btn btn-outline-secondary">취소</button>
+						</div>
+						<div class="button-set__right">
+							<button class="btn btn-primary">엽서 신고</button>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	
+	
+	
+	<div class="modal-backdrop fade show"></div>
 	
 	<div th:replace="~{modal/registerPostModal.html}"></div>
 	<div th:replace="~{modal/requesterEditPostModal.html}"></div>
@@ -278,14 +459,37 @@
 
 	<div th:replace="~{script.html}"></div>
 	
-	<div id="tost-message">토스트 팝업</div>
+	<div id="toast-message">토스트 팝업</div>
 
 	<script>
+		
+		// 이미지 박스를 제외한 영역에 .post-popup__info 최대 높이 지정 (PC 사이즈에서만)
+		function adjustPostPopupInfoHeight() {
+			const popup = document.querySelector('#post-popup');
+			const imgBox = document.querySelector('.post-popup__img-box');
+			const buttonSet = document.querySelector('.button-set');
+			const info = document.querySelector('.post-popup__info');
+
+			// 모든 요소가 존재할 경우에만 실행
+			if (popup && imgBox && info) {
+				const availableHeight = popup.offsetHeight - imgBox.offsetHeight - buttonSet.offsetHeight;
+				info.style.maxHeight = availableHeight + 'px';
+			}
+		}
+
+		// 최초 진입 시 PC 사이즈면 실행
+		if (window.innerWidth >= 992) adjustPostPopupInfoHeight();
+
+		// 창 크기 변경될 때 PC 사이즈면 다시 계산
+		window.addEventListener('resize', () => {
+			if (window.innerWidth >= 992) adjustPostPopupInfoHeight();
+		});
+		
 		function showToast(text) {
-			const tostMessage = document.getElementById('tost-message');
-			tostMessage.textContent = text;
-			tostMessage.classList.add('active');
-			setTimeout(() => tostMessage.classList.remove('active'), 1000);
+			const toastMessage = document.getElementById('toast-message');
+			toastMessage.textContent = text;
+			toastMessage.classList.add('active');
+			setTimeout(() => toastMessage.classList.remove('active'), 1000);
 		}
 		
 		function copyToClipboard(text) {
