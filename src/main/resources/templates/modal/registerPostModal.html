@@ -1,6 +1,5 @@
-<div class="modal fade" id="register-post-modal" tabindex="-1" role="dialog" aria-labelledby="엽서 등록 신청"
-     aria-hidden="true">
-    <div class="modal-dialog modal-xl" role="document">
+<div class="modal fade" id="register-post-modal" tabindex="-1" role="dialog" aria-labelledby="엽서 등록 신청" aria-hidden="true">
+    <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header">
                 <h5 class="modal-title">엽서 등록 신청</h5>
@@ -11,59 +10,53 @@
 
             <div class="modal-body">
                 <div class="container">
-                    <div class="row">
-                        <!-- 왼쪽 이미지 -->
-                        <div class="col-lg-6 d-none d-lg-block bg-login-image">
-                            <img src="/img/post-register.png" alt="register-post-image" style="max-width: 100%; height: auto;">
+                    <section class="input-section">
+                        <div class="input-box">
+                            <label for="post-latitude">위도</label>
+                            <input type="number" class="form-control" id="post-latitude" placeholder="예: 36.12345">
                         </div>
-
-                        <!-- 오른쪽 입력 영역 -->
-                        <div class="col-lg-6 d-flex flex-column justify-content-between">
-                            <!-- 스텝별 입력 영역 -->
-                            <div class="step step-1">
-                                <label for="post-latitude">위도</label>
-                                <input type="number" class="form-control" id="post-latitude" placeholder="예: 36.12345">
-                                <label for="post-longitude">경도</label>
-                                <input type="number" class="form-control" id="post-longitude" placeholder="예: 127.12345">
-                            </div>
-
-                            <div class="step step-2 d-none">
-                                <label for="post-name">엽서 이름</label>
-                                <input type="text" class="form-control" id="post-name" placeholder="엽서 이름">
-                            </div>
-
-                            <div class="step step-3 d-none">
-                                <label for="post-type">엽서 구분</label>
-                                <div class="dropdown mb-4">
-                                    <select class="form-select" aria-label="Default select example" id="post-type">
-                                        <option selected value="null">구분</option>
-                                        <option value="버섯">버섯</option>
-                                        <option value="빅플">빅플</option>
-                                        <option value="탐험">탐험</option>
-                                    </select>
-                                </div>
-                            </div>
-
-                            <div class="step step-4 d-none">
-                                <label for="post-img">엽서 이미지 업로드</label>
-                                <div class="input-group mb-2">
-                                    <input type="file" class="form-control" id="post-img" accept="image/*">
-                                    <label class="input-group-text" for="post-img">Upload</label>
-                                </div>
-                                <div class="form-check form-switch mb-3">
-                                    <input class="form-check-input" type="checkbox" id="no-img">
-                                    <label class="form-check-label" for="no-img">이미지 없음</label>
-                                </div>
+                        <div class="input-box">
+                            <label for="post-longitude">경도</label>
+                            <input type="number" class="form-control" id="post-longitude" placeholder="예: 127.12345">
+                        </div>
+                        <div class="input-box">
+                            <label for="post-name">엽서 이름</label>
+                            <input type="text" class="form-control" id="post-name" placeholder="엽서 이름">
+                        </div>
+                        <div class="input-box">
+                            <label for="post-type">엽서 구분</label>
+                            <div class="input-box__radio input-box__radio--post-type">
+                                <input type="radio" id="option1" name="postType" value="버섯">
+                                <label for="option1"><span class="icon-mushroom"></span>버섯</label>
+                                <input type="radio" id="option2" name="postType" value="빅플">
+                                <label for="option2"><span class="icon-flower"></span>빅플라워</label>
+                                <input type="radio" id="option3" name="postType" value="탐험">
+                                <label for="option3"><span class="icon-explorer"></span>탐험</label>
                             </div>
                         </div>
-                    </div>
+                        <div class="input-box">
+                            <label for="post-img">엽서 이미지 업로드</label>
+                            <div class="input-box__file">
+                                <input type="file" class="form-control" id="post-img" accept="image/*">
+                            </div>
+                            <div class="form-check form-switch">
+                                <input class="form-check-input" type="checkbox" id="no-img">
+                                <label class="form-check-label" for="no-img">이미지 없음</label>
+                            </div>
+                        </div>
+                    </section>
                 </div>
             </div>
 
-            <!-- 푸터: 이전/다음 버튼 -->
-            <div class="modal-footer d-flex justify-content-between">
-                <button class="btn btn-secondary" type="button" onclick="registerPrevStep()">이전</button>
-                <button class="btn btn-primary" type="button" onclick="registerNextStep()">다음</button>
+            <div class="modal-footer">
+                <div class="button-set">
+                    <div class="button-set__left">
+                        <button class="btn btn-outline-secondary">취소</button>
+                    </div>
+                    <div class="button-set__right">
+                        <button class="btn btn-primary">등록 신청</button>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
