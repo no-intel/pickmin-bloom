@@ -21,7 +21,7 @@
 	<!-- Custom styles for this template-->
 	<link href="https://pickmin-map.com/lib/vendor/css/sb-admin-2.css" rel="stylesheet">
 
-	<link rel="stylesheet" href="indexStyle.css">
+	<link rel="stylesheet" href="../../static/css/indexStyle.css">
 	<link rel="apple-touch-icon" href="/apple-touch-icon.png">
 	
 	<!-- 퍼블리싱 테스트용입니다. 퍼블리싱 작업완료 후 삭제합니다. -->
@@ -121,43 +121,13 @@
 									<span class="post-type-img post-type-img--flower"></span>
 									<span class="post-card-hover"></span>
 								</div>
-<!-- 								<div class="post-card" data-post-id="994">
-									<img src="https://pickmin-post.s3.ap-northeast-2.amazonaws.com/MUSHROOM-wydm9qvm7h47" class="post-img" alt="서울 성공회성당" onerror="this.onerror=null; this.src='/img/404-img.png';">
-									<span class="post-type-img post-type-img--mushroom"></span>
-									<span class="post-card-hover"></span>
-								</div>
-								<div class="post-card" data-post-id="1770">
-									<img src="https://pickmin-post.s3.ap-northeast-2.amazonaws.com/FLOWER-wydm9jbvczbh" class="post-img" alt="토끼 벽화" onerror="this.onerror=null; this.src='/img/404-img.png';">
-									<span class="post-type-img post-type-img--flower"></span>
-									<span class="post-card-hover"></span>
-								</div>
-								<div class="post-card" data-post-id="819">
-									<img src="https://pickmin-post.s3.ap-northeast-2.amazonaws.com/FLOWER-wydm9qte8rn9" class="post-img" alt="연못의 꽃" onerror="this.onerror=null; this.src='/img/404-img.png';">
-									<span class="post-type-img post-type-img--flower"></span>
-									<span class="post-card-hover"></span>
-								</div>
-								<div class="post-card" data-post-id="1765">
-									<img src="https://pickmin-post.s3.ap-northeast-2.amazonaws.com/FLOWER-wydmdptede06" class="post-img" alt="흥인지문(동대문)" onerror="this.onerror=null; this.src='/img/404-img.png';">
-									<span class="post-type-img post-type-img--flower"></span>
-									<span class="post-card-hover"></span>
-								</div>
-								<div class="post-card" data-post-id="438">
-									<img src="https://pickmin-post.s3.ap-northeast-2.amazonaws.com/MUSHROOM-wydmdnm5242m" class="post-img" alt="불조심!" onerror="this.onerror=null; this.src='/img/404-img.png';">
-									<span class="post-type-img post-type-img--mushroom"></span>
-									<span class="post-card-hover"></span>
-								</div>
-								<div class="post-card" data-post-id="569">
-									<img src="https://pickmin-post.s3.ap-northeast-2.amazonaws.com/FLOWER-wydmdnmumzdy" class="post-img" alt="Gate of Gwanghee" onerror="this.onerror=null; this.src='/img/404-img.png';">
-									<span class="post-type-img post-type-img--flower"></span>
-									<span class="post-card-hover"></span>
-								</div> -->
 							</div>
 						</div>
 					</div>
 
 				</main>
 				<!-- End of Main Content -->
-			</div><!--	#content end	-->
+			</div><!--  #content end    -->
 
 			<div id="post-popup" style="display: block;">
 				<div class="post-popup-inner">
@@ -205,144 +175,9 @@
 	</div>
 
 	<!-- Modal-->
-	
-	<div class="modal fade show" id="register-post-modal" tabindex="-1" role="dialog" aria-labelledby="엽서 등록 신청" aria-modal="true" style="display: block;">
-		<div class="modal-dialog" role="document">
-			<div class="modal-content">
-				<div class="modal-header">
-					<h5 class="modal-title">엽서 등록 신청</h5>
-					<button class="close" id="" type="button" data-dismiss="modal" aria-label="Close" onclick="">
-						<span aria-hidden="true">×</span>
-					</button>
-				</div>
 
-				<div class="modal-body">
-					<div class="container">
-						<section class="input-section">
-							<div class="input-box">
-								<label for="post-latitude">위도</label>
-								<input type="number" class="form-control" id="post-latitude" placeholder="예: 36.12345">
-							</div>
-							<div class="input-box">
-								<label for="post-longitude">경도</label>
-								<input type="number" class="form-control" id="post-longitude" placeholder="예: 127.12345">
-							</div>
-							<div class="input-box">
-								<label for="post-name">엽서 이름</label>
-								<input type="text" class="form-control" id="post-name" placeholder="엽서 이름">
-							</div>
-							<div class="input-box">
-								<label for="post-type">엽서 구분</label>
-								<div class="input-box__radio input-box__radio--post-type">
-									<input type="radio" id="option1" name="option" value="1">
-									<label for="option1"><span class="icon-mushroom"></span>버섯</label>
-									<input type="radio" id="option2" name="option" value="2">
-									<label for="option2"><span class="icon-flower"></span>빅플라워</label>
-									<input type="radio" id="option3" name="option" value="3">
-									<label for="option3"><span class="icon-explorer"></span>탐험</label>
-								</div>
-							</div>
-							<div class="input-box">
-								<label for="post-img">엽서 이미지 업로드</label>
-								<div class="input-box__file">
-									<input type="file" class="form-control" id="post-img" accept="image/*">
-								</div>
-								<div class="form-check form-switch">
-									<input class="form-check-input" type="checkbox" id="no-img">
-									<label class="form-check-label" for="no-img">이미지 없음</label>
-								</div>
-							</div>
-						</section>
-					</div>
-				</div>
 
-				<div class="modal-footer">
-					<div class="button-set">
-						<div class="button-set__left">
-							<button class="btn btn-outline-secondary">취소</button>
-						</div>
-						<div class="button-set__right">
-							<button class="btn btn-primary">등록 신청</button>
-						</div>
-					</div>
-				</div>
-			</div>
-		</div>
-	</div>
-	
-	<div class="modal fade show" id="" tabindex="-1" role="dialog" aria-labelledby="엽서 수정 신청" aria-modal="true" style="display: block;">
-		<div class="modal-dialog" role="document">
-			<div class="modal-content">
-				<div class="modal-header">
-					<h5 class="modal-title">엽서 수정 신청</h5>
-					<button class="close" id="" type="button" data-dismiss="modal" aria-label="Close" onclick="">
-						<span aria-hidden="true">×</span>
-					</button>
-				</div>
-
-				<div class="modal-body">
-					<div class="container">
-						<section class="input-section">
-							<p class="input-section__help">
-								스팟이 삭제된 경우<br>
-								위도와 경도를 0으로 입력해주세요.
-							</p>
-							<div class="input-box">
-								<label for="post-latitude">위도</label>
-								<input type="number" class="form-control" id="post-latitude" value="30.15616">
-							</div>
-							<div class="input-box">
-								<label for="post-longitude">경도</label>
-								<input type="number" class="form-control" id="post-longitude" value="129.15615">
-							</div>
-							<div class="input-box">
-								<label for="post-name">엽서 이름</label>
-								<input type="text" class="form-control" id="post-name" value="어린이공원">
-							</div>
-							<div class="input-box">
-								<label for="post-type">엽서 구분</label>
-								<div class="input-box__radio input-box__radio--post-type">
-									<input type="radio" id="edit-option1" name="edit-option" value="1" checked>
-									<label for="edit-option1"><span class="icon-mushroom"></span>버섯</label>
-									<input type="radio" id="edit-option2" name="edit-option" value="2">
-									<label for="edit-option2"><span class="icon-flower"></span>빅플라워</label>
-									<input type="radio" id="edit-option3" name="edit-option" value="3">
-									<label for="edit-option3"><span class="icon-explorer"></span>탐험</label>
-								</div>
-							</div>
-							<div class="input-box">
-								<label for="post-img">바뀐 엽서 이미지 업로드</label>
-								<div class="input-box__file">
-									<input type="file" class="form-control" id="edit-post-img" accept="image/*">
-								</div>
-								<div class="form-check form-switch">
-									<input class="form-check-input" type="checkbox" id="edit-unchanged-img">
-									<label class="form-check-label" for="edit-unchanged-img">기존 등록된 이미지와 동일</label>
-								</div>
-								<div class="form-check form-switch">
-									<input class="form-check-input" type="checkbox" id="edit-no-img">
-									<label class="form-check-label" for="edit-no-img">이미지 없음</label>
-								</div>
-							</div>
-						</section>
-					</div>
-				</div>
-
-				<div class="modal-footer">
-					<div class="button-set">
-						<div class="button-set__left">
-							<button class="btn btn-outline-secondary">취소</button>
-						</div>
-						<div class="button-set__right">
-							<button class="btn btn-primary">수정 신청</button>
-						</div>
-					</div>
-				</div>
-			</div>
-		</div>
-	</div>
-	
-	<div class="modal fade show" id="notice-modal" tabindex="-1" role="dialog" aria-labelledby="픽블엽" aria-modal="true" style="display: block;">
+	<div class="modal fade show" id="notice-modal" tabindex="-1" role="dialog" aria-labelledby="픽블엽" aria-modal="true" style="display: block;position: relative;top: 0;left: 0;opacity: 1;pointer-events: none;">
 		<div class="modal-dialog" role="document">
 			<div class="modal-content">
 				<div class="modal-header">
@@ -356,7 +191,7 @@
 					<div class="container">
 						<div class="notice-box">
 							<div class="notice-box__img notice-box__img--top mb-3">
-								<img src="navbar-logo.svg" alt="">
+								<img src="/img/navbar-logo.svg" alt="">
 							</div>
 							<h5 class="font-weight-bold mb-3">📢 공지사항</h5>
 							<ul class="list-unstyled lh-lg small">
@@ -382,7 +217,7 @@
 								💻 무지성 개발자: <a href="mailto:tkdduf212@gmail.com">tkdduf212@gmail.com</a>
 							</p>
 							<div class="notice-box__img notice-box__img--bottom mt-4">
-								<img src="main-bg.png" alt="">
+								<img src="/img/main-bg.png" alt="">
 							</div>
 						</div>
 					</div>
@@ -399,7 +234,7 @@
 		</div>
 	</div>
 	
-	<div class="modal fade show" id="" tabindex="-1" role="dialog" aria-labelledby="엽서 신고" aria-modal="true" style="display: block;">
+	<div class="modal fade show" id="" tabindex="-1" role="dialog" aria-labelledby="엽서 신고" aria-modal="true" style="display: block;position: relative;top: 0;left: 0;opacity: 1;pointer-events: none;">
 		<div class="modal-dialog" role="document">
 			<div class="modal-content">
 				<div class="modal-header">
@@ -450,9 +285,8 @@
 	</div>
 	
 	
-	
-	<div class="modal-backdrop fade show"></div>
-	
+</div>
+
 	<div th:replace="~{modal/registerPostModal.html}"></div>
 	<div th:replace="~{modal/requesterEditPostModal.html}"></div>
 	<div th:replace="~{modal/logoutModal.html}"></div>
