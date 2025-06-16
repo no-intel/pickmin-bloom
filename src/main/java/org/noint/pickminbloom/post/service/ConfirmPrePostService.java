@@ -5,7 +5,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.noint.pickminbloom.post.dto.UpdatePrePostStatusDto;
 import org.noint.pickminbloom.post.entity.PrePost;
 import org.noint.pickminbloom.post.enums.PrePostStatus;
-import org.noint.pickminbloom.post.event.UpdatePrePostStatus;
+import org.noint.pickminbloom.post.event.ConfirmPrePostStatus;
 import org.noint.pickminbloom.post.validator.ConfirmPrePostValidator;
 import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.stereotype.Service;
@@ -28,7 +28,7 @@ public class ConfirmPrePostService {
         PrePost prePost = getPrePostService.getPrePost(dto.prePostId());
         confirmPrePostValidator.validateStatus(prePost.getStatus());
         prePost.updateStatus(dto.status(), dto.updatedBy());
-        eventPublisher.publishEvent(UpdatePrePostStatus.confirmPrePost(prePost, dto.updatedBy()));
+        eventPublisher.publishEvent(ConfirmPrePostStatus.confirmPrePost(prePost, dto.updatedBy()));
     }
 
     // 임시기능
@@ -36,7 +36,7 @@ public class ConfirmPrePostService {
         List<PrePost> prePostList = getPrePostService.getAllPrePost();
         for (PrePost prePost : prePostList) {
             prePost.updateStatus(PrePostStatus.CONFIRMED, 1L);
-            eventPublisher.publishEvent(UpdatePrePostStatus.confirmPrePost(prePost, 1L));
+            eventPublisher.publishEvent(ConfirmPrePostStatus.confirmPrePost(prePost, 1L));
         }
     }
 }

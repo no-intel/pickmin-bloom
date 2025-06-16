@@ -35,6 +35,7 @@ public class SecurityConfig {
                                     "/",
                                     "/sign",
                                     "/favicon.ico",
+                                    "/hh/**",
                                     "/img/**",
                                     "/js/**",
                                     "/css/**",

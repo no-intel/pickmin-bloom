@@ -65,6 +65,8 @@ async function registerPost() {
         if (!validation(formData)){
             throw new Error("엽서 신청에 필요한 조건을 만족하지 못했습니다.");
         }
+
+        toggleConfirmLoading(true);
         const response = await fetch('/pre-posts', {
             method: 'POST',
             body: formData,
@@ -83,6 +85,8 @@ async function registerPost() {
 
     } catch (error) {
         console.error('Error:', error);
+    }finally {
+        toggleConfirmLoading(false);
     }
 }
 function validation(formData) {
@@ -123,6 +127,13 @@ function validation(formData) {
         }
     }
     return true;
+}
+
+function toggleConfirmLoading(show) {
+    const loading = document.getElementById('register-loading-overlay');
+    if (loading) {
+        loading.classList.toggle('d-none', !show);
+    }
 }
 
 // 초기화

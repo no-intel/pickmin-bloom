@@ -1,70 +1,79 @@
 <div class="modal fade" id="edit-post-modal" tabindex="-1" role="dialog" aria-labelledby="엽서 등록 신청"
      aria-hidden="true">
-    <div class="modal-dialog" role="document">
+    <div class="modal-dialog modal-xl" role="document">
         <div class="modal-content">
             <div class="modal-header">
                 <h5 class="modal-title">엽서 수정 신청</h5>
-                <button class="close" id="" type="button" data-dismiss="modal" aria-label="Close" onclick="">
+                <button class="close" id="close-edit-btn" type="button" data-dismiss="modal" aria-label="Close" onclick="closeEditPostModal()">
                     <span aria-hidden="true">×</span>
                 </button>
             </div>
 
             <div class="modal-body">
                 <div class="container">
-                    <section class="input-section">
-                        <!-- <p class="input-section__help">
-                            스팟이 삭제된 경우<br>
-                            위도와 경도를 0으로 입력해주세요.
-                        </p> -->
-                        <div class="d-none" id="edit-post-id"></div>
-                        <div class="input-box">
-                            <label for="edit-post-latitude">위도</label>
-                            <input type="number" class="form-control" id="edit-post-latitude" value="00.0000"> <!-- 기존 위도 -->
+                    <div class="row">
+                        <!-- 왼쪽 이미지 -->
+                        <div class="col-lg-6 d-none d-lg-block bg-login-image">
+                            <img src="/img/edit-post-img.png" alt="edit-post-image" style="max-width: 100%; height: auto;">
                         </div>
-                        <div class="input-box">
-                            <label for="edit-post-longitude">경도</label>
-                            <input type="number" class="form-control" id="edit-post-longitude" value="00.0000"> <!-- 기존 경도 -->
-                        </div>
-                        <div class="input-box">
-                            <label for="edit-post-name">엽서 이름</label>
-                            <input type="text" class="form-control" id="edit-post-name" value="@@@@@"> <!-- 기존 엽서 이름 -->
-                        </div>
-                        <div class="input-box">
-                            <label for="post-type">엽서 구분</label>
-                            <div class="input-box__radio input-box__radio--post-type">
-                                <input type="radio" id="edit-post-type1" name="edit-post-type" value="버섯" checked>
-                                <label for="edit-post-type1"><span class="icon-mushroom"></span>버섯</label>
-                                <input type="radio" id="edit-post-type2" name="edit-post-type" value="빅플">
-                                <label for="edit-post-type2"><span class="icon-flower"></span>빅플라워</label>
-                                <input type="radio" id="edit-post-type3" name="edit-post-type" value="탐험">
-                                <label for="edit-post-type3"><span class="icon-explorer"></span>탐험</label>
+
+                        <!-- 오른쪽 입력 영역 -->
+                        <div class="col-lg-6 d-flex flex-column justify-content-between">
+                            <div class="d-none" id="edit-post-id"></div>
+                            <!-- 스텝별 입력 영역 -->
+                            <div class="edit-step edit-step-1">
+                                <label for="edit-post-latitude">위도</label>
+                                <input type="number" class="form-control" id="edit-post-latitude" placeholder="예: 36.12345">
+                                <label for="edit-post-longitude">경도</label>
+                                <input type="number" class="form-control" id="edit-post-longitude" placeholder="예: 127.12345">
+                            </div>
+
+                            <div class="edit-step edit-step-2 d-none">
+                                <label for="edit-post-name">엽서 이름</label>
+                                <input type="text" class="form-control" id="edit-post-name" placeholder="엽서 이름">
+                            </div>
+
+                            <div class="edit-step edit-step-3 d-none">
+                                <label for="edit-post-type">엽서 구분</label>
+                                <div class="dropdown mb-4">
+                                    <select class="form-select" aria-label="Default select example" id="edit-post-type">
+                                        <option selected value="null">구분</option>
+                                        <option value="버섯">버섯</option>
+                                        <option value="빅플">빅플</option>
+                                        <option value="탐험">탐험</option>
+                                    </select>
+                                </div>
+                            </div>
+
+                            <div class="edit-step edit-step-4 d-none">
+                                <label for="edit-post-img">엽서 이미지</label>
+                                <div class="input-group mb-2">
+                                    <input type="file" class="form-control" id="edit-post-img" accept="image/*">
+                                    <label class="input-group-text" for="edit-post-img">Upload</label>
+                                </div>
+                                <div class="form-check form-switch mb-3">
+                                    <input class="form-check-input" type="checkbox" id="edit-no-img">
+                                    <label class="form-check-label" for="edit-no-img">이미지 변경 없음</label>
+                                </div>
+                                <img id="original-img" src="" alt="orginal-img" onerror="this.onerror=null; this.src='/img/404-img.png';" style="max-width: 100%; height: auto;">
                             </div>
                         </div>
-                        <div class="input-box">
-                            <label for="edit-post-img">바뀐 엽서 이미지 업로드</label>
-                            <img id="original-img" src="" alt="orginal-img" onerror="this.onerror=null; this.src='/img/404-img.png';" style="max-width: 100%; height: auto;">
-                            <div class="input-box__file">
-                                <input type="file" class="form-control" id="edit-post-img" accept="image/*">
-                            </div>
-                            <div class="form-check form-switch">
-                                <input class="form-check-input" type="checkbox" id="edit-no-img">
-                                <label class="form-check-label" for="edit-no-img">이미지 변경 없음</label>
-                            </div>
-                        </div>
-                    </section>
+                    </div>
                 </div>
             </div>
 
-            <div class="modal-footer">
-                <div class="button-set">
-                    <div class="button-set__left">
-                        <button class="btn btn-outline-secondary">취소</button>
-                    </div>
-                    <div class="button-set__right">
-                        <button class="btn btn-primary">수정 신청</button>
-                    </div>
-                </div>
+            <!-- 푸터: 이전/다음 버튼 -->
+            <div class="modal-footer d-flex justify-content-between">
+                <button class="btn btn-secondary" type="button" onclick="editPostPrevStep()">이전</button>
+                <button class="btn btn-primary" type="button" onclick="editPostNextStep()">다음</button>
             </div>
         </div>
     </div>
+    <div id="edit-loading-overlay" class="d-none loading-overlay">
+        <div class="spinner-border text-primary" role="status" style="width: 3rem; height: 3rem;"></div>
+        <div style="margin-top: 12px; font-size: 16px; color: #333;">
+            수정 신청 중입니다<br>잠시만 기다려주세요...
+        </div>
+    </div>
 </div>
+

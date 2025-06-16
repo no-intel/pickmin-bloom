@@ -1,4 +1,4 @@
-version: 0.2.1
+version: 0.3.0
 spring:
   application:
     name: pickmin-bloom
@@ -47,6 +47,18 @@ spring:
     max-lifetime: 1800000               # 커넥션 생존 최대 시간 (ms)
     connection-timeout: 30000           # 커넥션 획득 시도 타임아웃 (ms)
     pool-name: HikariPool-Pickmin-Bloom # 로깅 시 보이는 풀 이름
+  mail:
+    host: smtp.gmail.com
+    port: 587
+    username: pickmap25@gmail.com
+    password: ${MAIL_PASSWORD}
+    master: tkdduf212@gmail.com
+    properties:
+      mail:
+        smtp:
+          auth: true
+          starttls:
+            enable: true
 
 logging:
   level:

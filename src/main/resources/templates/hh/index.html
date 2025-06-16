@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="피크민 블룸의 엽서 지도를 함께 만들어요! 유저들의 공유·참여로 운영되는 피크민 블룸 유저 제작맵 웹사이트입니다.">
+    <meta name="keywords" content="픽블엽, 피크민블룸, 피크민">
+    <meta name="author" content="">
+    
+    <meta property="og:title" content="픽블엽">
+    <meta property="og:description" content="피크민 블룸의 엽서 지도를 함께 만들어요! 유저들의 공유·참여로 운영되는 피크민 블룸 유저 제작맵 웹사이트입니다.">
+    <meta property="og:image" content="/img/meta/pickmin-map.jpg">
+    <meta property="og:url" content="https://pickmin-map.com">
+    <meta property="og:site_name" content="픽블엽">
+    <meta property="og:type" content="website">
+
+    <meta name="twitter:card" content="card">
+    <meta name="twitter:title" content="픽블엽">
+    <meta name="twitter:description" content="피크민 블룸의 엽서 지도를 함께 만들어요! 유저들의 공유·참여로 운영되는 피크민 블룸 유저 제작맵 웹사이트입니다.">
+    <meta name="twitter:image" content="/img/meta/pickmin-map.jpg">
+    <meta name="twitter:url" content="https://pickmin-map.com">
+    
+    <link rel="apple-touch-icon" sizes="57x57" href="/hh/img/meta/apple-icon-57x57.png">
+    <link rel="apple-touch-icon" sizes="60x60" href="/hh/img/meta/apple-icon-60x60.png">
+    <link rel="apple-touch-icon" sizes="72x72" href="/hh/img/meta/apple-icon-72x72.png">
+    <link rel="apple-touch-icon" sizes="76x76" href="/hh/img/meta/apple-icon-76x76.png">
+    <link rel="apple-touch-icon" sizes="114x114" href="/hh/img/meta/apple-icon-114x114.png">
+    <link rel="apple-touch-icon" sizes="120x120" href="/hh/img/meta/apple-icon-120x120.png">
+    <link rel="apple-touch-icon" sizes="144x144" href="/hh/img/meta/apple-icon-144x144.png">
+    <link rel="apple-touch-icon" sizes="152x152" href="/hh/img/meta/apple-icon-152x152.png">
+    <link rel="apple-touch-icon" sizes="180x180" href="/hh/img/meta/apple-icon-180x180.png">
+    <link rel="icon" type="image/png" sizes="192x192"  href="/hh/img/meta/android-icon-192x192.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="/hh/img/meta/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="96x96" href="/hh/img/meta/favicon-96x96.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/hh/img/meta/favicon-16x16.png">
+    <link rel="manifest" href="/hh/img/meta/manifest.json">
+    <meta name="msapplication-TileColor" content="#ffffff">
+    <meta name="msapplication-TileImage" content="/hh/img/meta/ms-icon-144x144.png">
+    <meta name="theme-color" content="#ffffff">
+
+    <title>픽 블 엽</title>
+
+    <!-- Custom fonts for this template-->
+    <link href="/lib/openlayers/ol.css" rel="stylesheet">
+    <link href="/lib/vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
+    <link
+        href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i"
+        rel="stylesheet">
+    <!-- 스크롤 라이브러리 -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/simplebar@latest/dist/simplebar.min.css" />
+
+    <!-- Custom styles for this template-->
+    <link href="/lib/vendor/css/sb-admin-2.css" rel="stylesheet">
+
+    <link rel="stylesheet" href="/hh/css/indexStyle.css">
+    
+    <link rel="icon" href="/favicon.ico" type="image/x-icon">
+</head>
+
+<body id="page-top">
+
+    <!-- Page Wrapper -->
+    <div id="wrapper">
+
+        <!-- Content Wrapper -->
+        <div id="content-wrapper">
+
+            <!-- Main Content -->
+            <div id="content">
+
+                <!-- Topbar -->
+                <nav class="navbar">
+                    <!-- Page Heading -->
+                    <h1 class="navbar-logo">
+                        <a href="">
+                            <strong class="navbar-logo-img">픽블엽</strong>
+                            <small class="navbar-logo-txt">피크민 블룸 엽서 스팟<span th:text="'v' + ${version}"></span></small>
+                        </a>
+                    </h1>
+                    <!-- Topbar Navbar -->
+                    <ul class="navbar-nav">
+                        <li class="nav-item">
+                            <a href="javascript:void(0)" id="navbar-help-btn" data-toggle="modal" data-target="#help-modal" title="도움말"></a>
+                        </li>
+                        <!-- Nav Item - User Information -->
+                        <li th:if="${isLogin}" class="nav-item no-arrow">
+                            <a class="btn btn-primary" id="register-post-btn" href="javascript:void(0)" data-toggle="modal" data-target="#register-post-modal">
+                                엽서 등록
+                            </a>
+                        </li>
+                        <li th:if="${isLogin}" class="nav-item dropdown no-arrow">
+                            <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                <span class="mr-2 d-none d-lg-inline text-gray-600 small" th:text="${name}"></span>
+                                <img class="img-profile rounded-circle" th:src="${picture}">
+                            </a>
+                            <!-- Dropdown - User Information -->
+                            <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in" aria-labelledby="userDropdown">
+                                <a class="dropdown-item" href="javascript:void(0)" data-toggle="modal" data-target="#logoutModal">
+                                    <i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i>
+                                    Logout
+                                </a>
+                            </div>
+                        </li>
+                        <li th:unless="${isLogin}" class="nav-item no-arrow">
+                            <a class="btn btn-secondary" href="/sign">
+                                로그인
+                            </a>
+                        </li>
+                    </ul>
+
+                </nav>
+                <!-- End of Topbar -->
+
+                <!-- Begin Page Content -->
+                <main>
+                    
+                    <!-- 지도 -->
+                    <div class="map-box">
+                        <div class="h-100" id="map"></div>
+                    </div>
+
+                    <!-- 아래쪽 박스 -->
+                    <div class="spot-box">
+                        <ul class="spot-box-tab">
+                            <li class="active"><a href="">주변 스팟 <span class="value">20</span></a></li>
+                            <li><a href="">최근 등록된 스팟 (준비중)</a></li>
+                        </ul>
+                        <div id="post-overflow" data-simplebar>
+                            <!-- 카드 목록 컨테이너 (수평 스크롤) -->
+                            <div id="post-container">
+                                <!-- 반복될 개별 카드 -->
+                            </div>
+                        </div>
+                    </div>
+
+                </main>
+                <!-- End of Main Content -->
+
+            </div><!--    #content end        -->
+
+            <div id="post-popup">엽서 팝업</div>
+            <div id="coor-popup" th:data-islogin="${isLogin}">좌표 팝업</div>
+            <!-- End of Content Wrapper -->
+
+        </div>
+        <!-- End of Page Wrapper -->
+    </div>
+
+    <!-- Modal-->
+    <div th:replace="~{modal/registerPostModal.html}"></div>
+    <div th:replace="~{modal/requesterEditPostModal.html}"></div>
+    <div th:replace="~{modal/logoutModal.html}"></div>
+
+    <div th:replace="~{script.html}"></div>
+    
+    <div id="toast-message">토스트 팝업</div>
+
+    <script>
+        // 이미지 박스를 제외한 영역에 .post-popup__info 최대 높이 지정 (PC 사이즈에서만)
+        function adjustPostPopupInfoHeight() {
+            const popup = document.querySelector('#post-popup');
+            const imgBox = document.querySelector('.post-popup__img-box');
+            const buttonSet = document.querySelector('.button-set');
+            const info = document.querySelector('.post-popup__info');
+
+            // 모든 요소가 존재할 경우에만 실행
+            if (popup && imgBox && info) {
+                const availableHeight = popup.offsetHeight - imgBox.offsetHeight - buttonSet.offsetHeight;
+                info.style.maxHeight = availableHeight + 'px';
+            }
+        }
+
+        // 최초 진입 시 PC 사이즈면 실행
+        if (window.innerWidth >= 992) adjustPostPopupInfoHeight();
+
+        // 창 크기 변경될 때 PC 사이즈면 다시 계산
+        window.addEventListener('resize', () => {
+            if (window.innerWidth >= 992) adjustPostPopupInfoHeight();
+        });
+        
+        function showToast(text) {
+            const toastMessage = document.getElementById('toast-message');
+            toastMessage.textContent = text;
+            toastMessage.classList.add('active');
+            setTimeout(() => toastMessage.classList.remove('active'), 1000);
+        }
+        
+        function copyToClipboard(text) {
+            navigator.clipboard.writeText(text)
+                .then(() => showToast("위치가 복사되었습니다."))
+                .catch(err => showToast("복사에 실패했습니다."));
+        }
+    </script>
+</body>
+
+</html>

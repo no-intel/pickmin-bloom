@@ -4,7 +4,7 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.noint.pickminbloom.post.dto.RegisterPostDto;
 import org.noint.pickminbloom.post.entity.Post;
-import org.noint.pickminbloom.post.event.UpdatePrePostStatus;
+import org.noint.pickminbloom.post.event.ConfirmPrePostStatus;
 import org.noint.pickminbloom.post.repository.PostRepository;
 import org.noint.pickminbloom.post.util.FileCodecUtil;
 import org.noint.pickminbloom.post.util.GeoHashUtil;
@@ -38,8 +38,8 @@ public class RegisterPostService {
 //        s3Util.uploadFile(dto.geohash(), dto.image());
     }
 
-    @TransactionalEventListener(classes = UpdatePrePostStatus.class, phase = TransactionPhase.BEFORE_COMMIT)
-    public void registerPost(UpdatePrePostStatus event) {
+    @TransactionalEventListener(classes = ConfirmPrePostStatus.class, phase = TransactionPhase.BEFORE_COMMIT)
+    public void registerPost(ConfirmPrePostStatus event) {
         log.info("EVENT - Register post: {}", event);
         String geohash = geoHashUtil.encode(event.latitude(), event.longitude());
         MultipartFile img = fileCodecUtil.decodeToMultipartFile(geohash, event.img());

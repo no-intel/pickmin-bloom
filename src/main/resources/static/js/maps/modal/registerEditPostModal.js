@@ -68,6 +68,8 @@ async function registerEditPost() {
         if (!vaildation(formData)){
             throw new Error("엽서 신청에 필요한 조건을 만족하지 못했습니다.");
         }
+        toggleEditLoading(true);
+
         const response = await fetch(`/posts/${editPostId}`, {
             method: 'PUT',
             body: formData,
@@ -81,11 +83,13 @@ async function registerEditPost() {
         }
 
         document.getElementById('close-edit-btn').click();
-        alert("등록 신청이 완료 됐습니다.")
+        alert("수정 신청이 완료 됐습니다.")
         return null;
 
     } catch (error) {
         console.error('Error:', error);
+    } finally {
+        toggleEditLoading(false)
     }
 }
 function vaildation(formData) {
@@ -126,6 +130,13 @@ function vaildation(formData) {
         }
     }
     return true;
+}
+
+function toggleEditLoading(show) {
+    const loading = document.getElementById('edit-loading-overlay');
+    if (loading) {
+        loading.classList.toggle('d-none', !show);
+    }
 }
 
 // 초기화

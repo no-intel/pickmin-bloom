@@ -1,6 +1,7 @@
 package org.noint.pickminbloom.home;
 
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.oauth2.core.user.OAuth2User;
 import org.springframework.stereotype.Controller;
@@ -24,5 +25,20 @@ public class HomeController {
             model.addAttribute("isLogin", false);
         }
         return "index";
+    }
+
+    @GetMapping("/hh")
+    @PreAuthorize("hasAnyRole('ADMIN', 'MASTER')")
+    public String homeHH(Model model, @AuthenticationPrincipal OAuth2User user) {
+        model.addAttribute("version", version);
+        if (user != null) {
+            model.addAttribute("name", user.getAttribute("name"));
+            model.addAttribute("email", user.getAttribute("email"));
+            model.addAttribute("picture", user.getAttribute("picture"));
+            model.addAttribute("isLogin", true);
+        }else {
+            model.addAttribute("isLogin", false);
+        }
+        return "/hh/index";
     }
 }

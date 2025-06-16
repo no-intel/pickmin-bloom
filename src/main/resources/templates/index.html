@@ -4,40 +4,8 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <meta name="description" content="피크민 블룸의 엽서 지도를 함께 만들어요! 유저들의 공유·참여로 운영되는 피크민 블룸 유저 제작맵 웹사이트입니다.">
-    <meta name="keywords" content="픽블엽, 피크민블룸, 피크민">
+    <meta name="description" content="">
     <meta name="author" content="">
-    
-    <meta property="og:title" content="픽블엽">
-    <meta property="og:description" content="피크민 블룸의 엽서 지도를 함께 만들어요! 유저들의 공유·참여로 운영되는 피크민 블룸 유저 제작맵 웹사이트입니다.">
-    <meta property="og:image" content="/img/meta/pickmin-map.jpg">
-    <meta property="og:url" content="https://pickmin-map.com">
-    <meta property="og:site_name" content="픽블엽">
-    <meta property="og:type" content="website">
-
-    <meta name="twitter:card" content="card">
-    <meta name="twitter:title" content="픽블엽">
-    <meta name="twitter:description" content="피크민 블룸의 엽서 지도를 함께 만들어요! 유저들의 공유·참여로 운영되는 피크민 블룸 유저 제작맵 웹사이트입니다.">
-    <meta name="twitter:image" content="/img/meta/pickmin-map.jpg">
-    <meta name="twitter:url" content="https://pickmin-map.com">
-    
-    <link rel="apple-touch-icon" sizes="57x57" href="/img/meta/apple-icon-57x57.png">
-    <link rel="apple-touch-icon" sizes="60x60" href="/img/meta/apple-icon-60x60.png">
-    <link rel="apple-touch-icon" sizes="72x72" href="/img/meta/apple-icon-72x72.png">
-    <link rel="apple-touch-icon" sizes="76x76" href="/img/meta/apple-icon-76x76.png">
-    <link rel="apple-touch-icon" sizes="114x114" href="/img/meta/apple-icon-114x114.png">
-    <link rel="apple-touch-icon" sizes="120x120" href="/img/meta/apple-icon-120x120.png">
-    <link rel="apple-touch-icon" sizes="144x144" href="/img/meta/apple-icon-144x144.png">
-    <link rel="apple-touch-icon" sizes="152x152" href="/img/meta/apple-icon-152x152.png">
-    <link rel="apple-touch-icon" sizes="180x180" href="/img/meta/apple-icon-180x180.png">
-    <link rel="icon" type="image/png" sizes="192x192"  href="/img/meta/android-icon-192x192.png">
-    <link rel="icon" type="image/png" sizes="32x32" href="/img/meta/favicon-32x32.png">
-    <link rel="icon" type="image/png" sizes="96x96" href="/img/meta/favicon-96x96.png">
-    <link rel="icon" type="image/png" sizes="16x16" href="/img/meta/favicon-16x16.png">
-    <link rel="manifest" href="/img/meta/manifest.json">
-    <meta name="msapplication-TileColor" content="#ffffff">
-    <meta name="msapplication-TileImage" content="/img/meta/ms-icon-144x144.png">
-    <meta name="theme-color" content="#ffffff">
 
     <title>픽 블 엽</title>
 
@@ -54,8 +22,7 @@
     <link href="/lib/vendor/css/sb-admin-2.css" rel="stylesheet">
 
     <link rel="stylesheet" href="/css/indexStyle.css">
-    
-    <link rel="icon" href="/favicon.ico" type="image/x-icon">
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png">
 </head>
 
 <body id="page-top">
@@ -64,25 +31,16 @@
     <div id="wrapper">
 
         <!-- Content Wrapper -->
-        <div id="content-wrapper">
+        <div id="content-wrapper" class="d-flex flex-column vh-100">
 
             <!-- Main Content -->
-            <div id="content">
+            <div id="content" class="h-100">
 
                 <!-- Topbar -->
-                <nav class="navbar">
-                    <!-- Page Heading -->
-                    <h1 class="navbar-logo">
-                        <a href="">
-                            <strong class="navbar-logo-img">픽블엽</strong>
-                            <small class="navbar-logo-txt">피크민 블룸 엽서 스팟<span th:text="'v' + ${version}"></span></small>
-                        </a>
-                    </h1>
+                <nav class="navbar navbar-expand navbar-light bg-white topbar mb-4 static-top shadow">
+
                     <!-- Topbar Navbar -->
-                    <ul class="navbar-nav">
-                        <li class="nav-item">
-                            <a href="javascript:void(0)" id="navbar-help-btn" data-toggle="modal" data-target="#help-modal" title="도움말"></a>
-                        </li>
+                    <ul class="navbar-nav ml-auto d-flex align-items-center gap-2">
                         <!-- Nav Item - User Information -->
                         <li th:if="${isLogin}" class="nav-item no-arrow">
                             <a class="btn btn-primary" id="register-post-btn" href="javascript:void(0)" data-toggle="modal" data-target="#register-post-modal">
@@ -103,7 +61,7 @@
                             </div>
                         </li>
                         <li th:unless="${isLogin}" class="nav-item no-arrow">
-                            <a class="btn btn-secondary" href="/sign">
+                            <a class="btn btn-primary" href="/sign">
                                 로그인
                             </a>
                         </li>
@@ -113,31 +71,80 @@
                 <!-- End of Topbar -->
 
                 <!-- Begin Page Content -->
-                <main>
-                    
-                    <!-- 지도 -->
-                    <div class="map-box">
-                        <div class="h-100" id="map"></div>
-                    </div>
+                <div class="container-fluid" style="height: 84%">
+                    <!-- Page Heading -->
+                    <h1 class="h3 mb-1 text-gray-800" th:text="'🖼️피크민 블룸 엽서 스팟 v ' + ${version}"></h1>
+                    <p class="mb-4">피크민 블룸의 엽서작을 위해 많은 엽서를 공유해주세요!</p>
 
-                    <!-- 아래쪽 박스 -->
-                    <div class="spot-box">
-                        <ul class="spot-box-tab">
-                            <li class="active"><a href="">주변 스팟 <span class="value">20</span></a></li>
-                            <li><a href="">최근 등록된 스팟 (준비중)</a></li>
-                        </ul>
-                        <div id="post-overflow" data-simplebar>
-                            <!-- 카드 목록 컨테이너 (수평 스크롤) -->
-                            <div id="post-container">
-                                <!-- 반복될 개별 카드 -->
+                    <!-- Content Row -->
+                    <div class="row" style="height: 90%">
+                        <!-- 왼쪽 고정 영역 -->
+                        <div class="col-lg-9 d-flex flex-column">
+
+                            <!-- 위쪽 박스 -->
+                            <div class="card flex-fill bg-gradient-light text-white p-3" style="height: 70%">
+                                <div class="h-100" id="map"></div>
+                            </div>
+
+                            <!-- 아래쪽 박스 -->
+                            <div class="card flex-fill bg-gradient-light text-white p-3" style="height: 30%;">
+                                <div class="card-body p-0 h-100" id="post-overflow" data-simplebar>
+                                    <!-- 카드 목록 컨테이너 (수평 스크롤) -->
+                                    <div class="d-flex flex-row flex-nowrap gap-3 px-3 py-2" id="post-container">
+                                        <!-- 반복될 개별 카드 -->
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="card col-lg-3 d-none d-lg-block bg-gray-200 text-white p-3">
+                            <div class="card shadow-sm bg-white text-dark">
+                                <div class="card-body">
+                                    <h5 class="card-title fw-bold mb-3">📢 공지사항</h5>
+                                    <ul class="list-unstyled lh-lg small">
+                                        <li><strong>1.</strong> 해당 페이지는 <strong>피크민 블룸</strong> 엽서작을 돕기 위해 만들어졌습니다.</li>
+                                        <li><strong>2.</strong> 엽서는 지정 좌표 기준 가까운 <strong>20개</strong>까지 보여 줍니다.</li>
+                                        <li><strong>3.</strong> 엽서 등록을 위해서는 <span class="text-danger fw-bold">로그인</span>이 필요합니다.</li>
+                                        <li><strong>4.</strong> 등록은 <strong>관리자 승인</strong> 이후 완료됩니다.</li>
+                                        <li><strong>5.</strong> 엽서 좌표는 <strong>정확하게 입력</strong>해주세요. 겹침 방지됩니다.</li>
+                                        <li><strong>6.</strong> 화면 구성을 맡아 도와 줄 <strong>프론트 엔드 개발자가 있다면 아래 이메일로 연락 부탁</strong>드립니다. 사이드 프로젝트 필요하신 분 없으신가요ㅠ..</li>
+                                    </ul>
+                                    <h6 class="fw-bold mt-4">✨ 새로운 기능</h6>
+                                    <ul class="list-unstyled lh-lg small">
+                                        <li>1. 엽서 등록 신청 승인 후 메일 알림 기능</li>
+                                        <li>2. 엽서 등록, 수정 신청 시 로딩창 추가</li>
+                                    </ul>
+                                    <h6 class="fw-bold mt-4">🛠️ 개발 예정 기능</h6>
+                                    <ul class="list-unstyled lh-lg small">
+                                        <li>1. 엽서 신고 기능</li>
+                                        <li>2. 좌표 검색 기능</li>
+                                        <li>3. 최근등록 엽서 목록 제공</li>
+                                    </ul>
+
+                                    <p class="mt-4 mb-0 small text-muted">
+                                        💻 무지성 개발자: <a href="mailto:tkdduf212@gmail.com">tkdduf212@gmail.com</a>
+                                    </p>
+                                </div>
                             </div>
                         </div>
                     </div>
+                    <!-- /.container-fluid -->
 
-                </main>
+                </div>
                 <!-- End of Main Content -->
 
-            </div><!--    #content end        -->
+                <!-- Footer -->
+                <footer class="sticky-footer bg-white">
+                    <div class="container my-auto">
+                        <div class="copyright text-center my-auto">
+                            <span>Copyright &copy; no-int 2025 ~ </span>
+                            <p style="font-size: 11px; color: gray;">
+                                Icon by <a href="https://www.flaticon.com/authors/freepik" title="Freepik">Freepik</a> from <a href="https://www.flaticon.com/" title="Flaticon">www.flaticon.com</a>
+                            </p>
+                        </div>
+                    </div>
+                </footer>
+                <!-- End of Footer -->
+            </div><!--    #contetn end        -->
 
             <div id="post-popup">엽서 팝업</div>
             <div id="coor-popup" th:data-islogin="${isLogin}">좌표 팝업</div>
@@ -153,43 +160,12 @@
     <div th:replace="~{modal/logoutModal.html}"></div>
 
     <div th:replace="~{script.html}"></div>
-    
-    <div id="toast-message">토스트 팝업</div>
 
     <script>
-        // 이미지 박스를 제외한 영역에 .post-popup__info 최대 높이 지정 (PC 사이즈에서만)
-        function adjustPostPopupInfoHeight() {
-            const popup = document.querySelector('#post-popup');
-            const imgBox = document.querySelector('.post-popup__img-box');
-            const buttonSet = document.querySelector('.button-set');
-            const info = document.querySelector('.post-popup__info');
-
-            // 모든 요소가 존재할 경우에만 실행
-            if (popup && imgBox && info) {
-                const availableHeight = popup.offsetHeight - imgBox.offsetHeight - buttonSet.offsetHeight;
-                info.style.maxHeight = availableHeight + 'px';
-            }
-        }
-
-        // 최초 진입 시 PC 사이즈면 실행
-        if (window.innerWidth >= 992) adjustPostPopupInfoHeight();
-
-        // 창 크기 변경될 때 PC 사이즈면 다시 계산
-        window.addEventListener('resize', () => {
-            if (window.innerWidth >= 992) adjustPostPopupInfoHeight();
-        });
-        
-        function showToast(text) {
-            const toastMessage = document.getElementById('toast-message');
-            toastMessage.textContent = text;
-            toastMessage.classList.add('active');
-            setTimeout(() => toastMessage.classList.remove('active'), 1000);
-        }
-        
         function copyToClipboard(text) {
             navigator.clipboard.writeText(text)
-                .then(() => showToast("위치가 복사되었습니다."))
-                .catch(err => showToast("복사에 실패했습니다."));
+                .then(() => alert("위치가 복사되었습니다."))
+                .catch(err => alert("복사에 실패했습니다."));
         }
     </script>
 </body>
