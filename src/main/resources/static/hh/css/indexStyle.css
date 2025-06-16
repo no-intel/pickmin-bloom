@@ -170,7 +170,7 @@ a:hover{
 	width:100px;
 	height:36px;
 	text-indent:-9999px;
-	background:url(/img/navbar-logo.svg) 0 center no-repeat;
+	background:url(/hh/img/navbar-logo.svg) 0 center no-repeat;
 	background-size:contain;
 }
 .navbar-logo-txt{
@@ -203,7 +203,7 @@ a:hover{
 	margin:5px;
 	content:'';
 	transition:all .3s ease;
-	background:url(/img/icon-sprite.png) -90px 0 no-repeat;
+	background:url(/hh/img/icon-sprite.png) -90px 0 no-repeat;
 	background-size:300px 100px;
 }
 #navbar-help-btn:hover:before{
@@ -221,7 +221,7 @@ a:hover{
 .map-box{
 	position:relative;
 	height:calc(100vh - 70px - 160px);
-	background:url(/img/sample.png) repeat;
+	background:url(/hh/img/sample.png) repeat;
 }
 
 /*토스트팝업*/
@@ -269,7 +269,7 @@ a:hover{
 	content:'';
 	user-select:none;
 	pointer-events:none;
-	background:url(/img/spot-box-bg.png) 12px -14px no-repeat;
+	background:url(/hh/img/spot-box-bg.png) 12px -14px no-repeat;
 	background-size:100% auto;
 }
 .spot-box-tab{
@@ -392,7 +392,7 @@ a:hover{
 	height:30px;
 	content:'';
 	transition:all .4s ease;
-	background:url(/img/icon-sprite.png) 0 0 no-repeat;
+	background:url(/hh/img/icon-sprite.png) 0 0 no-repeat;
 	background-size:300px 100px;
 }
 .post-type-img--explorer{
@@ -519,7 +519,7 @@ a:hover{
 	margin:-15px 0 0 -15px;
 	content:'';
 	transition:all .4s ease;
-	background:url(/img/icon-sprite.png) -60px -30px no-repeat;
+	background:url(/hh/img/icon-sprite.png) -60px -30px no-repeat;
 	background-size:300px 100px;
 }
 .post-popup__img-box img{
@@ -564,7 +564,7 @@ a:hover{
 	width:20px;
 	height:20px;
 	content:'';
-	background:url(/img/icon-sprite.png) 0 -60px no-repeat;
+	background:url(/hh/img/icon-sprite.png) 0 -60px no-repeat;
 	background-size:300px 100px;
 }
 .post-popup__type--explorer{
@@ -625,7 +625,7 @@ a:hover{
 	transition:all .3s ease;
 	transform:scale(.8);
 	pointer-events:none;
-	background:url(/img/icon-sprite.png) -150px -30px no-repeat;
+	background:url(/hh/img/icon-sprite.png) -150px -30px no-repeat;
 	background-size:300px 100px;
 }
 .post-popup-close-btn:hover{
@@ -779,7 +779,7 @@ a:hover{
 	margin-top:-5px;
 	margin-right:4px;
 	vertical-align:middle;
-	background:url(/img/icon-sprite.png) -60px -60px no-repeat;
+	background:url(/hh/img/icon-sprite.png) -60px -60px no-repeat;
 	background-size:300px 100px;
 }
 .input-box__radio--post-type input[type='radio']:checked + label{
