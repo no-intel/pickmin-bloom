@@ -123,8 +123,8 @@
                     <!-- 아래쪽 박스 -->
                     <div class="spot-box">
                         <ul class="spot-box-tab">
-                            <li class="active"><a href="">주변 스팟 <span class="value">20</span></a></li>
-                            <li><a href="">최근 등록된 스팟 (준비중)</a></li>
+                            <li class="active"><a href="">주변 스팟 <!--<span class="value">20</span>--></a></li>
+                            <!-- <li><a href="">최근 등록된 스팟 (준비중)</a></li> -->
                         </ul>
                         <div id="post-overflow" data-simplebar>
                             <!-- 카드 목록 컨테이너 (수평 스크롤) -->
@@ -148,6 +148,7 @@
     </div>
 
     <!-- Modal-->
+    <div th:replace="~{modal/noticeModal.html}"></div>
     <div th:replace="~{modal/registerPostModal.html}"></div>
     <div th:replace="~{modal/requesterEditPostModal.html}"></div>
     <div th:replace="~{modal/logoutModal.html}"></div>
