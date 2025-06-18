@@ -1,4 +1,7 @@
 /*reset*/
+html{
+	height: 100vh;
+}
 li{
 	list-style-type:none;
 }
@@ -1016,5 +1019,11 @@ a:hover{
 	}
 	.button-set{
 		padding: 8px 10px;
+	}
+	.notice-box__img--top img{
+		width: 120px;
+	}
+	.modal-content{
+		margin-bottom: 0;
 	}
 }
