@@ -231,7 +231,6 @@ a:hover{
 .map-box{
 	position:relative;
 	height:calc(100vh - 70px - 160px);
-	background:url(/hh/img/sample.png) repeat;
 }
 
 /*토스트팝업*/
@@ -524,6 +523,10 @@ a:hover{
 }
 
 /*엽서 레이어 팝업*/
+.ol-overlay-container{
+	left: -128px;
+	top:-10px;
+}
 #post-popup{
 	display:none;
 	/* 기본적으로 숨김 */
@@ -539,6 +542,10 @@ a:hover{
 	box-shadow:0 4px 2px rgba(0, 0, 0, .03), 0 14px 9px rgba(0, 0, 0, .05), 0 32px 20px rgba(0, 0, 0, .08);
 	backdrop-filter:blur(2px);
 	padding: 8px;
+}
+#post-popup div{
+	padding-right: 40px;
+	line-height: 1.4;
 }
 .post-popup-inner{
 	position:relative;
