@@ -1,6 +1,6 @@
 /*reset*/
 html{
-	height: 100vh;
+	height: 100%;
 }
 li{
 	list-style-type:none;
@@ -227,10 +227,12 @@ a:hover{
 #wrapper{
 	overflow:hidden;
 	height:100vh;
+	height:100dvh;
 }
 .map-box{
 	position:relative;
 	height:calc(100vh - 70px - 160px);
+	height:calc(100dvh - 70px - 160px);
 }
 
 /*토스트팝업*/
@@ -718,6 +720,7 @@ a:hover{
 .modal-body{
 	overflow-y:auto;
 	max-height:calc(100vh - 230px);
+	max-height:calc(100dvh - 230px);
 	color:#424e77;
 	text-align: center;
 }
@@ -994,6 +997,7 @@ a:hover{
 	}
 	.map-box{
 		height: calc(100vh - 60px - 130px);
+		height: calc(100dvh - 60px - 130px);
 	}
 	/*배경이미지 숨김*/
 	.navbar{
