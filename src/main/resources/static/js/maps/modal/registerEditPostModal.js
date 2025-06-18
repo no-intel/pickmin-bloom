@@ -1,37 +1,3 @@
-let editStep = 1;
-const editTotalSteps = 4;
-
-function showEditPostStep(step) {
-    document.querySelectorAll('.edit-step').forEach((el, idx) => {
-        el.classList.toggle('d-none', idx + 1 !== step);
-    });
-
-    const prevBtn = document.querySelector('.modal-footer .btn-secondary');
-    const nextBtn = document.querySelector('.modal-footer .btn-primary');
-
-    // '이전' 버튼: 1스텝일 경우 자리만 차지 (숨김)
-    prevBtn.style.visibility = (step === 1) ? 'hidden' : 'visible';
-
-    // '다음' 버튼 텍스트 변경
-    nextBtn.textContent = (step === editTotalSteps) ? '제출' : '다음';
-}
-
-function editPostNextStep() {
-    if (editStep < editTotalSteps) {
-        editStep++;
-        showEditPostStep(editStep);
-    } else {
-        registerEditPost();
-    }
-}
-
-function editPostPrevStep() {
-    if (editStep > 1) {
-        editStep--;
-        showEditPostStep(editStep);
-    }
-}
-
 function closeEditPostModal() {
     document.getElementById('edit-post-id').value = '';
     document.getElementById('edit-post-name').value = '';
@@ -41,8 +7,6 @@ function closeEditPostModal() {
     document.getElementById('edit-no-img').checked = false;
     document.getElementById('edit-post-type').value = 'null';
     document.getElementById('original-img').value = '';
-    editStep = 1;
-    showEditPostStep(editStep);
 }
 
 async function registerEditPost() {
@@ -52,7 +16,7 @@ async function registerEditPost() {
     const editLongitude = document.getElementById('edit-post-longitude').value;
     const editPostImg = document.getElementById('edit-post-img').files[0];
     const editNoImg = document.getElementById('edit-no-img').checked;
-    const editType = document.getElementById('edit-post-type').value;
+    const editType = document.querySelector('input[name="edit-post-type"]:checked')?.value;
 
     try {
         const formData = new FormData();
@@ -139,8 +103,6 @@ function toggleEditLoading(show) {
     }
 }
 
-// 초기화
-window.addEventListener('DOMContentLoaded', () => showEditPostStep(editStep));
 // 모달이 닫힐 때 closeEditPostModal() 자동 호출
 document.addEventListener('DOMContentLoaded', function () {
     const modalElement = document.getElementById('edit-post-modal');
@@ -149,9 +111,6 @@ document.addEventListener('DOMContentLoaded', function () {
             closeEditPostModal();
         });
     }
-
-    // 스텝 초기화도 DOM 로드 시점에 실행
-    showEditPostStep(editStep);
 });
 
 

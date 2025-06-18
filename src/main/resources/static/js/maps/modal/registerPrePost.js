@@ -1,37 +1,3 @@
-let currentStep = 1;
-const totalSteps = 4;
-
-function showRegisterPostStep(step) {
-    document.querySelectorAll('.step').forEach((el, idx) => {
-        el.classList.toggle('d-none', idx + 1 !== step);
-    });
-
-    const prevBtn = document.querySelector('.modal-footer .btn-secondary');
-    const nextBtn = document.querySelector('.modal-footer .btn-primary');
-
-    // '이전' 버튼: 1스텝일 경우 자리만 차지 (숨김)
-    prevBtn.style.visibility = (step === 1) ? 'hidden' : 'visible';
-
-    // '다음' 버튼 텍스트 변경
-    nextBtn.textContent = (step === totalSteps) ? '제출' : '다음';
-}
-
-function registerNextStep() {
-    if (currentStep < totalSteps) {
-        currentStep++;
-        showRegisterPostStep(currentStep);
-    } else {
-        registerPost();
-    }
-}
-
-function registerPrevStep() {
-    if (currentStep > 1) {
-        currentStep--;
-        showRegisterPostStep(currentStep);
-    }
-}
-
 function closeRegisterPostModal() {
     document.getElementById('post-name').value = '';
     document.getElementById('post-latitude').value = '';
@@ -39,8 +5,6 @@ function closeRegisterPostModal() {
     document.getElementById('post-img').value = '';
     document.getElementById('no-img').checked = false;
     document.querySelectorAll('input[name="postType"]').forEach(el => el.checked = false);
-    currentStep = 1;
-    showRegisterPostStep(currentStep);
 }
 
 async function registerPost() {
@@ -136,9 +100,6 @@ function toggleConfirmLoading(show) {
     }
 }
 
-// 초기화
-window.addEventListener('DOMContentLoaded', () => showRegisterPostStep(currentStep));
-
 // 모달이 닫힐 때 closeModal() 자동 호출
 document.addEventListener('DOMContentLoaded', function () {
     const modalElement = document.getElementById('register-post-modal');
@@ -147,9 +108,6 @@ document.addEventListener('DOMContentLoaded', function () {
             closeRegisterPostModal(); // 모달 닫히면 입력값 및 스텝 초기화
         });
     }
-
-    // 스텝 초기화도 DOM 로드 시점에 실행
-    showRegisterPostStep(currentStep);
 });
 
 $(document).on('hidden.bs.modal', '#register-post-modal', function () {
