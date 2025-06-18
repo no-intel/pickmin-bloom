@@ -1,4 +1,7 @@
 /*reset*/
+html{
+	height: 100%;
+}
 li{
 	list-style-type:none;
 }
@@ -147,7 +150,6 @@ a:hover{
 
 /*header(navbar)*/
 .navbar{
-	overflow:hidden;
 	z-index:3;
 	height:70px;
 	padding:0 20px;
@@ -176,6 +178,9 @@ a:hover{
 .navbar-logo-txt{
 	color:#666666;
 	font-size:15px;
+}
+.navbar-logo-txt span{
+	margin-left: 4px;
 }
 .navbar-nav{
 	flex-direction:row;
@@ -209,6 +214,11 @@ a:hover{
 #navbar-help-btn:hover:before{
 	opacity:1;
 }
+.navbar .dropdown-menu{
+	position: absolute;
+	top:48px;
+	right:0;
+}
 
 /*container layout*/
 .container-fluid{
@@ -217,11 +227,12 @@ a:hover{
 #wrapper{
 	overflow:hidden;
 	height:100vh;
+	height:100dvh;
 }
 .map-box{
 	position:relative;
 	height:calc(100vh - 70px - 160px);
-	background:url(/hh/img/sample.png) repeat;
+	height:calc(100dvh - 70px - 160px);
 }
 
 /*토스트팝업*/
@@ -329,25 +340,74 @@ a:hover{
 	overflow-y:hidden;
 	height:100%;
 	padding-top:36px;
-	white-space:nowrap;
+}
+.simplebar-content{
+	max-height: 160px;
+	display: flex;
+	align-items: stretch;
+	overflow: hidden;
 }
 #post-container{
 	display:flex;
 	overflow-x:auto;
-	height:100%;
+	height:124px;
 	padding:10px 20px 16px 20px;
 	gap:12px;
+	align-items: stretch;
+	white-space:nowrap;
+	flex-wrap: nowrap;
 }
 .post-card{
+	width: auto;
 	overflow:hidden;
 	position:relative;
 	height:100%;
 	border-radius:8px;
 	cursor:pointer;
 	transition:all .3s ease;
-	box-shadow:0 3px 3px #00000055,0 10px 10px #0000000d;
+	box-shadow:0 3px 3px #00000055,0 10px 10px #0000000d !important;
+	max-width: 130px;
+	max-height: 100%;
+	display: inline-block;
+	flex:0 0 auto !important;
 }
-.post-card:hover, .post-card.active{
+/*test-hh*/
+.simplebar-content{
+	overflow-x: auto;
+	white-space: nowrap;
+}
+.post-card{
+	border:0 !important;
+	height:auto !important;
+	flex:1;
+}
+.post-card:before{
+	content: '';
+	position: absolute;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+	background-color: #ff45a555;
+	opacity: 0;
+	transition: all .2s ease;
+	border: 3px solid #ff45a5;
+	border-radius: 8px;
+}
+.post-card .card-body{
+	padding: 0 !important;
+}
+.post-img{
+	display:block;
+	width:100%;
+	height:100% !important;
+	object-fit:cover;
+	margin:0 !important;
+}
+.post-card:hover:before{
+	opacity: 1;
+}
+/*.post-card:hover, .post-card.active{
 	box-shadow:0 3px 3px #00000055, 0 10px 10px #0000000d;
 }
 .post-card-hover{
@@ -366,12 +426,8 @@ a:hover{
 }
 .post-card:hover .post-card-hover, .post-card.active .post-card-hover{
 	opacity:1;
-}
-.post-img{
-	display:inline-block;
-	height:100%;
-	object-fit:contain;
-}
+}*/
+/*test-hh*/
 .post-type-img{
 	position:absolute;
 	right:0;
@@ -379,11 +435,12 @@ a:hover{
 	z-index:2;
 	width:40px;
 	height:40px;
-	border-radius:8px 0 0 0;
+	/*border-radius:8px 0 0 0;*/
 	transition:all .4s ease;
-	backdrop-filter:blur(2px);
+	/*backdrop-filter:blur(2px);*/
+	transform: scale(0.8);
 }
-.post-type-img:before{
+/*.post-type-img:before{
 	display:inline-block;
 	position:absolute;
 	top:5px;
@@ -394,7 +451,8 @@ a:hover{
 	transition:all .4s ease;
 	background:url(/hh/img/icon-sprite.png) 0 0 no-repeat;
 	background-size:300px 100px;
-}
+}*/
+.post-card:hover .post-type-img{transform: scale(1);}
 .post-type-img--explorer{
 	background-color:#424e7766;
 }
@@ -467,13 +525,16 @@ a:hover{
 }
 
 /*엽서 레이어 팝업*/
+.ol-overlay-container{
+	left: -128px;
+	top:-10px;
+}
 #post-popup{
 	display:none;
 	/* 기본적으로 숨김 */
 	overflow:hidden;
 	position:relative;
 	z-index:4;
-	min-width:120px;
 	max-width:240px;
 	border:1px solid #00000033;
 	border-radius:8px;
@@ -482,6 +543,11 @@ a:hover{
 	background:#ffffffe6;
 	box-shadow:0 4px 2px rgba(0, 0, 0, .03), 0 14px 9px rgba(0, 0, 0, .05), 0 32px 20px rgba(0, 0, 0, .08);
 	backdrop-filter:blur(2px);
+	padding: 8px;
+}
+#post-popup div{
+	padding-right: 40px;
+	line-height: 1.4;
 }
 .post-popup-inner{
 	position:relative;
@@ -654,6 +720,7 @@ a:hover{
 .modal-body{
 	overflow-y:auto;
 	max-height:calc(100vh - 230px);
+	max-height:calc(100dvh - 230px);
 	color:#424e77;
 	text-align: center;
 }
@@ -874,16 +941,14 @@ a:hover{
 /* pc에서만 적용되는 스타일 */
 @media (min-width: 992px) {
 	/*pc에서는 엽서 레이어 팝업이 우측고정, 더 넓어짐, detail 보여짐. detail이 길어질 경우 스크롤 생성*/
-	#post-popup{
-		position:fixed;
+	/*#post-popup{
 		top:70px;
 		right:0;
 		bottom:auto;
 		left:auto;
-		max-width:360px;
 		height:calc(100vh - 70px - 160px);
 		border:0;
-		border-radius:0;
+		border-radius:8px;
 		box-shadow:-4px 0 17px #00000033;
 	}
 	.post-popup__detail{
@@ -891,7 +956,7 @@ a:hover{
 	}
 	.post-popup__info{
 		overflow-y:auto;
-	}
+	}*/
 }
 
 /*모바일과 타블렛에서 적용되는 스타일*/
@@ -932,6 +997,7 @@ a:hover{
 	}
 	.map-box{
 		height: calc(100vh - 60px - 130px);
+		height: calc(100dvh - 60px - 130px);
 	}
 	/*배경이미지 숨김*/
 	.navbar{
@@ -939,12 +1005,14 @@ a:hover{
 	}
 	.navbar-logo-txt span{
 		display:block;
+		margin: 0;
 	}
 	.spot-box-tab{
 		left:10px;
 	}
 	#post-container{
-		padding:10px 10px 16px 10px;
+		padding:10px 10px 12px 10px;
+		height: 94px;
 	}
 	.post-popup__title{
 		font-size: 16px;
@@ -956,7 +1024,17 @@ a:hover{
 	.post-popup__type{
 		font-size: 13px;
 	}
+	.post-type-img{
+		width: 30px;
+		height: 30px;
+	}
 	.button-set{
 		padding: 8px 10px;
+	}
+	.notice-box__img--top img{
+		width: 120px;
+	}
+	.modal-content{
+		margin-bottom: 0;
 	}
 }

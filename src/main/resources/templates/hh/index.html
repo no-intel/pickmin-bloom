@@ -3,7 +3,7 @@
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no, maximum-scale=1.0, user-scalable=no">
     <meta name="description" content="피크민 블룸의 엽서 지도를 함께 만들어요! 유저들의 공유·참여로 운영되는 피크민 블룸 유저 제작맵 웹사이트입니다.">
     <meta name="keywords" content="픽블엽, 피크민블룸, 피크민">
     <meta name="author" content="">
@@ -81,7 +81,7 @@
                     <!-- Topbar Navbar -->
                     <ul class="navbar-nav">
                         <li class="nav-item">
-                            <a href="javascript:void(0)" id="navbar-help-btn" data-toggle="modal" data-target="#help-modal" title="도움말"></a>
+                            <a href="javascript:void(0)" id="navbar-help-btn" data-toggle="modal" data-target="#noticeModal" title="도움말"></a>
                         </li>
                         <!-- Nav Item - User Information -->
                         <li th:if="${isLogin}" class="nav-item no-arrow">
@@ -123,8 +123,8 @@
                     <!-- 아래쪽 박스 -->
                     <div class="spot-box">
                         <ul class="spot-box-tab">
-                            <li class="active"><a href="">주변 스팟 <span class="value">20</span></a></li>
-                            <li><a href="">최근 등록된 스팟 (준비중)</a></li>
+                            <li class="active"><a href="">주변 스팟 <!--<span class="value">20</span>--></a></li>
+                            <!-- <li><a href="">최근 등록된 스팟 (준비중)</a></li> -->
                         </ul>
                         <div id="post-overflow" data-simplebar>
                             <!-- 카드 목록 컨테이너 (수평 스크롤) -->
@@ -148,6 +148,7 @@
     </div>
 
     <!-- Modal-->
+    <div th:replace="~{modal/noticeModal.html}"></div>
     <div th:replace="~{modal/registerPostModal.html}"></div>
     <div th:replace="~{modal/requesterEditPostModal.html}"></div>
     <div th:replace="~{modal/logoutModal.html}"></div>

@@ -265,11 +265,12 @@ function handleSelection(feature) {
 }
 
 const requestEditPost = (post) => {
+    console.log(post)
     document.getElementById('edit-post-id').value = post.postId;
     document.getElementById('edit-post-name').value = post.name;
     document.getElementById('edit-post-latitude').value = post.latitude;
     document.getElementById('edit-post-longitude').value = post.longitude;
-    document.getElementById('edit-post-type').value = post.type;
+    document.querySelector(`input[name="edit-post-type"][value="${post.type}"]`).checked = true;
     if (post.downloadUrl) {
         document.getElementById('original-img').src = post.downloadUrl
     }else {
