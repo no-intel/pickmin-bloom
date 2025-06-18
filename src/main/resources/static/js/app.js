@@ -265,7 +265,6 @@ function handleSelection(feature) {
 }
 
 const requestEditPost = (post) => {
-    console.log(post)
     document.getElementById('edit-post-id').value = post.postId;
     document.getElementById('edit-post-name').value = post.name;
     document.getElementById('edit-post-latitude').value = post.latitude;
