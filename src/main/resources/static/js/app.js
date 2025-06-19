@@ -27,6 +27,7 @@ let hoverSelect = null;
 let currentLatitude = null;
 let currentLongitude = null;
 let currentLayer = null;
+let selectedFeatures = null;
 
 window.onload = async () => {
     postPopup = document.getElementById('post-popup');
@@ -47,7 +48,7 @@ window.onload = async () => {
 
     // popup이 떠있을 때 동작
     clickSelect.on('select', (e) => {
-        const selectedFeatures = clickSelect.getFeatures();
+        selectedFeatures = clickSelect.getFeatures();
         selectedFeatures.clear();
 
         const feature = e.selected[0];
@@ -299,7 +300,8 @@ function setCurrentLocationEvent() {
 
 function closePostOverlay() {
     postPopup.style.display = 'none';
-    postPopup.setPosition(undefined);
+    postOverlay.setPosition(undefined);
+    selectedFeatures.clear();
 }
 
 function closeCoorOverlay() {
