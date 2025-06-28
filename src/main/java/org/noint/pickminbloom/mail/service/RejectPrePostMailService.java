@@ -36,7 +36,9 @@ public class RejectPrePostMailService {
             helper.setSubject("엽서 등록 반려");
             helper.setFrom(from);
             helper.setText(html, true);
-            helper.addInline("img", rejectPrePostTemplate.bindImg(event.img()));
+            if (event.img() != null) {
+                helper.addInline("img", rejectPrePostTemplate.bindImg(event.img()));
+            }
         } catch (MessagingException e) {
             log.error("sendRejectPrePostMail Exception", e);
             throw new MessagingBuildException("RejectPrePostMail");
