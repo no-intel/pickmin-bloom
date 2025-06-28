@@ -4,7 +4,7 @@ import org.noint.pickminbloom.member.entity.Member;
 import org.noint.pickminbloom.post.entity.PostEditRequest;
 import org.noint.pickminbloom.post.enums.PostType;
 
-public record ConfirmEditPostRequest(
+public record ConfirmPostEditRequest(
         Long postId,
         Double latitude,
         Double longitude,
@@ -14,7 +14,7 @@ public record ConfirmEditPostRequest(
         Member requester
 
 ) {
-    public ConfirmEditPostRequest(PostEditRequest editRequest) {
+    public ConfirmPostEditRequest(PostEditRequest editRequest) {
         this(
                 editRequest.getPost().getId(),
                 editRequest.getPost().getLatitude(),
