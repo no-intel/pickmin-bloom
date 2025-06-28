@@ -1,0 +1,116 @@
+#post-overflow {
+    overflow-x: auto;
+    overflow-y: hidden;
+    white-space: nowrap;
+}
+
+.post-card {
+    width: 200px;
+    flex: 0 0 auto;
+}
+
+.post-img {
+    object-fit: contain;
+    height: 100%;
+}
+
+.post-type-img {
+    width: 24px;
+    height: 24px;
+    align-self: end;
+}
+
+#coor-popup {
+    background: white;
+    border: 1px solid #ccc;
+    padding: 8px 12px;
+    border-radius: 6px;
+    min-width: 120px;
+    max-width: 240px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.2);
+    display: none; /* 기본적으로 숨김 */
+    position: relative;
+    z-index: 10000;
+    color: black;
+    text-align: right;
+}
+
+#post-popup {
+    background: white;
+    border: 1px solid #ccc;
+    padding: 8px 12px;
+    border-radius: 6px;
+    min-width: 120px;
+    max-width: 240px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.2);
+    display: none; /* 기본적으로 숨김 */
+    position: relative;
+    z-index: 10000;
+    color: black;
+}
+
+#post-popup img {
+    max-width: 100%;
+    height: auto;
+    display: block;
+    margin: 4px 0;
+    border-radius: 4px;
+}
+
+.post-popup-close-btn {
+    background: transparent;
+    border: none;
+    font-size: 18px;
+    font-weight: bold;
+    cursor: pointer;
+    color: #666;
+    padding: 0;
+}
+
+.post-popup-close-btn:hover {
+    color: #000;
+}
+
+.custom-location-control {
+    position: absolute;
+    bottom: 0.5em;
+    left: 0.5em;
+}
+
+.custom-location-control button {
+    background: white;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    padding: 4px;
+    width: 34px;
+    height: 34px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.2);
+    cursor: pointer;
+}
+
+.loading-overlay {
+    position: fixed;
+    top: 0; left: 0;
+    width: 100vw;
+    height: 100vh;
+    background-color: rgba(255, 255, 255, 0.7);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 9999;
+}
+
+/*#edit-loading-overlay {*/
+/*    position: fixed;*/
+/*    top: 0; left: 0;*/
+/*    width: 100vw;*/
+/*    height: 100vh;*/
+/*    background-color: rgba(255, 255, 255, 0.7);*/
+/*    display: flex;*/
+/*    justify-content: center;*/
+/*    align-items: center;*/
+/*    z-index: 9999;*/
+/*}*/
