@@ -34,12 +34,6 @@ public class PostEditRequest {
     @Column(nullable = false, name = "edit_name")
     private String editName;
 
-    @Column(nullable = false, name = "edit_latitude")
-    private Double editLatitude;
-
-    @Column(nullable = false, name = "edit_longitude")
-    private Double editLongitude;
-
     @Lob
     @Column(columnDefinition = "MEDIUMBLOB", name = "edit_img")
     private byte[] editImg;
@@ -70,15 +64,11 @@ public class PostEditRequest {
 
     public PostEditRequest(Post post,
                            String editName,
-                           Double editLatitude,
-                           Double editLongitude,
                            MultipartFile editImg,
                            PostType editType,
                            Member requester) {
         this.post = post;
         this.editName = editName;
-        this.editLatitude = editLatitude;
-        this.editLongitude = editLongitude;
         convertByte(editImg);
         this.editType = editType;
         this.editStatus = PostEditRequestStatus.WAITING;

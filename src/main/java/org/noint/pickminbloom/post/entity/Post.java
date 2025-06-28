@@ -2,9 +2,6 @@ package org.noint.pickminbloom.post.entity;
 
 import jakarta.persistence.*;
 import lombok.*;
-import org.hibernate.annotations.JdbcTypeCode;
-import org.hibernate.type.SqlTypes;
-import org.locationtech.jts.geom.Point;
 import org.noint.pickminbloom.member.entity.Member;
 import org.noint.pickminbloom.post.enums.PostType;
 
@@ -77,14 +74,8 @@ public class Post {
     };
 
     public void editPost(String editName,
-                         String editGeohash,
-                         Double editLatitude,
-                         Double editLongitude,
                          PostType editType) {
         this.name = editName;
-        this.geohash = editGeohash;
-        this.latitude = editLatitude;
-        this.longitude = editLongitude;
         this.type = editType;
         this.updatedAt = LocalDateTime.now();
     }

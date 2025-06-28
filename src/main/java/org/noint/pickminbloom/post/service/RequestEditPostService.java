@@ -21,8 +21,6 @@ public class RequestEditPostService {
         PostEditRequest postEditRequest = new PostEditRequest(
                 dto.post(),
                 dto.editedName(),
-                dto.editLatitude(),
-                dto.editLongitude(),
                 dto.editImg(),
                 dto.editType(),
                 dto.requester()

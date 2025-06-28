@@ -9,8 +9,6 @@ import org.springframework.web.multipart.MultipartFile;
 public record RequestEditPostDto(
         Post post,
         String editedName,
-        Double editLatitude,
-        Double editLongitude,
         PostType editType,
         MultipartFile editImg,
         Member requester
@@ -20,8 +18,6 @@ public record RequestEditPostDto(
         this(
                 post,
                 request.editName(),
-                request.editLatitude(),
-                request.editLongitude(),
                 PostType.fromString(request.editType()),
                 request.editPostImg(),
                 member

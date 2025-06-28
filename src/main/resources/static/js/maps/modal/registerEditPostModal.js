@@ -1,19 +1,15 @@
 function closeEditPostModal() {
     document.getElementById('edit-post-id').value = '';
     document.getElementById('edit-post-name').value = '';
-    document.getElementById('edit-post-latitude').value = '';
-    document.getElementById('edit-post-longitude').value = '';
     document.getElementById('edit-post-img').value = '';
     document.getElementById('edit-no-img').checked = false;
-    document.getElementById('edit-post-type').value = 'null';
     document.getElementById('original-img').value = '';
+    document.querySelectorAll('input[name="edit-post-type"]').forEach(el => el.checked = false);
 }
 
 async function registerEditPost() {
     const editPostId = document.getElementById('edit-post-id').value;
     const editName = document.getElementById('edit-post-name').value;
-    const editLatitude = document.getElementById('edit-post-latitude').value;
-    const editLongitude = document.getElementById('edit-post-longitude').value;
     const editPostImg = document.getElementById('edit-post-img').files[0];
     const editNoImg = document.getElementById('edit-no-img').checked;
     const editType = document.querySelector('input[name="edit-post-type"]:checked')?.value;
@@ -21,8 +17,6 @@ async function registerEditPost() {
     try {
         const formData = new FormData();
         formData.append('editName', editName);
-        formData.append('editLatitude', editLatitude);
-        formData.append('editLongitude', editLongitude);
         formData.append('editType', editType);
         formData.append('editNoImg', editNoImg);
         if (!editNoImg) {
@@ -59,16 +53,6 @@ async function registerEditPost() {
 function vaildation(formData) {
     if (!formData.get('editName') || formData.get('editName').trim() === "") {
         alert("엽서 이름은 필수입니다!")
-        return false;
-    }
-
-    if (!formData.get('editLatitude') || isNaN(formData.get('editLatitude'))) {
-        alert("위도를 입력하세요!")
-        return false;
-    }
-
-    if (!formData.get('editLongitude') || isNaN(formData.get('editLongitude'))) {
-        alert("경도를 입력하세요!")
         return false;
     }
 

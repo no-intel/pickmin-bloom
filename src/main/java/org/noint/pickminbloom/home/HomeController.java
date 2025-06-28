@@ -39,6 +39,6 @@ public class HomeController {
         }else {
             model.addAttribute("isLogin", false);
         }
-        return "hh/index";
+        return "before/index";
     }
 }
