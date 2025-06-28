@@ -4,7 +4,7 @@ function closeRegisterPostModal() {
     document.getElementById('post-longitude').value = '';
     document.getElementById('post-img').value = '';
     document.getElementById('no-img').checked = false;
-    document.querySelectorAll('input[name="postType"]').forEach(el => el.checked = false);
+    document.querySelectorAll('input[name="post-type"]').forEach(el => el.checked = false);
 }
 
 async function registerPost() {
@@ -13,7 +13,7 @@ async function registerPost() {
     const postLon = document.getElementById('post-longitude').value;
     const postImg = document.getElementById('post-img').files[0];
     const noImg = document.getElementById('no-img').checked;
-    const postType = document.querySelector('input[name="postType"]:checked')?.value;
+    const postType = document.querySelector('input[name="post-type"]:checked')?.value;
 
     try {
         const formData = new FormData();
