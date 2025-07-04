@@ -86,46 +86,6 @@
             mix-blend-mode: multiply;
         }
         
-        .btn{
-            border-radius:30px;
-            user-select:none;
-        }
-        
-        .btn-primary{
-            border-color:#ff45a5;
-            color:#ffffff;
-            background-color:#ff45a5;
-        }
-        
-        .btn-primary:hover{
-            border-color:#c0307f;
-            color:#ffffff;
-            background-color:#d63d8d;
-        }
-        
-        .btn-primary:focus, .btn-primary.focus{
-            border-color:#c0307f;
-            color:#ffffff;
-            background-color:#d63d8d;
-            box-shadow:0 0 0 .2rem #ff45a54d;
-        }
-        
-        .btn-primary.disabled, .btn-primary:disabled{
-            border-color:#ff45a5;
-            color:#ffffff;
-            background-color:#ff45a5;
-        }
-        
-        .btn-primary:not(:disabled):not(.disabled):active, .btn-primary:not(:disabled):not(.disabled).active, .show > .btn-primary.dropdown-toggle{
-            border-color:#b73378;
-            color:#ffffff;
-            background-color:#cc3984;
-        }
-        
-        .btn-primary:not(:disabled):not(.disabled):active:focus, .btn-primary:not(:disabled):not(.disabled).active:focus, .show > .btn-primary.dropdown-toggle:focus{
-            box-shadow:0 0 0 .2rem #ff45a54d;
-        }
-        
         .login-card {
             min-width: 450px;
             background: #ffffff;
@@ -136,17 +96,6 @@
             user-select: none;
             animation: slide-in-bottom .3s ease both;
         }
-
-        .icon{
-            display:inline-block;
-            width:30px;
-            height:30px;
-            content:'';
-            background:url(/img/icon-sprite.png) -204px -60px no-repeat;
-            background-size:300px 100px;
-            content: '';
-        }
-
         .login-card-logo{
             width: 120px;
             padding-bottom: 12px;
@@ -161,15 +110,17 @@
         .google-btn {
             position: relative;
             text-decoration: none;
-            padding: 12px 40px;
-            font-size: 18px;
-            display: inline-flex;
             align-items: center;
-            gap:4px;
+            width: 280px;
+            display: inline-block;
+            background: transparent;
+            border-radius: 50px;
+            overflow: hidden;
+            transition: all .3s ease;
         }
         
-        .google-btn:hover {
-            text-decoration: none;
+        .google-btn:hover{
+            box-shadow: 0 10px 10px #00000022;
         }
 
         .google-btn img {
@@ -239,7 +190,6 @@
                 max-width: 90%;
             }
             .google-btn{
-                padding:12px 0;
                 width: 100%;
                 justify-content: center;
             }
@@ -270,7 +220,7 @@
         <img src="/img/navbar-logo.svg" alt="픽블엽" class="login-card-logo">
         <h1 class="login-title mb-4">로그인</h1>
 
-        <a class="btn google-btn btn-primary" href="/oauth2/authorization/google"><span class="icon"></span>Google 로그인</a>
+        <a class="google-btn" href="/oauth2/authorization/google"><img src="/img/web_light_rd_SI.svg" alt="Sign in with Google"></a>
         
         <div class="deco-box">
             <img class="pikmin--red" src="/img/pikmin--red.png" alt="">
