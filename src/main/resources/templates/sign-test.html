@@ -68,6 +68,7 @@
             overflow: hidden;
             width: 100lvw;
             position: relative;
+            background: linear-gradient(0deg, #ffd9d9, #d7faff);
         }
         
         .login-wrap:before{
@@ -79,8 +80,10 @@
             position: absolute;
             top:0;
             left: 0;
-            z-index: -1;
+            z-index: 0;
             animation: bg-ani 8s ease both;
+            opacity: 0.6;
+            mix-blend-mode: multiply;
         }
         
         .btn{
@@ -125,13 +128,12 @@
         
         .login-card {
             min-width: 450px;
-            background: #ffffffbf;
+            background: #ffffff;
             border-radius: 1rem;
             padding: 2rem;
             box-shadow:0 3px 10px #0000001a, 0 10px 10px #0000000d;
             position: relative;
             user-select: none;
-            backdrop-filter: blur(3px);
             animation: slide-in-bottom .3s ease both;
         }
 
