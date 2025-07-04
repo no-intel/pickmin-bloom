@@ -23,33 +23,104 @@
     <link href="/lib/vendor/css/sb-admin-2.css" rel="stylesheet">
 
     <style>
+        @keyframes bg-ani {
+            0% {
+                transform: scale(1.1);
+            }
+            100% {
+                transform: scale(1.15);
+            }
+        }
+        
+        @keyframes slide-in-bottom {
+            0% {
+                transform: translateY(3px);
+                opacity: 0;
+            }
+            100% {
+                transform: translateY(0);
+                opacity: 1;
+            }
+        }
+        
+        @keyframes deco-rotate {
+            0% {
+                transform: rotate(-2deg);
+            }
+            50%{
+                transform: rotate(2deg);
+            }
+            100% {
+                transform: rotate(-2deg);
+            }
+        }
+        
         body {
-            background: linear-gradient(135deg, #4e73df, #224abe);
             font-family: 'Nunito', sans-serif;
+            overflow: hidden;
+        }
+        
+        .login-wrap{
             height: 100vh;
             display: flex;
             justify-content: center;
             align-items: center;
+            overflow: hidden;
+            width: 100lvw;
+            position: relative;
+            background: linear-gradient(0deg, #ffd9d9, #d7faff);
         }
-
-        .login-card {
+        
+        .login-wrap:before{
+            content: '';
             width: 100%;
-            max-width: 420px;
-            background: #fff;
+            height: 100%;
+            background: url(/img/login-bg.jpg) center right no-repeat;
+            background-size: cover;
+            position: absolute;
+            top:0;
+            left: 0;
+            z-index: 0;
+            animation: bg-ani 8s ease both;
+            opacity: 0.6;
+            mix-blend-mode: multiply;
+        }
+        
+        .login-card {
+            min-width: 450px;
+            background: #ffffff;
             border-radius: 1rem;
             padding: 2rem;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
+            box-shadow:0 3px 10px #0000001a, 0 10px 10px #0000000d;
+            position: relative;
+            user-select: none;
+            animation: slide-in-bottom .3s ease both;
         }
-
+        .login-card-logo{
+            width: 120px;
+            padding-bottom: 12px;
+        }
+        
         .login-title {
             font-weight: 700;
             font-size: 1.5rem;
-            color: #4e73df;
+            color: #424e77;
         }
 
         .google-btn {
-            width: 100%;
-            margin-top: 1rem;
+            position: relative;
+            text-decoration: none;
+            align-items: center;
+            width: 280px;
+            display: inline-block;
+            background: transparent;
+            border-radius: 50px;
+            overflow: hidden;
+            transition: all .3s ease;
+        }
+        
+        .google-btn:hover{
+            box-shadow: 0 10px 10px #00000022;
         }
 
         .google-btn img {
@@ -75,24 +146,93 @@
             vertical-align: middle;
             margin: 0 0.5rem;
         }
+        
+        .deco-box{
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            user-select: none;
+        }
+        
+        .deco-box img{
+            width: 124px;
+            height: 180px;
+            user-select: none;
+            position: absolute;
+            
+        }
+        
+        .pikmin--red{
+            top: -130px;
+            left: 0;
+            animation: slide-in-bottom .8s ease both .2s, deco-rotate 2s ease infinite;
+        }
+        
+        .pikmin--blue{
+            bottom: -80px;
+            left: -70px;
+            animation: slide-in-bottom .8s ease both .6s, deco-rotate 2s ease infinite .2s;
+        }
+        
+        .pikmin--yellow{
+            top: 90px;
+            right: -90px;
+            animation: slide-in-bottom .8s ease both .4s, deco-rotate 2s ease infinite .3s;
+        }
+        
+        @media (max-width: 991px) {
+            .login-card {
+                min-width: auto;
+                width: 360px;
+                max-width: 90%;
+            }
+            .google-btn{
+                width: 100%;
+                justify-content: center;
+            }
+            .deco-box img{
+                width: 92px;
+                height: 135px;
+            }
+            .pikmin--red{
+                top: -103px;
+                left: 30px;
+            }
+            .pikmin--blue{
+                bottom: -80px;
+                left: -10px;
+            }
+            .pikmin--yellow{
+                top: 40px;
+                right: -40px;
+            }
+        }
     </style>
 </head>
 
 <body>
-
+<div class="login-wrap">
+    
     <div class="login-card text-center">
+        <img src="/img/navbar-logo.svg" alt="픽블엽" class="login-card-logo">
         <h1 class="login-title mb-4">로그인</h1>
 
-        <a href="/oauth2/authorization/google" class="google-btn">
+        <a class="google-btn" href="/oauth2/authorization/google">
             <img src="/img/web_light_rd_SI.svg" alt="Sign in with Google">
         </a>
+        
+        <div class="deco-box">
+            <img class="pikmin--red" src="/img/pikmin--red.png" alt="">
+            <img class="pikmin--blue" src="/img/pikmin--blue.png" alt="">
+            <img class="pikmin--yellow" src="/img/pikmin--yellow.png" alt="">
+        </div>
 
-<!--        <div class="divider">or</div>-->
-
-<!--        <a href="/oauth2/authorization/google" class="google-btn">-->
-<!--            <img src="/img/web_light_rd_SU.svg" alt="Sign up with Google">-->
-<!--        </a>-->
     </div>
+    
+</div>
 
     <!-- scripts.html -->
     <script src="/lib/vendor/jquery/jquery.min.js"></script>
