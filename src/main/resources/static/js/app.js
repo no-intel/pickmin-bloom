@@ -14,7 +14,7 @@ import {getCurrentLocation} from "./maps/utils/location.js";
 
 let postList = [];
 let map = null;
-let isOnlyViewMoving = false;
+let isMakerClick = false;
 let postPopup = null;
 let coorPopup = null;
 let postOverlay = null;
@@ -62,8 +62,8 @@ window.onload = async () => {
     map.on('singleclick', async (e) => {
         closeCoorOverlay();
 
-        if(isOnlyViewMoving){
-            isOnlyViewMoving = false;
+        if(isMakerClick){
+            isMakerClick = false;
             return;
         }
 
@@ -261,7 +261,7 @@ function handleSelection(feature) {
     document.getElementById('post-popup-close-btn').addEventListener('click', () => closePostOverlay())
     postPopup.style.display = 'block';
     postOverlay.setPosition(coord);
-    isOnlyViewMoving = true;
+    isMakerClick = true;
     map.getView().setCenter(coord);
 }
 
