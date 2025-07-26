@@ -95,14 +95,17 @@ server:
       min-spare: 10
 
 management:
+  server:
+    base-path: /actuator  # ✅ actuator의 공통 prefix (권장 방식)
   endpoints:
     web:
       exposure:
-        include: health, metrics
-
+        include: "*"       # actuator 엔드포인트 전체 노출
   endpoint:
     health:
-      show-details: always
+      show-details: always  # /actuator/health 상세 정보 표시
+    prometheus:
+      access: unrestricted
 
   metrics:
     enable:

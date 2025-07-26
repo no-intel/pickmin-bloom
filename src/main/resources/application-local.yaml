@@ -90,14 +90,17 @@ server:
       timeout: 1d
 
 management:
+  server:
+    base-path: /actuator  # ✅ actuator의 공통 prefix (권장 방식)
   endpoints:
     web:
       exposure:
-        include: health, metrics  # 이걸 꼭 설정해야 브라우저/API로 확인 가능
-
+        include: "*"       # actuator 엔드포인트 전체 노출
   endpoint:
     health:
-      show-details: always       # /health에 세부 정보 표시 (ex: DB 상태 등)
+      show-details: always  # /actuator/health 상세 정보 표시
+    prometheus:
+      access: unrestricted
 
   metrics:
     enable:
