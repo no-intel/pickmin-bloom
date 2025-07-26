@@ -108,5 +108,7 @@ management:
       access: unrestricted
 
   metrics:
+    tags:
+      application: ${spring.application.name}
     enable:
       all: true                  # 모든 메트릭 수집 활성화
