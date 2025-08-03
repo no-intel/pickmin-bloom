@@ -66,4 +66,12 @@ public class PostQuerydslRepository {
                 )
                 .fetchFirst());
     }
+
+    public List<Post> findRecentPosts() {
+        return queryFactory
+                        .selectFrom(post)
+                        .orderBy(post.id.desc())
+                        .limit(10)
+                        .fetch();
+    }
 }
