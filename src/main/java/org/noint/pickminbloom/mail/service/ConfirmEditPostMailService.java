@@ -10,6 +10,7 @@ import org.noint.pickminbloom.post.event.ConfirmPostEditRequest;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.MimeMessageHelper;
+import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.event.TransactionPhase;
 import org.springframework.transaction.event.TransactionalEventListener;
@@ -25,6 +26,7 @@ public class ConfirmEditPostMailService {
     @Value("${spring.mail.username}")
     private String from;
 
+    @Async
     @TransactionalEventListener(classes = ConfirmPostEditRequest.class, phase = TransactionPhase.AFTER_COMMIT)
     public void confirmPrePost(ConfirmPostEditRequest event) {
         log.info("EVENT - Sending confirm editPost mail: {}", event);

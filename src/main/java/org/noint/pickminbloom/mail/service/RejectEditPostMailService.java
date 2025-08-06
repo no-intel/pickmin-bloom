@@ -10,6 +10,7 @@ import org.noint.pickminbloom.post.event.RejectPostEditRequest;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.MimeMessageHelper;
+import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.event.TransactionPhase;
 import org.springframework.transaction.event.TransactionalEventListener;
@@ -25,6 +26,7 @@ public class RejectEditPostMailService {
     @Value("${spring.mail.username}")
     private String from;
 
+    @Async
     @TransactionalEventListener(classes = RejectPostEditRequest.class, phase = TransactionPhase.AFTER_COMMIT)
     public void confirmPrePost(RejectPostEditRequest event) {
         log.info("EVENT - Sending reject editPost mail: {}", event);

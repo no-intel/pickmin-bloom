@@ -10,6 +10,7 @@ import org.noint.pickminbloom.post.event.RegisterEditPost;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.MimeMessageHelper;
+import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.event.TransactionPhase;
 import org.springframework.transaction.event.TransactionalEventListener;
@@ -28,6 +29,7 @@ public class RegisterEditPostMailService {
     @Value("${spring.mail.master}")
     private String master;
 
+    @Async
     @TransactionalEventListener(classes = RegisterEditPost.class, phase = TransactionPhase.AFTER_COMMIT)
     public void sendRegisterMail(RegisterEditPost event) {
         log.info("EVENT - Sending register editPost mail: {}", event);
