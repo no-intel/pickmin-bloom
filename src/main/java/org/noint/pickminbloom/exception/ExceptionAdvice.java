@@ -1,5 +1,6 @@
 package org.noint.pickminbloom.exception;
 
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatusCode;
 import org.springframework.http.ResponseEntity;
@@ -12,11 +13,13 @@ import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExcep
 import java.util.HashMap;
 import java.util.Objects;
 
+@Slf4j
 @RestControllerAdvice
 public class ExceptionAdvice extends ResponseEntityExceptionHandler {
 
     @ExceptionHandler(value = {PickminBloomException.class})
     public ResponseEntity<Object> exceptionResponse(PickminBloomException e) {
+        log.error("ExceptionHandler PickminBloomException - : ", e);
         HashMap<String, Object> body = new HashMap<>();
         body.put("code", e.getCode());
         body.put("field", e.getField());
