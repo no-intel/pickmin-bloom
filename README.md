@@ -43,6 +43,8 @@
 - [Apple Touch Icon 대응기](https://velog.io/@no-int/Apple-Touch-Icon-%EB%8C%80%EC%9D%91%EA%B8%B0)
 - [Spring Boot에서 SMTP로 HTML 메일 보내기 (Feat.Gmail)](https://velog.io/@no-int/Spring-Boot%EC%97%90%EC%84%9C-SMTP%EB%A1%9C-HTML-%EB%A9%94%EC%9D%BC-%EB%B3%B4%EB%82%B4%EA%B8%B0-Feat.Gmail)
 - [📬 Spring Event 도입과 Class의 책임 분리](https://velog.io/@no-int/Spring-Event-%EB%8F%84%EC%9E%85%EA%B3%BC-Class%EC%9D%98-%EC%B1%85%EC%9E%84-%EB%B6%84%EB%A6%AC)
+- [HTTP 응답 18초 → 500ms까지, 스프링 비동기 적용기](https://velog.io/@no-int/HTTP-%EC%9D%91%EB%8B%B5-18%EC%B4%88-500ms%EA%B9%8C%EC%A7%80-%EC%8A%A4%ED%94%84%EB%A7%81-%EB%B9%84%EB%8F%99%EA%B8%B0-%EC%A0%81%EC%9A%A9%EA%B8%B0)
+- [프리티어 서버에서 배우는 JVM GC: SerialGC vs G1GC](https://velog.io/@no-int/%ED%94%84%EB%A6%AC%ED%8B%B0%EC%96%B4-%EC%84%9C%EB%B2%84%EC%97%90%EC%84%9C-%EB%B0%B0%EC%9A%B0%EB%8A%94-JVM-GC-SerialGC-vs-G1GC)
 
 # 🛠️사용 기술
  - Java 21
